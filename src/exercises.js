@@ -214,7 +214,7 @@ exercises[266] = {
     exerciseName: "Hundred"};
 
 exercises[291] = {
-    exerciseDescription: exerciseOutput266,
+    exerciseDescription: exerciseOutput291,
     exerciseName: "Swan Dive"};
 
 exercises[310] = {

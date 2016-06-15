@@ -19,16 +19,12 @@
  */
 var APP_ID = ''; //get an APP ID - i.e amzn1.echo-sdk-ams.app.xxxxxx
 
-/**
- * Get an API_KEY from A Lot Of Pilates Developer site 
- * This will allow to retrieve Pilates classes
- * curl "https://api-2445581417326.apicast.io:443/api/v1/workouts/680" -H'api_key: <your alop_api_key>'
- **/
- var API_KEY =''; //get an api key from https://a-lot-of-pilates.3scale.net/docs and store in a config.js file
-
+var exerciseCount = 0;
+var exerciseTotal = 10;
 
 var https = require('https'),
     config = require('./config'),
+    querystring = require('querystring'),
     exercises = require('./exercises');
 
 
@@ -66,6 +62,18 @@ ALotOfPilates.prototype.eventHandlers.onLaunch = function (launchRequest, sessio
 
 ALotOfPilates.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
     console.log("onSessionEnded requestId: " + sessionEndedRequest.requestId + ", sessionId: " + session.sessionId);
+    console.log("total number of exercises for this class " + session.attributes.exerciseTotal);
+    console.log("total number of exercises taken  " + session.attributes.exerciseCount);
+    if (session.attributes.exerciseCount == session.attributes.exerciseTotal){
+        postALOPTrackingRequest(session.user.userId, function alopTrackingResponseCallback(err, alopAPIResponse) {
+            if (err) {
+                console.log("Error tracking class");
+            } else {
+
+               console.log("Tracked completed class");
+            }
+        });
+    }
   
 };
 
@@ -73,7 +81,7 @@ ALotOfPilates.prototype.eventHandlers.onSessionEnded = function (sessionEndedReq
  * override intentHandlers to map intent handling functions.
  */
 ALotOfPilates.prototype.intentHandlers = {
-    "OneshotStartPilatesClassIntent": function (intent, session, response) {       
+    "OneshotStartPilatesClassIntent": function (intent, session, response) {  
         handleOneshotStartPilatesClassRequest(intent, session, response);
     },
 
@@ -82,7 +90,10 @@ ALotOfPilates.prototype.intentHandlers = {
     },
 
     "AMAZON.StopIntent": function (intent, session, response) {
+        console.log("stop intent total number of exercises for this class " + session.attributes.exerciseTotal);
+        console.log("stop intent total number of exercises taken  " + session.attributes.exerciseCount);
         var speechOutput = "Goodbye";
+
         response.tell(speechOutput);
     },
 
@@ -193,7 +204,7 @@ function handleHelpRequest(intent, session, response) {
  * respond to the user with the final answer.
  */
 function getPilatesSequenceResponse(duration, type, response, session) {
-    //console.log("GET Pilates Sequence");
+    
     // Issue the request, and respond to the user
     makeALOPRequest(duration, type, function alopResponseCallback(err, alopAPIResponse) {
         var speechOutput;
@@ -220,6 +231,8 @@ function getPilatesSequenceResponse(duration, type, response, session) {
            }
         }
     });
+    
+    
 }
 
 /**
@@ -231,9 +244,11 @@ function getPilatesSequenceResponse(duration, type, response, session) {
 function teachClass(alopAPIResponse, response, session){      
     var speechPoseOutput ="";
    
-
+    session.attributes.exerciseTotal = alopAPIResponse.poses.length;
+    
     for(var i = 0; i < alopAPIResponse.poses.length; i++){
-        var pose = alopAPIResponse.poses[i];      
+        var pose = alopAPIResponse.poses[i];   
+        session.attributes.exerciseCount += 1;   
         if( i === 0 ){
             speechPoseOutput += "Get ready on your mat for the " + pose.name;       
         }else{
@@ -252,7 +267,6 @@ function teachClass(alopAPIResponse, response, session){
             type: AlexaSkill.speechOutputType.SSML
         };
 
-    
     response.tell(speechOutput);
 }
 
@@ -326,6 +340,8 @@ function getExerciseInfo(id, session){
     session.attributes.exerciseDescription = desc;
     return desc;
 }
+
+
 /**
  * Uses ALOP API, triggered by GET on /workouts API with category and duration querystrings.
  * https://api-2445581417326.apicast.io:443/api/
@@ -334,10 +350,10 @@ function makeALOPRequest(duration, type, alopResponseCallback) {
        
     
      // An object of options to indicate where to post to    
-    var post_options = {
+    var get_options = {
       hostname: 'api-2445581417326.apicast.io',
       port: 443,
-      path: '/api/v1/workouts/530', //680, 649, 530, 688
+      path: '/api/v1/workouts/530', //680, 649, 688
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -346,8 +362,8 @@ function makeALOPRequest(duration, type, alopResponseCallback) {
     };
 
     //console.log("makeALOPRequest");
-    var req = https.request(post_options, function(res) {
-        console.log('STATUS: ' + res.statusCode);       
+    var req = https.request(get_options, function(res) {
+       // console.log('STATUS: ' + res.statusCode);       
         res.setEncoding('utf8');
         var alopResponseString = '';
 
@@ -365,7 +381,7 @@ function makeALOPRequest(duration, type, alopResponseCallback) {
             if (alopResponseObject.error) {
                 alopResponseCallback(new Error(alopResponseObject.error.message));
             } else {
-                console.log('Workout name: ' + alopResponseObject.title);
+                //console.log('Workout name: ' + alopResponseObject.title);
                 alopResponseCallback(null, alopResponseObject);
             }
         });
@@ -376,6 +392,59 @@ function makeALOPRequest(duration, type, alopResponseCallback) {
     });
 
 req.end();
+    
+}
+
+
+/**
+ * POST Tracking
+ */
+function postALOPTrackingRequest(userId, alopTrackingResponseCallback) {
+           
+    var post_data = JSON.stringify({
+      'id' : 530,
+      'user_id': "",
+      'device_id': userId,
+      'device_type' : 'ECHO'
+  });
+
+    var post_options = {
+      hostname: 'mypilatespal.herokuapp.com',
+      path: '/api/v1/trackings',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call',
+        'Content-Length':  Buffer.byteLength(post_data)
+      }
+    };
+
+    //console.log("makeALOPRequest");
+    var req = https.request(post_options, function(res) {
+       // console.log('STATUS: ' + res.statusCode);       
+        res.setEncoding('utf8');
+        var trackingResponse = '';
+
+        if (res.statusCode != 200) {
+            alopTrackingResponseCallback(new Error("Non 200 Response"));
+        }
+
+        res.on('data', function (data) {
+            console.log("data response " + data);
+            trackingResponse += data;
+        });
+
+        res.on('end', function () {
+            console.log("trackingResponse End");
+        });
+
+    }).on('error', function (e) {
+        console.log("Tracking Communications error: " + e.message);
+        alopTrackingResponseCallback(new Error(e.message));
+    });
+
+    req.write(post_data);
+    req.end();
     
 }
 
