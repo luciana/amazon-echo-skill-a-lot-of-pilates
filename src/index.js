@@ -40,7 +40,7 @@ var AlexaSkill = require('./AlexaSkill');
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
  */
 var ALotOfPilates = function () {
-    AlexaSkill.call(this, config.app_id); //I store the APP_ID in a config file instead of global variable (APP_ID)
+    AlexaSkill.call(this, 'amzn1.echo-sdk-ams.app.ef7b5d42-f176-4806-9ea3-6ef6d041c2aa'); //I store the APP_ID in a config file instead of global variable (APP_ID)
 };
 
 // Extend AlexaSkill
@@ -350,14 +350,24 @@ function makeALOPRequest(duration, type, alopResponseCallback) {
        
     
      // An object of options to indicate where to post to    
+    // var get_options = {
+    //   hostname: 'api-2445581417326.apicast.io',
+    //   port: 443,
+    //   path: '/api/v1/workouts/530', //680, 649, 688
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'api_key': config.api_key ///I store the APP_ID in a config file instead of global variable (API_KEY)
+    //   }
+    // };
+
     var get_options = {
-      hostname: 'api-2445581417326.apicast.io',
-      port: 443,
-      path: '/api/v1/workouts/530', //680, 649, 688
+      hostname: 'www.alotofpilates.com',
+      path: '/api/v1/workouts/530',
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'api_key': config.api_key ///I store the APP_ID in a config file instead of global variable (API_KEY)
+        'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call'
       }
     };
 
@@ -371,12 +381,13 @@ function makeALOPRequest(duration, type, alopResponseCallback) {
             alopResponseCallback(new Error("Non 200 Response"));
         }
 
-        res.on('data', function (data) {
+        res.on('data', function (data) {            
             alopResponseString += data;
         });
 
         res.on('end', function () {
             var alopResponseObject = JSON.parse(alopResponseString);
+           // console.log("makeALOPRequest alopResponseObject ", alopResponseObject);
 
             if (alopResponseObject.error) {
                 alopResponseCallback(new Error(alopResponseObject.error.message));
@@ -409,7 +420,7 @@ function postALOPTrackingRequest(userId, alopTrackingResponseCallback) {
   });
 
     var post_options = {
-      hostname: 'mypilatespal.herokuapp.com',
+      hostname: 'www.alotofpilates.com',
       path: '/api/v1/trackings',
       method: 'POST',
       headers: {
