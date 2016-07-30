@@ -336,7 +336,7 @@ function handleExerciseTimings(pose, session){
  */
 function getExerciseInfo(id, session){
     var desc = exercises[id].exerciseDescription;
-    session.attributes.exerciseName = exercises[id].exerciseName;   
+    session.attributes.exerciseName = exercises[id].exerciseName;
     session.attributes.exerciseDescription = desc;
     return desc;
 }
@@ -353,7 +353,7 @@ function makeALOPRequest(duration, type, alopResponseCallback) {
     // var get_options = {
     //   hostname: 'api-2445581417326.apicast.io',
     //   port: 443,
-    //   path: '/api/v1/workouts/530', //680, 649, 688
+    //   path: '/api/v1/workouts/530', //638, 688, 481
     //   method: 'GET',
     //   headers: {
     //     'Content-Type': 'application/json',
@@ -363,7 +363,7 @@ function makeALOPRequest(duration, type, alopResponseCallback) {
 
     var get_options = {
       hostname: 'www.alotofpilates.com',
-      path: '/api/v1/workouts/530',
+      path: '/api/v1/workouts/638',
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
