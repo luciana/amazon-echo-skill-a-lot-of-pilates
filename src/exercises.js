@@ -71,6 +71,30 @@ exerciseOutput511 += ".<break time=\"4s\" />. ";
 exerciseOutput511 += ".<break time=\"6s\" />. ";
 exerciseOutput511 += ".<break time=\"6s\" />. ";
 
+//BASIC BRIDGE
+var exerciseOutput545 = "Begin on hands and knees,";
+exerciseOutput545 += ".<break time=\"2s\" />. ";
+exerciseOutput545 += "Making sure the hands are under the shoulders and knees are under the pelvis";
+exerciseOutput545 += ".<break time=\"1s\" />. ";
+exerciseOutput545 += "Inhale deeply, pulling the navel to the spine.";
+exerciseOutput545 += ".<break time=\"1s\" />. ";
+exerciseOutput545 += "Exhale and squeeze the pelvic bones towards one another";
+exerciseOutput545 += ".<break time=\"1.5s\" />. ";
+exerciseOutput545 += "as you tuck the pelvis feel your spine begin to curl from the tail to the head.";
+exerciseOutput545 += ".<break time=\"1s\" />. ";
+exerciseOutput545 += "ending with your chin curled to the chest";
+exerciseOutput545 += ".<break time=\"1s\" />. ";
+exerciseOutput545 += "Inhale in this curled position";
+exerciseOutput545 += ".<break time=\"1s\" />. ";
+exerciseOutput545 += "Exhale and carefully uncurl the tail to neutral.";
+exerciseOutput545 += ".<break time=\"2s\" />. ";
+exerciseOutput266 += "Repeat 2 more times";
+exerciseOutput545 += ".<break time=\"2s\" />. ";
+exerciseOutput545 += "Keep the arms very straight.";
+exerciseOutput545 += "<break time=\"7s\" />. ";
+exerciseOutput545 += ".<break time=\"9s\" />. ";
+
+//HUNDRED
 var exerciseOutput266 = "Get in position for the Hundred, ";
 exerciseOutput266 += ".<break time=\"0.2s\" />. ";
 exerciseOutput266 += "lay on your back with your knees in table top.";
@@ -112,7 +136,7 @@ exerciseOutput266 += ".<break time=\"10s\" />. ";
 
 
 var exerciseOutput267 = "Lay on your back with your knees bent and feet pressing into the floor.";
-exerciseOutput267 += "<break time=\"1s\" />. ";
+exerciseOutput267 += "<break time=\"2s\" />. ";
 exerciseOutput267 += "Inhale and grab the back of your thighs to assist in the roll up";
 exerciseOutput267 += "<break time=\"2s\" />. ";
 exerciseOutput267 += "Exhale to lift your chin towards the chest staring down at your belly.";
@@ -135,11 +159,11 @@ exerciseOutput267 += "roll down onto the mat one vertebrate at the time";
 
 
 var exerciseOutput276 = "From a seated position, ";
-exerciseOutput276 += "<break time=\"0.2s\" /> ";
+exerciseOutput276 += "<break time=\"0.6s\" /> ";
 exerciseOutput276 += "straighten your legs out in front of you and";
 exerciseOutput276 += "<break time=\"0.2s\" /> ";
 exerciseOutput276 += " flex both feet. ";
-exerciseOutput276 += "<break time=\"1s\" /> ";
+exerciseOutput276 += "<break time=\"2s\" /> ";
 exerciseOutput276 += " Seat nice and tall.";
 exerciseOutput276 += "<break time=\"0.7s\" /> ";
 exerciseOutput276 += "Lift the arms out in a capital T shape";
@@ -171,7 +195,24 @@ exerciseOutput289 += "<break time=\"0.2s\" /> ";
 exerciseOutput289 += "Imagine you are trying to hover over a large beach ball";
 exerciseOutput289 += "<break time=\"2.5s\" /> ";
 exerciseOutput289 += "Exhale to roll back up vertebrae by vertebrae.";
+exerciseOutput289 += "<break time=\"9.5s\" /> ";
 
+var exerciseOutput291 = "Lay on your belly with hands underneath the shoulders";
+exerciseOutput291 += "<break time=\"1.2s\" />";
+exerciseOutput291 += "Elbows back towards the ribs, palms pressing down.";
+exerciseOutput291 += "<break time=\"0.7s\" />";
+exerciseOutput291 += "Squeeze the legs together";
+exerciseOutput291 += "<break time=\"1s\" />";
+exerciseOutput291 += "Inhale as you press the hands down and begin lifting your eyes,chest and torso off the floor.";
+exerciseOutput291 += "<break time=\"1.2s\" />. ";
+exerciseOutput291 += "Exhale bending the elbows back, as you lower your chest and head back down.";
+exerciseOutput291 += "<break time=\"2s\" />. ";
+exerciseOutput291 += "Continue the movement squeezing the muscles in the legs, the gluts and the abdomen";
+exerciseOutput291 += "<break time=\"9s\" />. ";
+exerciseOutput291 += "<break time=\"8s\" /> ";
+exerciseOutput291 += "Keep the neck neutral ";
+exerciseOutput291 += "<break time=\"9s\" />. ";
+exerciseOutput291 += "<break time=\"9s\" />. ";
 
 var exerciseOutput487 = "Begin kneeling on your hands and knees.";
 exerciseOutput487 += "<break time=\"2s\" /> ";
@@ -206,7 +247,7 @@ var exerciseOutput564 =  "Begin on your belly with your legs hips width apart be
 exerciseOutput564 += "<break time=\"0.7s\" />. ";
 exerciseOutput564 += "Place your elbows directly underneath your shoulders";
 exerciseOutput564 += "<break time=\"0.7s\" />. ";
-exerciseOutput564 += "Curl your toes under on the mat, ";
+exerciseOutput564 += "Curl your toes under on the mat,";
 exerciseOutput564 += "<break time=\"0.2s\" />. ";
 exerciseOutput564 += " and lift your legs, hips, and torso as one full unit off the mat.";
 exerciseOutput564 += "<break time=\"0.2s\" />. ";
@@ -217,26 +258,26 @@ exerciseOutput564 += "<break time=\"0.2s\" />. ";
 exerciseOutput564 += "Hold.";
 exerciseOutput564 += "<break time=\"15s\" />. ";
 exerciseOutput564 += "Release and relax a bit.";
+exerciseOutput564 += "<break time=\"10s\" />. ";
 
-var exerciseOutput291 = "Lay on your belly with hands underneath the shoulders";
-exerciseOutput291 += "<break time=\"0.2s\" />";
-exerciseOutput291 += "Elbows back towards the ribs, palms pressing down.";
-exerciseOutput291 += "<break time=\"0.2s\" />";
-exerciseOutput291 += "Squeeze the legs together";
-exerciseOutput291 += "<break time=\"2s\" />";
-exerciseOutput291 += "Inhale as you press the hands down and begin lifting your eyes,chest and torso off the floor.";
-exerciseOutput291 += "<break time=\"7s\" />. ";
-exerciseOutput291 += "Exhale bending the elbows back, as you lower your chest and head back down.";
-exerciseOutput291 += "<break time=\"10s\" />. ";
-exerciseOutput291 += "Continue the movement squeezing the muscles in the legs, the gluts and the abdomen";
-exerciseOutput291 += "<break time=\"10s\" />. ";
-exerciseOutput291 += "Keep the neck neutral ";
-exerciseOutput291 += "<break time=\"10s\" />. ";
-exerciseOutput291 += "<break time=\"9s\" />. ";
 
+
+
+var exerciseOutput499 = "Lift both legs to tabletop";
+exerciseOutput499 += "<break time=\"0.7s\" />. ";
+exerciseOutput499 += "Inhale as you lower both legs.";
+exerciseOutput499 += "<break time=\"0.1s\" />. ";
+exerciseOutput499 += "Keep the knee at ninety degree angle. ";
+exerciseOutput499 += "<break time=\"0.2s\" />. ";
+exerciseOutput499 += "Exhale to lift both legs back up to table top";
+exerciseOutput499 += "<break time=\"0.5s\" />. ";
+exerciseOutput499 += "Repeat movement a few more times";
+exerciseOutput499 += ".<break time=\"4s\" />. ";
+exerciseOutput499 += ".<break time=\"6s\" />. ";
+exerciseOutput499 += "<break time=\"10s\" />. ";
 
 var exerciseOutput528 = "Lay on your back with your knees bent";
-exerciseOutput528 += "<break time=\"0.2s\" />. ";
+exerciseOutput528 += "<break time=\"2.0s\" />. ";
 exerciseOutput528 += "lift your legs to tabletop";
 exerciseOutput528 += "<break time=\"0.7s\" />. ";
 exerciseOutput528 += "Inhale. Lower your right leg.";
@@ -252,21 +293,9 @@ exerciseOutput528 += ".<break time=\"2s\" />. ";
 exerciseOutput528 += ".<break time=\"4s\" />. ";
 exerciseOutput528 += "<break time=\"9s\" />. ";
 
-var exerciseOutput499 = "Lift both legs to tabletop";
-exerciseOutput499 += "<break time=\"0.7s\" />. ";
-exerciseOutput499 += "Inhale as you lower both legs.";
-exerciseOutput499 += "<break time=\"0.1s\" />. ";
-exerciseOutput499 += "Keep the knee at ninety degree angle. ";
-exerciseOutput499 += "<break time=\"0.2s\" />. ";
-exerciseOutput499 += "Exhale to lift both legs back up to table top";
-exerciseOutput499 += "<break time=\"0.5s\" />. ";
-exerciseOutput499 += "Repeat movement a few more times";
-exerciseOutput499 += ".<break time=\"4s\" />. ";
-exerciseOutput499 += ".<break time=\"6s\" />. ";
-exerciseOutput499 += "<break time=\"10s\" />. ";
-exerciseOutput499 += ".<break time=\"10s\" />. ";
-
-var exerciseOutput529 = "Lift both legs to tabletop";
+var exerciseOutput529 = "Lay on your back.";
+exerciseOutput529 += "<break time=\"2s\" />. ";
+exerciseOutput529 += "Lift both legs to tabletop. ";
 exerciseOutput529 += "<break time=\"0.7s\" />. ";
 exerciseOutput529 += "Place your arms behind your head. ";
 exerciseOutput529 += "<break time=\"1s\" />. ";
@@ -278,18 +307,24 @@ exerciseOutput529 += ".<break time=\"6s\" />. ";
 exerciseOutput529 += ".<break time=\"10s\" />. ";
 exerciseOutput529 += ".<break time=\"10s\" />. ";
 
+
+//STANDING ROLLDOWN
 var exerciseOutput541 = "Let's stand up for this pose ";
 exerciseOutput541 += ".<break time=\"2s\" />. ";
 exerciseOutput541 += "Legs width apart and knees soft";
 exerciseOutput541 += ".<break time=\"1s\" />. ";
 exerciseOutput541 += "Inhale to lower the chin towards the chest";
 exerciseOutput541 += ".<break time=\"2s\" />. ";
-exerciseOutput541 += "Exhale";
-exerciseOutput541 += ".<break time=\"2s\" />. ";
-exerciseOutput541 += "Inhale and pause at the bottom";
-exerciseOutput541 += ".<break time=\"1s\" />. ";
-exerciseOutput541 += "Exhale and come up";
-exerciseOutput541 += ".<break time=\"1s\" />. ";
+exerciseOutput541 += "Exhale and roll down,";
+exerciseOutput541 += ".<break time=\"0.3s\" />. ";
+exerciseOutput541 += "and allow the shoulders and chest and upper torso be heavy until you are unable to bend further";
+exerciseOutput541 += ".<break time=\"2.5s\" />. ";
+exerciseOutput541 += "Inhale and pause at the bottom,";
+exerciseOutput541 += "<break time=\"0.5s\" />. ";
+exerciseOutput541 += "standing firmly on both feet.";
+exerciseOutput541 += "<break time=\"1s\" />. ";
+exerciseOutput541 += "Exhale and pull your navel up to come up.";
+exerciseOutput541 += "<break time=\"1s\" />. ";
 exerciseOutput541 += " Head comes up last.";
 exerciseOutput541 += "<break time=\"5s\" />. ";
 exerciseOutput541 += "Repeat 2 more times";
@@ -297,10 +332,14 @@ exerciseOutput541 += "<break time=\"5s\" />";
 exerciseOutput541 += "<break time=\"5s\" />";
 exerciseOutput541 += "<break time=\"5s\" />";
 
+
+//Seated Roll Back
 var exerciseOutput631 = "Begin sitting upright.";
 exerciseOutput631 += ".<break time=\"1.5s\" />";
-exerciseOutput631 += "The legs are parallel with the knees bent and the feet flat on the floor.";
-exerciseOutput631 += ".<break time=\"0.5s\" />";
+exerciseOutput631 += "The legs are parallel with the knees bent";
+exerciseOutput631 += "<break time=\"0.1s\" />";
+exerciseOutput631 += "and the feet are flat on the floor.";
+exerciseOutput631 += "<break time=\"0.5s\" />";
 exerciseOutput631 += "Feet and knees and thighs stay together";
 exerciseOutput631 += "<break time=\"1s\" />";
 exerciseOutput631 += "Place your hands on your thighs just above the backs of the knees.";
@@ -308,12 +347,15 @@ exerciseOutput631 += "<break time=\"1.5s\" />";
 exerciseOutput631 += "Breathe in fully once, straightening your spine.";
 exerciseOutput631 += "<break time=\"1s\" />";
 exerciseOutput631 += "Inhale as you roll back pulling the lower abdominals in deeply, and ";
-exerciseOutput631 += "<break time=\"0.5s\" />";
+exerciseOutput631 += "<break time=\"0.2s\" />";
 exerciseOutput631 += "curving in your spine, like the letter 'C'.";
 exerciseOutput631 += "<break time=\"1s\" />";
-exerciseOutput631 += "Roll back until your arms straighten, maintaining the C-curve position";
+exerciseOutput631 += "Roll back until your arms straighten, maintaining the C curve position.";
 exerciseOutput631 += "<break time=\"2s\" />";
 exerciseOutput631 += "Exhale and roll up.";
+exerciseOutput631 += "<break time=\"10s\" />";
+exerciseOutput631 += "<break time=\"9s\" />";
+exerciseOutput631 += "<break time=\"9s\" />";
 
 
 
@@ -339,7 +381,7 @@ exerciseSideLegSeries += ".<break time=\"10s\" /> ";
 
 // SET ARRAY OF EXERCISES
 exercises[160] = {
-    exerciseDescription: exerciseOutput327,
+    exerciseDescription: exerciseOutput160,
     exerciseName: "Rolling Like a Ball"};
 
 exercises[266] = {
@@ -349,7 +391,11 @@ exercises[266] = {
 exercises[267] = {
     exerciseDescription: exerciseOutput267,
     exerciseName: "Modified Roll-Up"};
-    
+
+exercises[273] = {
+    exerciseDescription: exerciseOutput267,
+    exerciseName: "Roll-Up"};
+
 exercises[276] = {
     exerciseDescription: exerciseOutput276,
     exerciseName: "Spine Twist"};
@@ -364,7 +410,7 @@ exercises[291] = {
 
 exercises[310] = {
     exerciseDescription: exerciseOutput310,
-    exerciseName: "Pelvic Tilt."};
+    exerciseName: "Pelvic Tilt"};
 
 exercises[326] = {
     exerciseDescription: exerciseSideLegSeries,
@@ -376,7 +422,7 @@ exercises[327] = {
 
 
 exercises[487] = {
-    exerciseDescription: exerciseOutput487,
+    exerciseDescription: exerciseOutput511,
     exerciseName: "Balance on All Fours"};
 
 exercises[499] = {
@@ -387,9 +433,13 @@ exercises[511] = {
     exerciseDescription: exerciseOutput511,
     exerciseName: "Basic Bridge"};
 
+exercises[545] = {
+    exerciseDescription: exerciseOutput545,
+    exerciseName: "Cat Stretch"};
+
 exercises[528] = {
     exerciseDescription: exerciseOutput528,
-    exerciseName: "Knee Sways"};
+    exerciseName: "Single knee folds"};
 
 exercises[529] = {
     exerciseDescription: exerciseOutput529,
@@ -422,9 +472,6 @@ exercises[434] = {
 exercises[435] = {
     exerciseDescription: exerciseSideLegSeries,
     exerciseName: "Side Leg Series"};
-
-
-
 
 exercises[631] = {
     exerciseDescription: exerciseOutput631,

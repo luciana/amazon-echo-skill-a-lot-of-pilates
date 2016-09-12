@@ -93,10 +93,11 @@ AlexaSkill.prototype.execute = function (event, context) {
         }
 
         if (!event.session.attributes) {
+            console.log("session attribute being initialized");
             event.session.attributes = {};
         }
 
-        if (event.session.new) {
+        if (event.session.new) {           
             this.eventHandlers.onSessionStarted(event.request, event.session);
         }
 
@@ -132,7 +133,8 @@ Response.prototype = (function () {
     var buildSpeechletResponse = function (options) {
         var alexaResponse = {
             outputSpeech: createSpeechObject(options.output),
-            shouldEndSession: options.shouldEndSession
+            //shouldEndSession: options.shouldEndSession
+            shouldEndSession: false
         };
         if (options.reprompt) {
             alexaResponse.reprompt = {
@@ -161,7 +163,8 @@ Response.prototype = (function () {
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: speechOutput,
-                shouldEndSession: true
+               // shouldEndSession: true
+                 shouldEndSession: false
             }));
         },
         tellWithCard: function (speechOutput, cardTitle, cardContent) {
@@ -170,7 +173,8 @@ Response.prototype = (function () {
                 output: speechOutput,
                 cardTitle: cardTitle,
                 cardContent: cardContent,
-                shouldEndSession: true
+//shouldEndSession: true
+shouldEndSession: false
             }));
         },
         ask: function (speechOutput, repromptSpeech) {
