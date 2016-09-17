@@ -55,7 +55,7 @@ ALotOfPilates.prototype.eventHandlers.onSessionStarted = function (sessionStarte
 };
 
 ALotOfPilates.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
-    console.log("onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
+    console.log("onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId );
     session.attributes.stage = 0;
     handleWelcomeRequest(response);
 };
@@ -160,7 +160,7 @@ function handleExit(session){
     console.log("total number of exercises for this class " + sessionAttributes.exerciseTotal);
     console.log("total number of exercises taken  " + sessionAttributes.exerciseCount);
     if (sessionAttributes.exerciseCount === sessionAttributes.exerciseTotal){
-        console.log("session workout Id ", session.attributes.workoutId);
+        console.log("handle exit for session workout Id - completed", session.attributes.workoutId);
         postALOPTrackingRequest(session.attributes.workoutId, session.user.userId, function alopTrackingResponseCallback(err, alopAPIResponse) {
             if (err) {
                 console.log("Error tracking class");
@@ -172,7 +172,15 @@ function handleExit(session){
     }
 
     if (sessionAttributes.exerciseCount < sessionAttributes.exerciseTotal){
-        console.log("Call put on trackings");
+        console.log("handle exit for session workout Id - quit before completing", session.attributes.workoutId);
+        putALOPTrackingRequest(session.attributes.workoutId, session.user.userId, sessionAttributes.exerciseTotal, sessionAttributes.exerciseCount, function alopPutTrackingResponseCallback(err, alopAPIResponse) {
+            if (err) {
+                console.log("Error tracking class");
+            } else {
+
+               console.log("Put on Tracking");
+            }
+        });
     }
 
 
@@ -233,6 +241,8 @@ function getPilatesSequenceResponse(duration, type, response, session) {
     var workoutId = workoutAvailable[Math.floor(Math.random() * workoutAvailable.length)];
 
     session.attributes.workoutId = workoutId;
+    //console.log("user access ", session.user.accessToken);
+
     // Issue the request, and respond to the user
     makeALOPRequest(workoutId, duration, type, function alopResponseCallback(err, alopAPIResponse) {
         var speechOutput;        
@@ -393,7 +403,7 @@ function makeALOPRequest(workoutId, duration, type, alopResponseCallback) {
     //   }
     // };
 
-    console.log('workout selected', workoutId);
+    //console.log('workout selected', workoutId);
     var get_options = {
       hostname: 'www.alotofpilates.com',
       path: '/api/v1/workouts/' + workoutId,
@@ -440,6 +450,68 @@ req.end();
 }
 
 
+
+/**
+ * PUT Tracking
+ * curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X PUT httpS://www.alotofpilates.com/api/v1/trackings/99 -d '{"guid":"12345", "total":15, "watched":15, "device_id":"RWEREW", "user_id":"RWEREW"}' -H "X-3scale-Proxy-Secret-Token:MPP-Allow-API-Call"
+ */
+function putALOPTrackingRequest(workoutId, userId, total, taken, alopPutTrackingResponseCallback) {
+    
+    //{"guid":"12345", "total":15, "watched":15, "device_id":"RWEREW", "user_id":"RWEREW"}
+    var post_data = JSON.stringify({
+      'guid' : guid(),
+      'total': total,
+      'watched': taken,
+      'user_id': userId,
+      'device_type' : 'ECHO'
+  });
+
+    var post_options = {
+      hostname: 'www.alotofpilates.com',
+      path: '/api/v1/trackings/'+workoutId,
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call',
+        'Content-Length':  Buffer.byteLength(post_data)
+      }
+    };
+
+    var req = https.request(post_options, function(res) {
+       // console.log('STATUS: ' + res.statusCode);       
+        res.setEncoding('utf8');
+        var trackingPutResponse = '';
+
+        if (res.statusCode != 200) {
+            alopPutTrackingResponseCallback(new Error("Non 200 Response"));
+        }
+
+        res.on('data', function (data) {
+            console.log("data response " + data);
+            trackingPutResponse += data;
+        });
+
+        res.on('end', function () {
+            var alopPutResponseObject = JSON.parse(trackingPutResponse);
+           
+            if (alopPutResponseObject.error) {
+                alopPutTrackingResponseCallback(new Error(alopPutResponseObject.error.message));
+            } else {               
+                alopPutTrackingResponseCallback(null, alopPutResponseObject);
+            }
+        });
+
+    }).on('error', function (e) {
+        console.log("Put Tracking Communications error: " + e.message);
+        alopPutTrackingResponseCallback(new Error(e.message));
+    });
+
+    req.write(post_data);
+    req.end();
+    
+}
+
+
 /**
  * POST Tracking
  */
@@ -466,23 +538,28 @@ function postALOPTrackingRequest(workoutId, userId, alopTrackingResponseCallback
     var req = https.request(post_options, function(res) {
        // console.log('STATUS: ' + res.statusCode);       
         res.setEncoding('utf8');
-        var trackingResponse = '';
+        var trackingPostResponse = '';
 
         if (res.statusCode != 200) {
             alopTrackingResponseCallback(new Error("Non 200 Response"));
         }
 
-        res.on('data', function (data) {
-            console.log("data response " + data);
-            trackingResponse += data;
+        res.on('data', function (data) {           
+            trackingPostResponse += data;
         });
 
         res.on('end', function () {
-            console.log("trackingResponse End");
+           var alopPostResponseObject = JSON.parse(trackingPostResponse);
+           
+            if (alopPostResponseObject.error) {
+                alopTrackingResponseCallback(new Error(alopPostResponseObject.error.message));
+            } else {               
+                alopTrackingResponseCallback(null, alopPostResponseObject);
+            }
         });
 
     }).on('error', function (e) {
-        console.log("Tracking Communications error: " + e.message);
+        console.log("Post Tracking Communications error: " + e.message);
         alopTrackingResponseCallback(new Error(e.message));
     });
 
@@ -491,6 +568,16 @@ function postALOPTrackingRequest(workoutId, userId, alopTrackingResponseCallback
     
 }
 
+
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
 
 // Create the handler that responds to the Alexa Request.
 exports.handler = function (event, context) {
