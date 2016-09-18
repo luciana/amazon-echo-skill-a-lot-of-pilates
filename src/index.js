@@ -40,7 +40,7 @@ var AlexaSkill = require('./AlexaSkill');
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
  */
 var ALotOfPilates = function () {
-    AlexaSkill.call(this, 'amzn1.echo-sdk-ams.app.ef7b5d42-f176-4806-9ea3-6ef6d041c2aa'); //I store the APP_ID in a config file instead of global variable (APP_ID)
+    AlexaSkill.call(this, config.app_id); //I store the APP_ID in a config file instead of global variable (APP_ID)
 };
 
 // Extend AlexaSkill
@@ -431,7 +431,7 @@ function makeALOPRequest(workoutId, duration, type, alopResponseCallback) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call'
+        'X-3scale-Proxy-Secret-Token':config.api_secret
       }
     };
 
@@ -493,7 +493,7 @@ function putALOPTrackingRequest(workoutId, userId, total, taken, alopPutTracking
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call',
+        'X-3scale-Proxy-Secret-Token':config.api_secret,
         'Content-Length':  Buffer.byteLength(post_data)
       }
     };
@@ -552,7 +552,7 @@ function postALOPTrackingRequest(workoutId, userId, alopTrackingResponseCallback
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call',
+        'X-3scale-Proxy-Secret-Token':config.api_secret,
         'Content-Length':  Buffer.byteLength(post_data)
       }
     };
@@ -608,7 +608,7 @@ function validateALOPUserRequest(token, alopGetUserResponseCallback) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call',
+        'X-3scale-Proxy-Secret-Token':config.api_secret,
         'X-User-Token':token
       }
     };

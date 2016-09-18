@@ -173,8 +173,8 @@ Response.prototype = (function () {
                 output: speechOutput,
                 cardTitle: cardTitle,
                 cardContent: cardContent,
-//shouldEndSession: true
-shouldEndSession: false
+                //shouldEndSession: true
+                shouldEndSession: false
             }));
         },
         ask: function (speechOutput, repromptSpeech) {
