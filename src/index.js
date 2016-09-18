@@ -426,7 +426,7 @@ function getExerciseInfo(id, session){
 function makeALOPRequest(workoutId, duration, type, alopResponseCallback) {
        
     var get_options = {
-      hostname: 'www.alotofpilates.com',
+      hostname: config.host_name,
       path: '/api/v1/workouts/' + workoutId,
       method: 'GET',
       headers: {
@@ -484,11 +484,11 @@ function putALOPTrackingRequest(workoutId, userId, total, taken, alopPutTracking
       'total': total,
       'watched': taken,
       'user_id': userId,
-      'device_type' : 'ECHO'
+      'device_type' : config.client_id
   });
 
     var post_options = {
-      hostname: 'www.alotofpilates.com',
+      hostname: config.host_name,
       path: '/api/v1/trackings/'+workoutId,
       method: 'PUT',
       headers: {
@@ -543,11 +543,11 @@ function postALOPTrackingRequest(workoutId, userId, alopTrackingResponseCallback
       'id' : workoutId,
       'user_id': "",
       'device_id': userId,
-      'device_type' : 'ECHO'
+      'device_type' : config.client_id
     });
 
     var post_options = {
-      hostname: 'www.alotofpilates.com',
+      hostname: config.host_name,
       path: '/api/v1/trackings',
       method: 'POST',
       headers: {
