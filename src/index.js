@@ -457,12 +457,12 @@ function getExerciseInfo(id, session){
 function makeALOPRequest(workoutId, duration, type, alopResponseCallback) {
        
     var get_options = {
-      hostname: 'www.alotofpilates.com',
+      hostname: config.host_name,
       path: '/api/v1/workouts/' + workoutId,
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call'
+        'X-3scale-Proxy-Secret-Token':config.api_secret
       }
     };
 
@@ -519,12 +519,12 @@ req.end();
 //   });
 
 //     var post_options = {
-//       hostname: 'www.alotofpilates.com',
+//       hostname: config.host_name,
 //       path: '/api/v1/trackings/'+workoutId,
 //       method: 'PUT',
 //       headers: {
 //         'Content-Type': 'application/json',
-//         'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call',
+//         'X-3scale-Proxy-Secret-Token':config.api_secret,
 //         'Content-Length':  Buffer.byteLength(post_data)
 //       }
 //     };
@@ -577,12 +577,12 @@ function postALOPTrackingRequest(userId, workoutId, deviceId, alopTrackingRespon
     });
 
     var post_options = {
-      hostname: 'www.alotofpilates.com',
+      hostname: config.host_name,
       path: '/api/v1/trackings',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call',
+        'X-3scale-Proxy-Secret-Token':config.api_secret,
         'Content-Length':  Buffer.byteLength(post_data)
       }
     };
@@ -633,7 +633,7 @@ function validateALOPUserRequest(token, alopGetUserResponseCallback) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call',
+        'X-3scale-Proxy-Secret-Token':config.api_secret,
         'X-User-Token':token
       }
     };
