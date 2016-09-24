@@ -83,21 +83,20 @@ AlexaSkill.prototype.intentHandlers = {};
 
 AlexaSkill.prototype.execute = function (event, context) {
     try {
-        console.log("session applicationId: " + event.session.application.applicationId);
+        //console.log("session applicationId: " + event.session.application.applicationId);
 
         // Validate that this request originated from authorized source.
         if (this._appId && event.session.application.applicationId !== this._appId) {
-            console.log("The applicationIds don't match : " + event.session.application.applicationId + " and "
-                + this._appId);
+            console.log("The applicationIds don't match : " + event.session.application.applicationId + " and " + this._appId);
             throw "Invalid applicationId";
         }
 
         if (!event.session.attributes) {
-            console.log("session attribute being initialized");
+            console.log("Session attributes being initialized");
             event.session.attributes = {};
         }
 
-        if (event.session.new) {           
+        if (event.session.new) {
             this.eventHandlers.onSessionStarted(event.request, event.session);
         }
 
@@ -163,8 +162,7 @@ Response.prototype = (function () {
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: speechOutput,
-               // shouldEndSession: true
-                 shouldEndSession: false
+                 shouldEndSession: true
             }));
         },
         tellWithCard: function (speechOutput, cardTitle, cardContent) {
@@ -173,8 +171,7 @@ Response.prototype = (function () {
                 output: speechOutput,
                 cardTitle: cardTitle,
                 cardContent: cardContent,
-//shouldEndSession: true
-shouldEndSession: false
+                shouldEndSession: true
             }));
         },
         ask: function (speechOutput, repromptSpeech) {
