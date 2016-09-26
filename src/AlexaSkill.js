@@ -8,6 +8,7 @@
     or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
 
+
 'use strict';
 
 function AlexaSkill(appId) {
@@ -91,8 +92,7 @@ AlexaSkill.prototype.execute = function (event, context) {
             throw "Invalid applicationId";
         }
 
-        if (!event.session.attributes) {
-            console.log("Session attributes being initialized");
+        if (!event.session.attributes) {           
             event.session.attributes = {};
         }
 
@@ -132,8 +132,7 @@ Response.prototype = (function () {
     var buildSpeechletResponse = function (options) {
         var alexaResponse = {
             outputSpeech: createSpeechObject(options.output),
-            //shouldEndSession: options.shouldEndSession
-            shouldEndSession: false
+            shouldEndSession: options.shouldEndSession            
         };
         if (options.reprompt) {
             alexaResponse.reprompt = {
@@ -142,9 +141,13 @@ Response.prototype = (function () {
         }
         if (options.cardTitle && options.cardContent) {
             alexaResponse.card = {
-                type: "Simple",
+                type: "Standard",
                 title: options.cardTitle,
-                content: options.cardContent
+                text: options.cardContent,
+                image: {
+                    smallImageUrl:"https://carfu.com/resources/card-images/race-car-small.png",
+                    largeImageUrl:"https://carfu.com/resources/card-images/race-car-large.png"
+                }
             };
         }
         var returnResult = {
@@ -162,16 +165,26 @@ Response.prototype = (function () {
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: speechOutput,
-                 shouldEndSession: true
+                //shouldEndSession: true
+                shouldEndSession: false
             }));
         },
-        tellWithCard: function (speechOutput, cardTitle, cardContent) {
+        tellWithStop: function (speechOutput) {
+            this._context.succeed(buildSpeechletResponse({
+                session: this._session,
+                output: speechOutput,
+                shouldEndSession: false
+            }));
+        },
+        tellWithCard: function (speechOutput, cardTitle, cardContent, cardImageUrl) {
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: speechOutput,
                 cardTitle: cardTitle,
                 cardContent: cardContent,
-                shouldEndSession: true
+                cardImageUrl: cardImageUrl,
+                shouldEndSession: false
+                //shouldEndSession: false
             }));
         },
         ask: function (speechOutput, repromptSpeech) {
@@ -182,13 +195,14 @@ Response.prototype = (function () {
                 shouldEndSession: false
             }));
         },
-        askWithCard: function (speechOutput, repromptSpeech, cardTitle, cardContent) {
+        askWithCard: function (speechOutput, repromptSpeech, cardTitle, cardContent, cardImageUrl) {
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: speechOutput,
                 reprompt: repromptSpeech,
                 cardTitle: cardTitle,
                 cardContent: cardContent,
+                cardImageUrl: cardImageUrl,
                 shouldEndSession: false
             }));
         }

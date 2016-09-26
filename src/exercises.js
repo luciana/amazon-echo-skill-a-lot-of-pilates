@@ -317,7 +317,7 @@ exerciseOutput541 += "Inhale to lower the chin towards the chest";
 exerciseOutput541 += ".<break time=\"2s\" />. ";
 exerciseOutput541 += "Exhale and roll down,";
 exerciseOutput541 += ".<break time=\"0.3s\" />. ";
-exerciseOutput541 += "and allow the shoulders and chest and upper torso be heavy until you are unable to bend further";
+exerciseOutput541 += "and allow the shoulders and chest and upper torso be heavy until you are unable to go further";
 exerciseOutput541 += ".<break time=\"2.5s\" />. ";
 exerciseOutput541 += "Inhale and pause at the bottom,";
 exerciseOutput541 += "<break time=\"0.5s\" />. ";
