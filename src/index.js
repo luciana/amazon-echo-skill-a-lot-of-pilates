@@ -25,13 +25,9 @@ var exerciseTotal = 10;
 var https = require('https'),
     config = require('./config'),
     querystring = require('querystring'),
-    exercises = require('./exercises');
-
-
-/**
- * The AlexaSkill prototype and helper functions
- */
-var AlexaSkill = require('./AlexaSkill');
+    User = require('./user'),
+    exercises = require('./exercises'),
+    AlexaSkill = require('./AlexaSkill');
 
 /**
  * ALotOfPilates is a child of AlexaSkill.
@@ -41,6 +37,7 @@ var AlexaSkill = require('./AlexaSkill');
  */
 var ALotOfPilates = function () {
     AlexaSkill.call(this, 'amzn1.echo-sdk-ams.app.ef7b5d42-f176-4806-9ea3-6ef6d041c2aa'); //I store the APP_ID in a config file instead of global variable (APP_ID)
+    var user;
 };
 
 // Extend AlexaSkill
@@ -51,23 +48,23 @@ ALotOfPilates.prototype.constructor = ALotOfPilates;
 
 ALotOfPilates.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
     console.log("onSessionStarted requestId: " + sessionStartedRequest.requestId + ", sessionId: " + session.sessionId + ", token: " + session.user.accessToken);
-  
+    user = new User(session.user.accessToken);
 };
 
 ALotOfPilates.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     console.log("onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId );
     session.attributes.stage = 0;
-    validateALOPUserRequest(session.user.accessToken, function alopGetUserResponseCallback(err, alopUserResponseObject) {        
-        //initialize session attributes from authorization class
-        initializeSession(session, alopUserResponseObject);
-        handleWelcomeRequest(response, session);
-    });
-    
+
+    user.get()
+        .then((data) => initializeSession(session, data))       
+        .then((session) => handleWelcomeRequest(response, session))       
+        .catch((err) => console.error("ERR",err));    
 };
 
 ALotOfPilates.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
     var sessionAttributes = session.attributes;
     console.log("onSessionEnded requestId: " + sessionEndedRequest.requestId + ", sessionId: " + session.sessionId);
+    handleExit({ name: 'AMAZON.NoIntent' }, session, null);
 };
 
 /**
@@ -138,6 +135,7 @@ function initializeSession(session, data){
         " Workout Taken Count " + session.attributes.workoutTakenCount
         );
 
+    return session;
 }
 
 function handleWelcomeRequest(response, session) {
@@ -150,6 +148,8 @@ function handleWelcomeRequest(response, session) {
         var userId = session.attributes.userId;
         var signInCount = session.attributes.signInCount;
         var workoutTakenCount = session.attributes.workoutTakenCount;
+        var workoutTakenText = "";
+
 
         console.log("Session attributes on Welcome User Id:", session.attributes.userId +
         " User Name:" + session.attributes.userName +
@@ -167,6 +167,13 @@ function handleWelcomeRequest(response, session) {
             }
             signInText =  " You have signed in " + signInCount +  " times to a lot of pilates.";
         }
+        if (typeof workoutTakenCount != "undefined"){
+            if(workoutTakenCount == 1){
+                workoutTakenText = " You have taken " + workoutTakenCount +  " pilates class before.";
+            }else if(workoutTakenCount > 1){
+                workoutTakenText = " Good job, you have taken " + workoutTakenCount +  " pilates classes.";
+            }
+        }
         if (typeof name != "undefined"){
             if (!name){
                 welcomeText+="";
@@ -182,7 +189,7 @@ function handleWelcomeRequest(response, session) {
                     "<break time=\"0.1s\" /> " +
                     " to A Lot Of Pilates. " +
                     ".<break time=\"0.7s\" /> " +
-                    signInText +
+                    workoutTakenText +
                     ".<break time=\"1s\" /> " +
                     "Get your mat ready on the floor " + welcomebacktext  +
                     ".<break time=\"1s\" /> " +
@@ -226,11 +233,11 @@ function handleOneshotStartPilatesClassRequest(intent, session, response) {
     session.attributes.stage = 0;
     
     if( typeof session.attributes.userId == "undefined"){
-        validateALOPUserRequest(session.user.accessToken, function alopGetUserResponseCallback(err, alopUserResponseObject) {     
-            //initialize session attributes from authorization class
-            initializeSession(session, alopUserResponseObject);
-            getPilatesSequenceResponse(duration, type, response, session);
-        });
+        user.get()
+            .then((data) => initializeSession(session, data))       
+            .then((session) => getPilatesSequenceResponse(duration, type, response, session))       
+            .catch((err) => console.error("ERR",err));
+        
     }else{
         getPilatesSequenceResponse(duration, type, response, session);
     }
@@ -304,7 +311,7 @@ function handleHelpRequest(intent, session, response) {
  */
 function getPilatesSequenceResponse(duration, type, response, session) {
     
-    var workoutAvailable = [530,94,680,638]; //having a problem with 638
+    var workoutAvailable = [530,94,663,122,680,109, 116]; //having a problem with 638
     var workoutId = workoutAvailable[Math.floor(Math.random() * workoutAvailable.length)];
 
     session.attributes.workoutId = workoutId;
@@ -320,7 +327,7 @@ function getPilatesSequenceResponse(duration, type, response, session) {
             response.tell(speechOutput);
         } else {
             if(alopAPIResponse.poses.length > 0){
-                session.attributes.stage = 1;       
+                session.attributes.stage = 1;
                 teachClass(alopAPIResponse, response, session);
             }else{
                 speechOutput = {
@@ -347,7 +354,7 @@ function teachClass(alopAPIResponse, response, session){
     sessionAttributes.exerciseCount = 0;
     sessionAttributes.exerciseTotal = alopAPIResponse.poses.length;
 
-    for(var i = 0; i < 1; i++){
+    for(var i = 0; i < alopAPIResponse.poses.length - 1; i++){
         var pose = alopAPIResponse.poses[i];
        sessionAttributes.exerciseCount += 1;
         if( i === 0 ){
@@ -398,9 +405,9 @@ function handleExerciseTimings(pose, session){
             speechExerciseOutput += ".<break time=\"5s\" />. ";
             speechExerciseOutput += "Almost done";
             speechExerciseOutput += ".<break time=\"3s\" />. ";
-            speechExerciseOutput += "you are  ";
+            speechExerciseOutput += "you are done  ";
             speechExerciseOutput += ".<break time=\"0.1s\" />. ";
-            speechExerciseOutput += "done. Relax ";
+            speechExerciseOutput += "Relax ";
             speechExerciseOutput += ".<break time=\"10s\" />. ";
         }else if (sideLegSeriesPoseIdArray.indexOf(pose.id) > -1){//Side Leg Series
             speechExerciseOutput += "Lie on one side with bottom arm bent for head to lay on.";
@@ -470,13 +477,15 @@ function handleExit(intent, session, response){
                     console.log("Error post tracking class");
                 }
 
-                var speechText = "I am glad you liked the class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
+                if ((response != "undefined") || (response)){
+                    var speechText = "I am glad you liked the class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
 
-                if (intent.name == 'AMAZON.NoIntent') {
-                    speechText = "I am sorry to hear you did not like this class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
+                    if (intent.name == 'AMAZON.NoIntent') {
+                        speechText = "I am sorry to hear you did not like this class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
+                    }
+                    var cardContent = "Congratulations you finished a pilates class. I am glad you liked the class.\nYou earned a Newbie Badge.\n\nVisit ALotOfPilates.com for many more classes";    
+                    response.tellWithCard(speechText,"A Lot Of Pilates Class", cardContent, "https://s3.amazonaws.com/s3-us-studio-resources-output/images/Hundred.gif");
                 }
-                var cardContent = "Congratulations you finished a pilates class. I am glad you liked the class.\nYou earned a Newbie Badge.\n\nVisit ALotOfPilates.com for many more classes";
-                response.tellWithCard(speechText,"A Lot Of Pilates Class", cardContent, "https://s3.amazonaws.com/s3-us-studio-resources-output/images/Hundred.gif");
         });
     }
 }
@@ -514,7 +523,7 @@ function makeALOPRequest(workoutId, duration, type, alopResponseCallback) {
 
         res.on('end', function () {
             var alopResponseObject = JSON.parse(alopResponseString);
-            console.log("makeALOPRequest object ", alopResponseObject);
+            //console.log("makeALOPRequest object ", alopResponseObject);
 
             if (alopResponseObject.error) {
                 alopResponseCallback(new Error(alopResponseObject.error.message));
@@ -538,10 +547,6 @@ req.end();
  */
 function postALOPTrackingRequest(userId, userEmail, token, workoutId, deviceId, alopTrackingResponseCallback) {
       
-    //curl -H 'Content-Type: application/json' -H 'Accept: application/json' -X POST https://alop.herokuapp.com/api/v3/trackings 
-    //-d '{"id": 530, "user_id":"40", "device_id": "amzn1.ask.account", "device_type":"ECHO"}' 
-    //-H "X-3scale-Proxy-Secret-Token:MPP-Allow-API-Call" -H "X-User-Email:luciana.bruscino@gmail.com" -H "X-User-Token:pKGJ-kYMjdcKmj949gz9";
-
     var post_data = JSON.stringify({
       'id' : workoutId,
       'user_id': userId,
@@ -550,7 +555,7 @@ function postALOPTrackingRequest(userId, userEmail, token, workoutId, deviceId, 
     });
 
     var post_options = {
-      hostname: 'alop.herokuapp.com',
+      hostname: config.host_name,
       path: '/api/v3/trackings',
       method: 'POST',
       headers: {
@@ -563,7 +568,7 @@ function postALOPTrackingRequest(userId, userEmail, token, workoutId, deviceId, 
     };
 
     var req = https.request(post_options, function(res) {
-        console.log('STATUS postALOPTrackingRequest: ' + res.statusCode);
+        //console.log('STATUS postALOPTrackingRequest: ' + res.statusCode);
         res.setEncoding('utf8');
         var trackingPostResponse = '';
 
@@ -572,19 +577,18 @@ function postALOPTrackingRequest(userId, userEmail, token, workoutId, deviceId, 
         }
 
         res.on('data', function (data) {
-            console.log("postALOPTrackingRequest data " , data);
+            //console.log("postALOPTrackingRequest data " , data);
             trackingPostResponse += data;
         });
 
         res.on('end', function () {
-           var alopPostResponseObject = JSON.parse(trackingPostResponse);
-          
+           var alopPostResponseObject = JSON.parse(trackingPostResponse);          
            
             if (alopPostResponseObject.error) {
-                 console.log("postALOPTrackingRequest object " , alopPostResponseObject);
+                // console.log("postALOPTrackingRequest object " , alopPostResponseObject);
                 alopTrackingResponseCallback(new Error(alopPostResponseObject.error.message));
             } else {
-                console.log("postALOPTrackingRequest object " , alopPostResponseObject);
+                //console.log("postALOPTrackingRequest object " , alopPostResponseObject);
                 alopTrackingResponseCallback(null, alopPostResponseObject);
             }
         });
@@ -598,59 +602,6 @@ function postALOPTrackingRequest(userId, userEmail, token, workoutId, deviceId, 
     req.end();
     
 }
-
-/**
- */
-function validateALOPUserRequest(token, alopGetUserResponseCallback) {
-    var get_options = {
-      hostname: 'alop.herokuapp.com',
-      path: '/api/v3/users',
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-3scale-Proxy-Secret-Token':config.api_secret,
-        'X-User-Token':token
-      }
-    };
-
-    var req = https.request(get_options, function(res) {
-        //console.log('Get ALOT User Quest STATUS: ' + res.statusCode);       
-        res.setEncoding('utf8');
-        var alopUserResponseString = '';
-
-        if (res.statusCode != 200) {
-            alopGetUserResponseCallback(new Error("Non 200 Response"));
-        }
-
-        res.on('data', function (data) {
-            alopUserResponseString += data;
-        });
-
-        res.on('error', function () {
-           alopGetUserResponseCallback(new Error("Non 200 Response"));
-        });
-
-        res.on('end', function () {
-            var alopUserResponseObject = JSON.parse(alopUserResponseString);
-            
-          
-            if (alopUserResponseObject.error) {
-                alopGetUserResponseCallback(new Error(alopUserResponseObject.error.message));
-            } else {
-                console.log("validateALOPUserRequest object " , alopUserResponseObject);
-                alopGetUserResponseCallback(null, alopUserResponseObject);
-            }
-        });
-
-    }).on('error', function (e) {
-        console.log("Communications error: " + e.message);
-        alopGetUserResponseCallback(new Error(e.message));
-    });
-
-req.end();
-    
-}
-
 
 function guid() {
   function s4() {

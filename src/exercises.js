@@ -3,6 +3,14 @@ var exercises ={};
 
 // EXERCISES DESCRIPTIONS
 
+//TODO instruction on Seal - 321
+//TODO instruction on Saw - 274
+//TODO instruction on Mermaid - 247
+//TODO instruction on Knee Sways - 536
+//TODO instruction on Cancan - 324
+//TODO instruction on Double Leg Stretch - 451
+
+
 //ROLLING LIKE A BALL
 
 var exerciseOutput160 = "Get in position for Rolling Like a Ball";
@@ -145,7 +153,7 @@ exerciseOutput267 += "as you begin peeling your spine off the floor one vertebra
 exerciseOutput267 += "<break time=\"0.2s\" />. ";
 exerciseOutput267 += " until you are seated.";
 exerciseOutput267 += "<break time=\"2s\" />. ";
-exerciseOutput267 += "Inhale as you extend the legs in front of your body and stretch forward in a bend.";
+exerciseOutput267 += "Inhale as you extend the legs in front of your body and stretch forward.";
 exerciseOutput267 += "<break time=\"0.2s\" />. ";
 exerciseOutput267 += "Moving your chin towards your knees and";
 exerciseOutput267 += "<break time=\"0.2s\" />. ";
@@ -156,6 +164,7 @@ exerciseOutput267 += "<break time=\"0.2s\" />. ";
 exerciseOutput267 += "bend the knees back in towards the body and ";
 exerciseOutput267 += "<break time=\"0.2s\" />. ";
 exerciseOutput267 += "roll down onto the mat one vertebrate at the time";
+exerciseOutput267 += "<break time=\"1.2s\" />. ";
 
 
 var exerciseOutput276 = "From a seated position, ";
@@ -166,7 +175,7 @@ exerciseOutput276 += " flex both feet. ";
 exerciseOutput276 += "<break time=\"2s\" /> ";
 exerciseOutput276 += " Seat nice and tall.";
 exerciseOutput276 += "<break time=\"0.7s\" /> ";
-exerciseOutput276 += "Lift the arms out in a capital T shape";
+exerciseOutput276 += "Lift the arms out in a T shape";
 exerciseOutput276 += "<break time=\"0.7s\" /> ";
 exerciseOutput276 += "Inhale to twist to the right side.";
 exerciseOutput276 += "<break time=\"2s\" /> ";
@@ -179,6 +188,8 @@ exerciseOutput276 += "<break time=\"2s\" /> ";
 exerciseOutput276 += "Exhale twist back to the center. ";
 exerciseOutput276 += "<break time=\"0.7s\" /> ";
 exerciseOutput276 += "Repeat the movement.";
+exerciseOutput276 += "<break time=\"5.2s\" />. ";
+exerciseOutput276 += "<break time=\"6.2s\" />. ";
 
 var exerciseOutput289 = "Begin seated with your legs extended out in front of you";
 exerciseOutput289 += "<break time=\"0.2s\" /> ";
@@ -229,6 +240,7 @@ exerciseOutput487 += "<break time=\"0.1s\" /> ";
 exerciseOutput487 += "while also extending the right leg straight out behind you. ";
 exerciseOutput487 += "<break time=\"5s\" /> ";
 exerciseOutput487 += "Repeat very slowly with control";
+exerciseOutput487 += "<break time=\"1.0s\" /> ";
 
 
 var exerciseOutput547 = "Begin seated with your hands placed on the ground for the Reverse Plank" ;
@@ -259,6 +271,8 @@ exerciseOutput564 += "Hold.";
 exerciseOutput564 += "<break time=\"15s\" />. ";
 exerciseOutput564 += "Release and relax a bit.";
 exerciseOutput564 += "<break time=\"10s\" />. ";
+
+
 
 
 
@@ -422,7 +436,7 @@ exercises[327] = {
 
 
 exercises[487] = {
-    exerciseDescription: exerciseOutput511,
+    exerciseDescription: exerciseOutput487,
     exerciseName: "Balance on All Fours"};
 
 exercises[499] = {
