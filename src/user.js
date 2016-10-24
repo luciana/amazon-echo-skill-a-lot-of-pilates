@@ -1,8 +1,7 @@
 var config = require('./config'),
 	https = require('https');
 
-//contructor
-var User = function(token){	
+var User = function(token){
 	this._options = {
       hostname: config.host_name,
       path: '/api/v3/users',
@@ -10,7 +9,7 @@ var User = function(token){
       headers: {
         'Content-Type': 'application/json',
         'X-3scale-Proxy-Secret-Token':config.api_secret,
-        'X-User-Token':token
+        'Authorization': 'Bearer '+token
       }
     };
 };

@@ -132,21 +132,29 @@ Response.prototype = (function () {
     var buildSpeechletResponse = function (options) {
         var alexaResponse = {
             outputSpeech: createSpeechObject(options.output),
-            shouldEndSession: options.shouldEndSession            
+            shouldEndSession: options.shouldEndSession
         };
+        var type = "Standard";
         if (options.reprompt) {
             alexaResponse.reprompt = {
                 outputSpeech: createSpeechObject(options.reprompt)
             };
         }
+
+        if (options.linkAccount){
+            alexaResponse.card = {
+                type: "LinkAccount"
+            };
+        }
+
         if (options.cardTitle && options.cardContent) {
             alexaResponse.card = {
-                type: "Standard",
+                type: type,
                 title: options.cardTitle,
                 text: options.cardContent,
                 image: {
-                    smallImageUrl:"https://carfu.com/resources/card-images/race-car-small.png",
-                    largeImageUrl:"https://carfu.com/resources/card-images/race-car-large.png"
+                    smallImageUrl:"https://s3.amazonaws.com/s3-us-alexa-resources/alexa-small-sample.jpeg",
+                    largeImageUrl:"https://s3.amazonaws.com/s3-us-alexa-resources/alexa-large-sample.png"
                 }
             };
         }
@@ -185,6 +193,14 @@ Response.prototype = (function () {
                 cardImageUrl: cardImageUrl,
                 shouldEndSession: false
                 //shouldEndSession: false
+            }));
+        },
+        tellWithLinkAccount: function (speechOutput) {
+           this._context.succeed(buildSpeechletResponse({
+                session: this._session,
+                output: speechOutput,
+                linkAccount: true,           
+               shouldEndSession: true
             }));
         },
         ask: function (speechOutput, repromptSpeech) {
