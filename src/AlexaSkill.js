@@ -8,6 +8,7 @@
     or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 */
 
+
 'use strict';
 
 function AlexaSkill(appId) {
@@ -83,21 +84,19 @@ AlexaSkill.prototype.intentHandlers = {};
 
 AlexaSkill.prototype.execute = function (event, context) {
     try {
-        console.log("session applicationId: " + event.session.application.applicationId);
+        //console.log("session applicationId: " + event.session.application.applicationId);
 
         // Validate that this request originated from authorized source.
         if (this._appId && event.session.application.applicationId !== this._appId) {
-            console.log("The applicationIds don't match : " + event.session.application.applicationId + " and "
-                + this._appId);
+            console.log("The applicationIds don't match : " + event.session.application.applicationId + " and " + this._appId);
             throw "Invalid applicationId";
         }
 
-        if (!event.session.attributes) {
-            console.log("session attribute being initialized");
+        if (!event.session.attributes) {           
             event.session.attributes = {};
         }
 
-        if (event.session.new) {           
+        if (event.session.new) {
             this.eventHandlers.onSessionStarted(event.request, event.session);
         }
 
@@ -133,19 +132,30 @@ Response.prototype = (function () {
     var buildSpeechletResponse = function (options) {
         var alexaResponse = {
             outputSpeech: createSpeechObject(options.output),
-            //shouldEndSession: options.shouldEndSession
-            shouldEndSession: false
+            shouldEndSession: options.shouldEndSession
         };
+        var type = "Standard";
         if (options.reprompt) {
             alexaResponse.reprompt = {
                 outputSpeech: createSpeechObject(options.reprompt)
             };
         }
+
+        if (options.linkAccount){
+            alexaResponse.card = {
+                type: "LinkAccount"
+            };
+        }
+
         if (options.cardTitle && options.cardContent) {
             alexaResponse.card = {
-                type: "Simple",
+                type: type,
                 title: options.cardTitle,
-                content: options.cardContent
+                text: options.cardContent,
+                image: {
+                    smallImageUrl:"https://s3.amazonaws.com/s3-us-alexa-resources/alexa-small-sample.jpeg",
+                    largeImageUrl:"https://s3.amazonaws.com/s3-us-alexa-resources/alexa-large-sample.png"
+                }
             };
         }
         var returnResult = {
@@ -163,18 +173,39 @@ Response.prototype = (function () {
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: speechOutput,
-               // shouldEndSession: true
-                 shouldEndSession: false
+                //shouldEndSession: true
+                shouldEndSession: false
             }));
         },
-        tellWithCard: function (speechOutput, cardTitle, cardContent) {
+        tellWithStop: function (speechOutput) {
+            this._context.succeed(buildSpeechletResponse({
+                session: this._session,
+                output: speechOutput,
+                shouldEndSession: false
+            }));
+        },
+        tellWithCard: function (speechOutput, cardTitle, cardContent, cardImageUrl) {
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: speechOutput,
                 cardTitle: cardTitle,
                 cardContent: cardContent,
+<<<<<<< HEAD
                 //shouldEndSession: true
                 shouldEndSession: false
+=======
+                cardImageUrl: cardImageUrl,
+                shouldEndSession: false
+                //shouldEndSession: false
+            }));
+        },
+        tellWithLinkAccount: function (speechOutput) {
+           this._context.succeed(buildSpeechletResponse({
+                session: this._session,
+                output: speechOutput,
+                linkAccount: true,           
+               shouldEndSession: true
+>>>>>>> linking
             }));
         },
         ask: function (speechOutput, repromptSpeech) {
@@ -185,13 +216,14 @@ Response.prototype = (function () {
                 shouldEndSession: false
             }));
         },
-        askWithCard: function (speechOutput, repromptSpeech, cardTitle, cardContent) {
+        askWithCard: function (speechOutput, repromptSpeech, cardTitle, cardContent, cardImageUrl) {
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: speechOutput,
                 reprompt: repromptSpeech,
                 cardTitle: cardTitle,
                 cardContent: cardContent,
+                cardImageUrl: cardImageUrl,
                 shouldEndSession: false
             }));
         }
