@@ -4,7 +4,7 @@ var config = require('./config'),
 
 //contructor
 var Workout = function(token){
-  this.id = this.getWorkoutId();
+  this.id = this.getId();
 	this._options =  {
       hostname: config.host_name,
       path: '/api/v1/workouts/' + this.id,
@@ -19,7 +19,7 @@ var Workout = function(token){
 
 
 
-Workout.prototype.startClass = function(alopAPIResponse, response, session){    
+Workout.prototype.startClass = function(alopAPIResponse, response, session){
     if(alopAPIResponse.poses.length > 0){
         session.attributes.stage = 1;
         Speech.teachClass(alopAPIResponse, response, session);
@@ -29,9 +29,9 @@ Workout.prototype.startClass = function(alopAPIResponse, response, session){
 };
 
 
-Workout.prototype.getWorkoutId = function(){
-  //var workoutAvailable = [530,109, 116, 94, 122,680]; // having a problem with 638 663
-  var workoutAvailable = [530];
+Workout.prototype.getId = function(){
+  var workoutAvailable = [530, 94]; // having a problem with 638 663 122 109 680
+  //DEBUG: var workoutAvailable = [530];
   return workoutAvailable[Math.floor(Math.random() * workoutAvailable.length)];
    
 };
@@ -72,8 +72,8 @@ Workout.prototype.getSequence = function(response, session) {
     console.log("WORKOUT MODEL ID ", this.id);
     session.attributes.workoutId = this.id;
     this.get()
-        .then((data) => this.startClass(data, response, session))
-        .catch((err) => Speech.startClassError(response));
+        .then((data) => this.startClass(data, response, session));
+       // .catch((err) => Speech.startClassError(response));
 };
 
 Workout.prototype.postTracking = function(opts){

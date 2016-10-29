@@ -18,11 +18,8 @@
  * Find it at : https://console.aws.amazon.com/lambda/home
  */
 var APP_ID = ''; //get an APP ID - i.e amzn1.echo-sdk-ams.app.xxxxxx
-
-var querystring = require('querystring'),
-    User = require('./user'),
+var User = require('./user'),
     Speech = require('./speech'),
-    exercises = require('./exercises'),
     AlexaSkill = require('./AlexaSkill'),
     Handler = require('./handler'),
     Workout = require('./workout');
@@ -55,12 +52,10 @@ ALotOfPilates.prototype.eventHandlers.onSessionStarted = function (sessionStarte
 ALotOfPilates.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     console.log("onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId );
     session.attributes.stage = 0;
-
     Handler.launchAction(user, session, response);
 };
 
 ALotOfPilates.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
-    var sessionAttributes = session.attributes;
     console.log("onSessionEnded requestId: " + sessionEndedRequest.requestId + ", sessionId: " + session.sessionId);
     //handleExit({ name: 'AMAZON.NoIntent' }, session, null);
 };
@@ -70,7 +65,6 @@ ALotOfPilates.prototype.eventHandlers.onSessionEnded = function (sessionEndedReq
  */
 ALotOfPilates.prototype.intentHandlers = {
     "OneshotStartPilatesClassIntent": function (intent, session, response) {
-        //workout = new Workout(session.user.accessToken);
         Handler.oneShotAction(workout, session, response);
     },
 
@@ -83,7 +77,7 @@ ALotOfPilates.prototype.intentHandlers = {
     },
 
     "AMAZON.NoIntent": function (intent, session, response) {
-        Handler.noAction(workout, session, response);
+        Handler.noAction(workout, intent, session, response);
     },
 
     "AMAZON.YesIntent": function (intent, session, response) {
@@ -93,24 +87,12 @@ ALotOfPilates.prototype.intentHandlers = {
     "AMAZON.HelpIntent": function (intent, session, response) {
         Speech.help(session.attributes.stage, response);
     },
-    
-    
+
     "AMAZON.CancelIntent": function (intent, session, response) {
        Speech.cancelClass(response);
            
     }
 };
-
-
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-    s4() + '-' + s4() + s4() + s4();
-}
 
 // Create the handler that responds to the Alexa Request.
 exports.handler = function (event, context) {
