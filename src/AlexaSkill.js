@@ -190,10 +190,6 @@ Response.prototype = (function () {
                 output: speechOutput,
                 cardTitle: cardTitle,
                 cardContent: cardContent,
-<<<<<<< HEAD
-                //shouldEndSession: true
-                shouldEndSession: false
-=======
                 cardImageUrl: cardImageUrl,
                 shouldEndSession: false
                 //shouldEndSession: false
@@ -205,7 +201,6 @@ Response.prototype = (function () {
                 output: speechOutput,
                 linkAccount: true,           
                shouldEndSession: true
->>>>>>> linking
             }));
         },
         ask: function (speechOutput, repromptSpeech) {
