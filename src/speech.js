@@ -192,21 +192,35 @@ Speech.prototype.stopClass = function (response) {
   response.tellWithStop(speechOutput);
 };
 
+Speech.prototype.stopUnStartedClass = function (response) {
+  var speechOutput = "Ok. Hope you find a better time to start the class. Visit ALotOfPilates.com for pilates classes. Goodbye!";
+  response.tellWithStop(speechOutput);
+};
+
 Speech.prototype.cancelClass = function (response) {
  var speechOutput = "It is ok that you could not finish the class today. Maybe next time. Good-bye";
         response.tellWithStop(speechOutput);
 };
 
-Speech.prototype.trackDisplay = function(response, data, intent) {
+Speech.prototype.trackDisplay = function(userTracking, response, data, intent) {
     if ((response != "undefined") || (response)){
         var speechText = "I am glad you liked the class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
 
         if (intent.name == 'AMAZON.NoIntent') {
             speechText = "I am sorry to hear you did not like this class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
         }
-        //var cardContent = "<strong>Congratulations you finished a pilates class.</strong>\nI am glad you liked the class.\n\n\n\nVisit ALotOfPilates.com for many more classes";
-        // <img src='https://s3.amazonaws.com/s3-us-studio-resources-output/images/Hundred.gif' />\n\n      
-        var cardContent = "Congratulations you finished a pilates class. I am glad you liked the class.\nYou earned a Newbie Badge.\n\nVisit ALotOfPilates.com for many more classes";
+
+        var yearCount = userTracking[0].classCount;
+        var year = userTracking[0].year;
+        var lineBreak = '\n\n----------------------\n\n';
+        var trackingText = lineBreak;
+        for (var i = 0; i < userTracking[0].months.length; i++) {
+            var item = userTracking[0].months[i];
+            trackingText += item.month + " : " + item.classCount;
+            trackingText += lineBreak;
+        }
+             
+        var cardContent = "You earned a Newbie Badge.\n\n You have taken " + yearCount + " classes in " + year + ". Keep track of your progress per month. \n\n" + trackingText +"\n \nVisit ALotOfPilates.com for many more classes";
         response.tellWithCard(speechText,"A Lot Of Pilates Class", cardContent, "https://s3.amazonaws.com/s3-us-studio-resources-output/images/Hundred.gif");
     }
 };
