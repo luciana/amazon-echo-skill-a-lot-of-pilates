@@ -30,7 +30,7 @@ Workout.prototype.startClass = function(alopAPIResponse, response, session){
 
 
 Workout.prototype.getId = function(){
-  var workoutAvailable = [530, 94]; // having a problem with 638 663 122 109 680
+  var workoutAvailable = [530]; // having a problem with 94, 638 663 122 109 680
   //DEBUG: var workoutAvailable = [530];
   return workoutAvailable[Math.floor(Math.random() * workoutAvailable.length)];
    
@@ -40,7 +40,7 @@ Workout.prototype.get = function(){
 	var self = this;
 
     return new Promise(function(resolve, reject) {
-       console.log("WORKOUT PROMISE", self._options);
+       //console.log("WORKOUT PROMISE", self._options);
         var req = https.get(self._options, function(res) {
             //console.log('Get Workout Method STATUS: ' + res.statusCode);
             res.setEncoding('utf8');
@@ -56,7 +56,7 @@ Workout.prototype.get = function(){
             res.on('end', function () {
                 console.log('WORKOUT BODY: ' + body);
                 try{
-                   resolve(JSON.parse(body));
+                    resolve(JSON.parse(body));
                  }catch(err){
                    reject(err);
                  }
@@ -97,7 +97,7 @@ Workout.prototype.postTracking = function(opts){
     };
 
     return new Promise( function (resolve, reject){
-      console.log("WORKOUT TRACKING PROMISE", post_options);
+      //console.log("WORKOUT TRACKING PROMISE", post_options);
         var req = https.request(post_options, function(res) {
           res.setEncoding('utf8');
           console.log('POST TRACKING STATUS: ' + res.statusCode);

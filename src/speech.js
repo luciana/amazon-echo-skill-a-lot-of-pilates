@@ -57,7 +57,6 @@ Speech.prototype.startOver = function(response){
  */
 Speech.prototype.teachClass = function (alopAPIResponse, response){
     var speechPoseOutput ="";
-    console.log("TEACH CLASS SPEECH");
     for(var i = 0; i < 1; i++){
         var pose = alopAPIResponse.poses[i];
         if( i === 0 ){
@@ -71,10 +70,7 @@ Speech.prototype.teachClass = function (alopAPIResponse, response){
         speechPoseOutput += this.exerciseTimings(pose);
     }
     speechPoseOutput += "You are all done! Hope you feel as great as me! Did you enjoy this class?";
-
-    console.log("Class Sequence Text: ", speechPoseOutput);
     var speechText ="<speak>" + speechPoseOutput + "</speak>";
-    
     var speechOutput = {
                 speech: speechText,
                 type: AlexaSkill.speechOutputType.SSML
@@ -134,8 +130,7 @@ Speech.prototype.exerciseTimings = function (pose){
             speechExerciseOutput += ".<break time=\"10s\" /> ";
         }else if (otherSuppotedPoses.indexOf(pose.id) > -1){
 
-        speechExerciseOutput +=  this.exerciseInfo(pose.id);
-        console.log("USED TO GET EXERCISE INFO");
+        speechExerciseOutput +=  this.exerciseInfo(pose.id);       
        
         }else{  //Generic timining   
             //console.log("Exercise duration " + pose.duration + " formatted " + getFormattedDuration(pose.duration));
@@ -212,25 +207,25 @@ Speech.prototype.trackDisplay = function(userTracking, response, data, intent) {
     
         var cardContent = speechText;
         var trackingIndex = userTracking.length-1;
-        console.log("TRACKING INDEX", trackingIndex);
-        var badgeText = "";
-        if (typeof userTracking[trackingIndex].badgeTitle != "undefined") {
-            var badgeTitle = "Feel Good"; //userTracking[trackingIndex].badgeTitle;
-            badgeText = "You earned a " + badgeText + " Badge.\n\n";
+        //console.log("TRACKING INDEX", trackingIndex);
+        if (typeof userTracking[trackingIndex] != "undefined") {
+            var badgeText = "";
+            // if (typeof userTracking[trackingIndex].badgeTitle != "undefined") {
+            //     var badgeTitle = userTracking[trackingIndex].badgeTitle;
+            //     badgeText = "You earned a " + badgeText + " Badge.\n\n";
+            // }
+            var yearCount = userTracking[trackingIndex].classCount;
+            var year = userTracking[trackingIndex].year;
+            var lineBreak = '\n\n----------------------\n\n';
+            var trackingText = lineBreak;
+            for (var i = 0; i < userTracking[trackingIndex].months.length; i++) {
+                var item = userTracking[trackingIndex].months[i];
+                trackingText += item.month + " : " + item.classCount + " classes taken.";
+                trackingText += lineBreak;
+            }
+                 
+            cardContent = badgeText + " You have taken " + yearCount + " classes in " + year + ". \r\nKeep track of your progress per month. \r\n" + trackingText +"\n \nVisit ALotOfPilates.com for many more classes and tracking calendar.";
         }
-        var yearCount = userTracking[trackingIndex].classCount;
-        var year = userTracking[trackingIndex].year;
-        var lineBreak = '\n\n----------------------\n\n';
-        var trackingText = lineBreak;
-        for (var i = 0; i < userTracking[trackingIndex].months.length; i++) {
-            var item = userTracking[trackingIndex].months[i];
-            trackingText += item.month + " : " + item.classCount + " classes taken.";
-            trackingText += lineBreak;
-        }
-             
-        cardContent = "You earned a " + badgeText + " Badge.\n\n You have taken " + yearCount + " classes in " + year + ". \r\nKeep track of your progress per month. \r\n" + trackingText +"\n \nVisit ALotOfPilates.com for many more classes and tracking calendar.";
-
-
         response.tellWithCard(speechText,"A Lot Of Pilates Class", cardContent, "https://s3.amazonaws.com/s3-us-studio-resources-output/images/Hundred.gif");
     }
 };

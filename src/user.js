@@ -17,9 +17,9 @@ var User = function(token){
 User.prototype.get = function(){
 	var self = this;
     return new Promise(function(resolve, reject) {
-       console.log("USER PROMISE", self._options);
+      // console.log("USER PROMISE", self._options);
         var req = https.get(self._options, function(res) {
-            console.log('Get User Method STATUS: ' + res.statusCode);
+            console.log('GET USER STATUS: ' + res.statusCode);
             res.setEncoding('utf8');
             
             if (res.statusCode < 200 || res.statusCode > 299) {
@@ -31,7 +31,13 @@ User.prototype.get = function(){
                 body.push(data);
             });
             res.on('end', function () {
-                resolve(JSON.parse(body));
+              try{
+                  a=JSON.parse(body);
+              }catch(e){
+                  console.log("ERROR User get response",e);
+                  a = {};
+              }
+              resolve(a);
             });
         });
         req.on('error', function (err) {

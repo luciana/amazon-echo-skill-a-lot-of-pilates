@@ -173,7 +173,6 @@ Response.prototype = (function () {
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: speechOutput,
-                //shouldEndSession: true
                 shouldEndSession: false
             }));
         },
@@ -199,7 +198,7 @@ Response.prototype = (function () {
            this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: speechOutput,
-                linkAccount: true,           
+                linkAccount: true,
                shouldEndSession: true
             }));
         },

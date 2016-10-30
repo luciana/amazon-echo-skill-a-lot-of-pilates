@@ -1,12 +1,12 @@
-var Speech = require('./speech')
+var Speech = require('./speech'),
     Workout = require('./workout');
 
 var Handler = function (){};
 
 Handler.prototype.initialize = function (session, data){
     session.attributes.stage = 0;
-    if (typeof data != "undefined") {
-        console.log("USER DATA ", data);
+    console.log("USER DATA ", data);
+    if ((typeof data != "undefined") || (Object.keys(data).length !== 0) ){
         session.attributes.userId = data.id;
         session.attributes.userName = data.name;
         session.attributes.signInCount = data.sign_in_count;
@@ -88,7 +88,7 @@ Handler.prototype.oneShotAction = function (workout, session, response) {
     if(!session.user.accessToken) {
             Speech.accountSetupError(response);
     } else {
-        if( typeof session.attributes.userId == "undefined"){                 
+        if( typeof session.attributes.userId == "undefined"){
             user.get()                  
                 .then((data) => this.initialize(session, data))
                 .catch((err) => Speech.userAccountError(response))
@@ -114,7 +114,8 @@ Handler.prototype.yesAction = function (workout, intent, session, response) {
 	if (session.attributes.stage == 1) {
 		this.exit(intent, session, response, workout);
 	}else{
-		this.oneShotAction(workout, session, response);
+		//this.oneShotAction(workout, session, response);
+        workout.getSequence(response, session);
 	}
 };
 
@@ -165,7 +166,7 @@ Handler.prototype.formatUserTracking = function (data){
             var workoutDate = new Date(item.created_at);
 
             var workoutYear = workoutDate.getFullYear();
-            var workoutMonth = months[workoutDate.getMonth()];           
+            var workoutMonth = months[workoutDate.getMonth()];
             trackingYearObject.year = workoutYear;
 
             if ((prevYear === '') || (prevYear == workoutYear)){

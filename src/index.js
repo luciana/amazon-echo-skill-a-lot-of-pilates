@@ -44,9 +44,11 @@ ALotOfPilates.prototype.constructor = ALotOfPilates;
 
 ALotOfPilates.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
     console.log("onSessionStarted requestId: " + sessionStartedRequest.requestId + ", sessionId: " + session.sessionId + ", token: " + session.user.accessToken);
-    console.log("session.user.accessToken" , session.user.accessToken);
+    console.log("onSessionStarted session.user.accessToken" , session.user.accessToken);
     user = new User(session.user.accessToken);
+    console.log("onSessionStarted user" , user);
     workout = new Workout(session.user.accessToken);
+    console.log("onSessionStarted workout" , workout);
 };
 
 ALotOfPilates.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
