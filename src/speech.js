@@ -218,12 +218,12 @@ Speech.prototype.trackDisplay = function(userTracking, response, data, intent) {
             var badgeTitle = "Feel Good"; //userTracking[trackingIndex].badgeTitle;
             badgeText = "You earned a " + badgeText + " Badge.\n\n";
         }
-        var yearCount = userTracking[0].classCount;
-        var year = userTracking[0].year;
+        var yearCount = userTracking[trackingIndex].classCount;
+        var year = userTracking[trackingIndex].year;
         var lineBreak = '\n\n----------------------\n\n';
         var trackingText = lineBreak;
-        for (var i = 0; i < userTracking[0].months.length; i++) {
-            var item = userTracking[0].months[i];
+        for (var i = 0; i < userTracking[trackingIndex].months.length; i++) {
+            var item = userTracking[trackingIndex].months[i];
             trackingText += item.month + " : " + item.classCount + " classes taken.";
             trackingText += lineBreak;
         }

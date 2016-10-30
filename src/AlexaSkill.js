@@ -181,7 +181,7 @@ Response.prototype = (function () {
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: speechOutput,
-                shouldEndSession: true
+                shouldEndSession: true //turning this into FALSE caused a problem
             }));
         },
         tellWithCard: function (speechOutput, cardTitle, cardContent, cardImageUrl) {
