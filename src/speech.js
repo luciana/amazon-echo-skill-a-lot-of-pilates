@@ -209,18 +209,28 @@ Speech.prototype.trackDisplay = function(userTracking, response, data, intent) {
         if (intent.name == 'AMAZON.NoIntent') {
             speechText = "I am sorry to hear you did not like this class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
         }
-
+    
+        var cardContent = speechText;
+        var trackingIndex = userTracking.length-1;
+        console.log("TRACKING INDEX", trackingIndex);
+        var badgeText = "";
+        if (typeof userTracking[trackingIndex].badgeTitle != "undefined") {
+            var badgeTitle = "Feel Good"; //userTracking[trackingIndex].badgeTitle;
+            badgeText = "You earned a " + badgeText + " Badge.\n\n";
+        }
         var yearCount = userTracking[0].classCount;
         var year = userTracking[0].year;
         var lineBreak = '\n\n----------------------\n\n';
         var trackingText = lineBreak;
         for (var i = 0; i < userTracking[0].months.length; i++) {
             var item = userTracking[0].months[i];
-            trackingText += item.month + " : " + item.classCount;
+            trackingText += item.month + " : " + item.classCount + " classes taken.";
             trackingText += lineBreak;
         }
              
-        var cardContent = "You earned a Newbie Badge.\n\n You have taken " + yearCount + " classes in " + year + ". Keep track of your progress per month. \n\n" + trackingText +"\n \nVisit ALotOfPilates.com for many more classes";
+        cardContent = "You earned a " + badgeText + " Badge.\n\n You have taken " + yearCount + " classes in " + year + ". \r\nKeep track of your progress per month. \r\n" + trackingText +"\n \nVisit ALotOfPilates.com for many more classes and tracking calendar.";
+
+
         response.tellWithCard(speechText,"A Lot Of Pilates Class", cardContent, "https://s3.amazonaws.com/s3-us-studio-resources-output/images/Hundred.gif");
     }
 };

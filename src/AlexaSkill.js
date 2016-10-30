@@ -153,8 +153,8 @@ Response.prototype = (function () {
                 title: options.cardTitle,
                 text: options.cardContent,
                 image: {
-                    smallImageUrl:"https://s3.amazonaws.com/s3-us-alexa-resources/alexa-small-sample.jpeg",
-                    largeImageUrl:"https://s3.amazonaws.com/s3-us-alexa-resources/alexa-large-sample.png"
+                    smallImageUrl:"https://s3.amazonaws.com/s3-us-alexa-resources/alotofpilates_720_480.png",
+                    largeImageUrl:"https://s3.amazonaws.com/s3-us-alexa-resources/alotofpilates_1200_800.png"
                 }
             };
         }
@@ -181,7 +181,7 @@ Response.prototype = (function () {
             this._context.succeed(buildSpeechletResponse({
                 session: this._session,
                 output: speechOutput,
-                shouldEndSession: false
+                shouldEndSession: true
             }));
         },
         tellWithCard: function (speechOutput, cardTitle, cardContent, cardImageUrl) {

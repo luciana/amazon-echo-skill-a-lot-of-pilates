@@ -1,4 +1,4 @@
-var Speech = require('./speech'),
+var Speech = require('./speech')
     Workout = require('./workout');
 
 var Handler = function (){};
@@ -13,65 +13,7 @@ Handler.prototype.initialize = function (session, data){
         session.attributes.userEmail = data.email;
         session.attributes.workoutTakenCount = data.workouts_taken.length;
         session.attributes.workoutTaken= data.workouts_taken;
-
-        var trackingYearArray = [];
-        var trackingYearObject = {};
-        trackingYearObject.classCount = 0;
-        trackingYearObject.year = '';
-        trackingYearObject.months = [];
-        var prevYear = '';
-        var prevMonth = '';
-
-        var trackingMonthArray = [];
-        var trackingMonthObject = {};
-        trackingMonthObject.month = '';
-        trackingMonthObject.classCount = 0;
-        
-        var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-
-
-        for (var i = 0; i < data.workouts_taken.length; i++) {
-            var item = data.workouts_taken[i];
-            var workoutDate = new Date(item.created_at);
-
-            var workoutYear = workoutDate.getFullYear();
-            var workoutMonth = months[workoutDate.getMonth()];
-            console.log("MONTH", workoutMonth);
-
-            trackingYearObject.year = workoutYear;
-
-            if ((prevYear === '') || (prevYear == workoutYear)){
-                 trackingYearObject.classCount += 1;
-                 trackingMonthObject.year = workoutYear;
-                 if ((prevMonth === '') || (prevMonth == workoutMonth)){
-                    trackingMonthObject.classCount += 1;
-                    trackingMonthObject.month = workoutMonth;
-                 }else {
-                    trackingMonthArray.push(trackingMonthObject);
-                    //Reset
-                    trackingMonthObject = {};
-                    trackingMonthObject.classCount = 1;
-                    trackingYearObject.months = trackingMonthArray;
-                 }
-                 prevMonth = workoutMonth;
-            }else{
-                trackingYearObject.classCount = 0;
-                trackingYearArray.push(trackingYearObject);
-                //Reset
-                trackingYearObject = {};
-                trackingYearObject.classCount = 1;
-                trackingYearObject = trackingYearArray;
-            }
-            prevYear = workoutYear;
-        }
-    
-        trackingMonthArray.push(trackingMonthObject);
-        console.log("TRACKING Month ARRAY ", trackingMonthArray);
-
-        trackingYearArray.push(trackingYearObject);
-        console.log("TRACKING YEAR ARRAY ", trackingYearArray);
-
-        session.attributes.workoutTracking = trackingYearArray;
+        session.attributes.workoutTracking = this.formatUserTracking(data);
     }
     this.writeToConsole("Session attributes Initialized User Id:", session);
     return session;
@@ -128,9 +70,9 @@ Handler.prototype.startUp = function (response, session){
 Handler.prototype.launchAction = function (user, session, response) {
 	if(!session.user.accessToken) {
         Speech.accountSetupError(response);
-    } else {
-        user.get()
-            .then((data) => this.initialize(session, data))
+    } else {       
+        user.get()            
+            .then((data) => this.initialize(session, data)) 
             .then((session) => this.startUp(response, session))
             .catch((err) => Speech.userAccountError(response));
     }
@@ -142,12 +84,12 @@ Handler.prototype.launchAction = function (user, session, response) {
  * If there is an error in a slot, this will guide the user to the dialog approach.
  */
 Handler.prototype.oneShotAction = function (workout, session, response) {
-    session.attributes.stage = 0;   
+    session.attributes.stage = 0;
     if(!session.user.accessToken) {
             Speech.accountSetupError(response);
     } else {
-        if( typeof session.attributes.userId == "undefined"){                      
-            user.get()               
+        if( typeof session.attributes.userId == "undefined"){                 
+            user.get()                  
                 .then((data) => this.initialize(session, data))
                 .catch((err) => Speech.userAccountError(response))
                 .then((session) => workout.getSequence(response, session));
@@ -199,14 +141,102 @@ Handler.prototype.exit = function (intent, session, response, workout){
     }
 };
 
+Handler.prototype.formatUserTracking = function (data){
+
+        var trackingYearArray = [];
+        var trackingYearObject = {};
+        trackingYearObject.classCount = 0;
+        var workoutCount = data.workouts_taken.length;
+        trackingYearObject.badgeTitle = this.getBadge(workoutCount);
+        trackingYearObject.year = '';
+        trackingYearObject.months = [];
+        var prevYear = '';
+        var prevMonth = '';
+
+        var trackingMonthArray = [];
+        var trackingMonthObject = {};
+        trackingMonthObject.month = '';
+        trackingMonthObject.classCount = 0;
+        
+        var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+
+        for (var i = 0; i < workoutCount; i++) {
+            var item = data.workouts_taken[i];
+            var workoutDate = new Date(item.created_at);
+
+            var workoutYear = workoutDate.getFullYear();
+            var workoutMonth = months[workoutDate.getMonth()];           
+            trackingYearObject.year = workoutYear;
+
+            if ((prevYear === '') || (prevYear == workoutYear)){
+                 trackingYearObject.classCount += 1;
+                 trackingMonthObject.year = workoutYear;
+                 if ((prevMonth === '') || (prevMonth == workoutMonth)){
+                    trackingMonthObject.classCount += 1;
+                    trackingMonthObject.month = workoutMonth;
+                 }else {
+                    trackingMonthArray.push(trackingMonthObject);
+                    //Reset
+                    trackingMonthObject = {};
+                    trackingMonthObject.classCount = 1;
+                    trackingYearObject.months = trackingMonthArray;
+                 }
+                 prevMonth = workoutMonth;
+            }else{
+                trackingYearObject.classCount = 0;
+                trackingYearArray.push(trackingYearObject);
+                //Reset
+                trackingYearObject = {};
+                trackingYearObject.classCount = 1;
+                trackingYearObject = trackingYearArray;
+            }
+            prevYear = workoutYear;
+        }
+    
+        trackingMonthArray.push(trackingMonthObject);
+        //console.log("TRACKING Month ARRAY ", trackingMonthArray);
+
+        trackingYearArray.push(trackingYearObject);
+        //console.log("TRACKING YEAR ARRAY ", trackingYearArray);
+
+        return trackingYearArray;
+
+};
+
+Handler.prototype.getBadge = function (count) {
+    console.log("BADGE COUNT ", count);
+    var badge = "A Lot of Pilates!";
+
+    if (count > 0 && count < 5){
+      badge = "Newbie";
+    } else if (count > 6 && count < 10){
+        badge =  "Warmed Up";
+    } else if (count > 11 && count < 30){
+        badge =  "Feel Good";
+    } else if (count > 31 && count < 60){
+        badge =  "Up and Over";
+    } else if (count > 61 && count < 99){
+        badge = "Feel Great";
+    } else if (count >100 && count < 150){
+        badge = "New Body";
+    } else if (count > 151 && count < 200){
+        badge = "Fit Body";
+    } else if (count > 201 && count < 300){
+        badge =  "Core Stability";
+    }
+
+    return "badge";
+};
+
+
 Handler.prototype.writeToConsole = function (message, session){
 	console.log(message, session.attributes.userId +
         " User Name:" + session.attributes.userName +
         " User Email:" + session.attributes.userEmail +
         " User Signed In " + session.attributes.signInCount +
         " Workout Taken Count " + session.attributes.workoutTakenCount +
-        " Workout Id: " + session.attributes.workoutId) +
-        " Workout User Tracking: " + session.attributes.workoutTracking;
+        " Workout Id: " + session.attributes.workoutId +
+        " Workout User Tracking: " + session.attributes.workoutTracking);
 };
 
 module.exports = new Handler();
