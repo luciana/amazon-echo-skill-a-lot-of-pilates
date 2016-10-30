@@ -30,7 +30,7 @@ Workout.prototype.startClass = function(alopAPIResponse, response, session){
 
 
 Workout.prototype.getId = function(){
-  var workoutAvailable = [530]; // having a problem with 94, 638 663 122 109 680
+  var workoutAvailable = [530, 124]; // having a problem with 638 663 122 109 680
   //DEBUG: var workoutAvailable = [530];
   return workoutAvailable[Math.floor(Math.random() * workoutAvailable.length)];
    
