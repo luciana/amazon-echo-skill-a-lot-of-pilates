@@ -194,6 +194,16 @@ Response.prototype = (function () {
                 //shouldEndSession: false
             }));
         },
+        tellWithCardWithStop: function (speechOutput, cardTitle, cardContent, cardImageUrl) {
+            this._context.succeed(buildSpeechletResponse({
+                session: this._session,
+                output: speechOutput,
+                cardTitle: cardTitle,
+                cardContent: cardContent,
+                cardImageUrl: cardImageUrl,
+                shouldEndSession: true
+            }));
+        },
         tellWithLinkAccount: function (speechOutput) {
            this._context.succeed(buildSpeechletResponse({
                 session: this._session,

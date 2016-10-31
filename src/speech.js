@@ -10,29 +10,36 @@ var Speech = function (){};
 Speech.prototype.welcome = function(options, response){
 //You can now keep track of you pilates exercises.
 
-  var speechOutput = {
+    if ( !options ){
+        options.welcomeText = "";
+        options.workoutTakenText ="";
+        options.welcomebacktext ="";
+    }
+
+    var speechOutput = {
         speech: "<speak>Welcome " + options.welcomeText  +
         "<break time=\"0.1s\" /> " +
         " to A Lot Of Pilates. " +
-        ".<break time=\"0.7s\" /> " +
+        ".<break time=\"0.5s\" /> " +
         options.workoutTakenText +
-        ".<break time=\"1s\" /> " +
+        ".<break time=\"0.3s\" /> " +
         "Get your mat ready on the floor " + options.welcomebacktext  +
         ".<break time=\"1s\" /> " +
         "Are you ready to start the class?" +
         "</speak>",
         type: AlexaSkill.speechOutputType.SSML
     },
-  repromptOutput = {
-      speech:  "<speak> I can lead you through a pilates sequence " +
-      "<break time=\"0.2s\" /> " +
-      " You can also "+
-      " visit ALotOfPilates.com and take a video instructed class. " +
-      ".<break time=\"0.7s\" /> " +
-      "Just say start class when ready. Should I start?" +
-      "</speak>",
-      type: AlexaSkill.speechOutputType.SSML
-  };
+    repromptOutput = {
+        speech:  "<speak> I can lead you through a pilates sequence " +
+        "<break time=\"0.2s\" /> " +
+        " You can also "+
+        " visit ALotOfPilates.com and take a video instructed class. " +
+        ".<break time=\"0.7s\" /> " +
+        "Just say start class when ready. Should I start?" +
+        "</speak>",
+        type: AlexaSkill.speechOutputType.SSML
+    };
+
 
   response.ask(speechOutput, repromptOutput);
 };
@@ -56,6 +63,7 @@ Speech.prototype.startOver = function(response){
  * At this point, the user is at stage 1 of the session.
  */
 Speech.prototype.teachClass = function (alopAPIResponse, response){
+    console.error("TEACH CLASS");
     var speechPoseOutput ="";
     for(var i = 0; i < 1; i++){
         var pose = alopAPIResponse.poses[i];
@@ -197,6 +205,22 @@ Speech.prototype.cancelClass = function (response) {
         response.tellWithStop(speechOutput);
 };
 
+Speech.prototype.trackDisplay1 = function(data, response, intent) {
+    console.log("trackDisplay1 data");
+
+    //todo data can be nil
+     if ((response != "undefined") || (response)){
+        var speechText = "I am glad you liked the class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
+
+        if (intent.name == 'AMAZON.NoIntent') {
+            speechText = "I am sorry to hear you did not like this class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
+        }
+    
+        var cardContent = speechText;
+        response.tellWithCardWithStop(speechText,"A Lot Of Pilates Class", cardContent, "https://s3.amazonaws.com/s3-us-studio-resources-output/images/Hundred.gif");
+    }
+};
+
 Speech.prototype.trackDisplay = function(userTracking, response, data, intent) {
     if ((response != "undefined") || (response)){
         var speechText = "I am glad you liked the class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
@@ -249,9 +273,16 @@ Speech.prototype.startClassError = function(response){
                 speech:"Sorry, the A Lot Of Pilates service is experiencing a problem. Please access ALotOfPilates.com to take a class.",
                 type: AlexaSkill.speechOutputType.PLAIN_TEXT
             };
-    response.tell(speechOutput);
+    response.tellWithStop(speechOutput);
 };
 
+Speech.prototype.startClassError1 = function(response){
+    var speechOutput = {
+                speech:"Sorry, an error occur retrieving a pilates class. Please access ALotOfPilates.com to take a class.",
+                type: AlexaSkill.speechOutputType.PLAIN_TEXT
+            };
+    response.tellWithStop(speechOutput);
+};
 
 
 module.exports = new Speech();

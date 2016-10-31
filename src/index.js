@@ -46,6 +46,8 @@ ALotOfPilates.prototype.eventHandlers.onSessionStarted = function (sessionStarte
     console.log("onSessionStarted requestId: " + sessionStartedRequest.requestId + ", sessionId: " + session.sessionId + ", token: " + session.user.accessToken);
     console.log("onSessionStarted session.user.accessToken" , session.user.accessToken);
     user = new User(session.user.accessToken);
+    user.token = session.user.accessToken;
+    user.deviceId = session.user.userId;
     console.log("onSessionStarted user" , user);
     workout = new Workout(session.user.accessToken);
     console.log("onSessionStarted workout" , workout);
@@ -67,7 +69,7 @@ ALotOfPilates.prototype.eventHandlers.onSessionEnded = function (sessionEndedReq
  */
 ALotOfPilates.prototype.intentHandlers = {
     "OneshotStartPilatesClassIntent": function (intent, session, response) {
-        Handler.oneShotAction(workout, session, response);
+        Handler.oneShotAction(user, workout, session, response);
     },
 
     "AMAZON.StartOverIntent": function (intent, session, response) {
@@ -79,11 +81,11 @@ ALotOfPilates.prototype.intentHandlers = {
     },
 
     "AMAZON.NoIntent": function (intent, session, response) {
-        Handler.noAction(workout, intent, session, response);
+        Handler.noAction(user, workout, intent, session, response);
     },
 
     "AMAZON.YesIntent": function (intent, session, response) {
-        Handler.yesAction(workout, intent, session, response);
+        Handler.yesAction(user, workout, intent, session, response);
     },
 
     "AMAZON.HelpIntent": function (intent, session, response) {

@@ -2,6 +2,13 @@ var config = require('./config'),
 	https = require('https');
 
 var User = function(token){
+  this.id = 0;
+  this.name = "";
+  this.email ="";
+  this.token = token;
+  this.deviceId = "";
+  this.signInCount = 0;
+  this.workoutTakenCount = 0;
 	this._options = {
       hostname: config.host_name,
       path: '/api/v3/users',
@@ -35,8 +42,9 @@ User.prototype.get = function(){
                   a=JSON.parse(body);
               }catch(e){
                   console.log("ERROR User get response",e);
-                  a = {};
+                  a = [];
               }
+              this.hasUser = true;
               resolve(a);
             });
         });
