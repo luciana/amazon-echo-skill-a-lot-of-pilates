@@ -15,30 +15,18 @@ Handler.prototype.initialize = function (user, session, data){
     if ((typeof data != "undefined") || (Object.keys(data).length !== 0) ){
         try{
             this.hasUser = true;
-            // session.attributes.userId = data.id;
-            // session.attributes.userName = data.name;
-            // session.attributes.signInCount = data.sign_in_count;
-            // session.attributes.userEmail = data.email;
-            // session.attributes.workoutTakenCount = data.workouts_taken.length;
-            // initData.userId = data.id;
-            // initData.userName = data.name;
-            // initData.signInCount = data.sign_in_count;
-            // initData.userEmail = data.email;
-            // initData.workoutTakenCount = data.workouts_taken.length;
             user.id = data.id;
             user.name = data.name;
             user.email = data.email;
             user.signInCount = data.sign_in_count;
             user.workoutTakenCount = data.workouts_taken.length;
-            //session.attributes.workoutTaken= data.workouts_taken;
-            //session.attributes.workoutTracking = this.formatUserTracking(data);
-            //this.writeToConsole("Session attributes Initialized User Id:", session);
         }catch(e){
             this.hasUser = false;
             console.log("ERROR INITIALIZING SESSION DATA");
         }
     }
-     console.log("USER OBJECT  ", user);
+     console.log("INITIALIZE USER OBJECT  ", user);
+     console.log("HAS USER ", this.hasUser);
     return user;
 };
 
@@ -140,11 +128,9 @@ Handler.prototype.noAction = function (user, workout, intent, session, response)
 
 
 Handler.prototype.yesAction = function (user, workout, intent, session, response) {
-	if (session.attributes.stage == 1) {
-         console.error("YES ACTION EXIT");
+	if (session.attributes.stage == 1) {       
 		this.exit(user, workout, intent, session, response);
-	}else{
-        console.error("YES ACTION workout.getSequence");
+	}else{       
         workout.getSequence(response, session);
 	}
 };
@@ -156,7 +142,7 @@ Handler.prototype.yesAction = function (user, workout, intent, session, response
 Handler.prototype.exit = function (user, workout, intent, session, response){
     if(session.attributes.stage === 1) {
         console.log("USER IS SET", user);
-        if (user.hasUser) {
+        if (this.hasUser) {
             try{
             var workout_options = {
                 "userId": user.id,
@@ -165,17 +151,17 @@ Handler.prototype.exit = function (user, workout, intent, session, response){
                 "workoutId":workout.id,
                 "deviceId": user.deviceId
             };
-            console.error("EXIT HAS USER OPTIONS", workouts_options);
+            console.error("EXIT HAS USER OPTIONS", workout_options);
             workout.postTracking(workout_options)
                 .then(()=> workout.getTrackings(session.user.accessToken))
-                .then((data) => Speech.trackDisplay1(this.formatUserTracking1(data), response, intent))
+                .then((data) => Speech.trackDisplay(this.formatUserTracking(data), response, intent))
                 .catch((err) => console.error("ERR",err));
             }catch(e){
                 console.error("ERROR EXITING SKILL",e);
             }
         }else{
             console.error("USER NOT AVAILALABLE TO LOG TRACKING");
-            Speech.trackDisplay1({}, response, intent);
+            Speech.trackDisplay({}, response, intent);
         }
     }else{
         console.log("nothing to do");
@@ -185,9 +171,16 @@ Handler.prototype.exit = function (user, workout, intent, session, response){
     
 };
 
-Handler.prototype.formatUserTracking1 = function (data){
- //{ id: 662, workout_id: 530, created_at: '2016-10-30 22:57:30 UTC' }
-        var workoutCount = data.length;
+Handler.prototype.formatUserTracking = function (data){
+
+  if(data){
+      console.log("TRACING USER GET DATA", data);
+      console.log("TRACING USER GET DATA LENGTH", data.length);
+  b = JSON.stringify(data);
+  console.log("TRACING USER GET DATA STRING", b);
+  a = JSON.parse(b);
+  console.log("TRACING USER GET DATA JSON", a);
+        var workoutCount = a.length;
 
         var trackingYearArray = [];
         
@@ -249,70 +242,79 @@ Handler.prototype.formatUserTracking1 = function (data){
         console.log("TRACKING YEAR ARRAY ");
 
         return trackingYearArray;
+} else {
+     return [];
+}
 };
 
 
-Handler.prototype.formatUserTracking = function (data){
- //{ id: 662, workout_id: 530, created_at: '2016-10-30 22:57:30 UTC' }
-        var trackingYearArray = [];
-        var trackingYearObject = {};
-        trackingYearObject.classCount = 0;
-        var workoutCount = data.workouts_taken.length;
-        trackingYearObject.badgeTitle = this.getBadge(workoutCount);
-        trackingYearObject.year = '';
-        trackingYearObject.months = [];
-        var prevYear = '';
-        var prevMonth = '';
+// Handler.prototype.formatUserTracking = function (data){
 
-        var trackingMonthArray = [];
-        var trackingMonthObject = {};
-        trackingMonthObject.month = '';
-        trackingMonthObject.classCount = 0;
+//       console.log("TRACING USER GET DATA", data);
+//   b = JSON.stringify(data);
+//   console.log("TRACING USER GET DATA STRING", b);
+//   a = JSON.parse(b);
+//   console.log("TRACING USER GET DATA JSON", a);
+
+//         var trackingYearArray = [];
+//         var trackingYearObject = {};
+//         trackingYearObject.classCount = 0;
+//         var workoutCount = data.workouts_taken.length;
+//         trackingYearObject.badgeTitle = this.getBadge(workoutCount);
+//         trackingYearObject.year = '';
+//         trackingYearObject.months = [];
+//         var prevYear = '';
+//         var prevMonth = '';
+
+//         var trackingMonthArray = [];
+//         var trackingMonthObject = {};
+//         trackingMonthObject.month = '';
+//         trackingMonthObject.classCount = 0;
         
-        var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+//         var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 
-        for (var i = 0; i < workoutCount; i++) {
-            var item = data.workouts_taken[i];
-            var workoutDate = new Date(item.created_at);
+//         for (var i = 0; i < workoutCount; i++) {
+//             var item = data.workouts_taken[i];
+//             var workoutDate = new Date(item.created_at);
 
-            var workoutYear = workoutDate.getFullYear();
-            var workoutMonth = months[workoutDate.getMonth()];
-            trackingYearObject.year = workoutYear;
+//             var workoutYear = workoutDate.getFullYear();
+//             var workoutMonth = months[workoutDate.getMonth()];
+//             trackingYearObject.year = workoutYear;
 
-            if ((prevYear === '') || (prevYear == workoutYear)){
-                 trackingYearObject.classCount += 1;
-                 trackingMonthObject.year = workoutYear;
-                 if ((prevMonth === '') || (prevMonth == workoutMonth)){
-                    trackingMonthObject.classCount += 1;
-                    trackingMonthObject.month = workoutMonth;
-                 }else {
-                    trackingMonthArray.push(trackingMonthObject);
-                    //Reset
-                    trackingMonthObject = {};
-                    trackingMonthObject.classCount = 1;
-                    trackingYearObject.months = trackingMonthArray;
-                 }
-                 prevMonth = workoutMonth;
-            }else{
-                trackingYearObject.classCount = 0;
-                trackingYearArray.push(trackingYearObject);
-                //Reset
-                trackingYearObject = {};
-                trackingYearObject.classCount = 1;
-                trackingYearObject = trackingYearArray;
-            }
-            prevYear = workoutYear;
-        }
+//             if ((prevYear === '') || (prevYear == workoutYear)){
+//                  trackingYearObject.classCount += 1;
+//                  trackingMonthObject.year = workoutYear;
+//                  if ((prevMonth === '') || (prevMonth == workoutMonth)){
+//                     trackingMonthObject.classCount += 1;
+//                     trackingMonthObject.month = workoutMonth;
+//                  }else {
+//                     trackingMonthArray.push(trackingMonthObject);
+//                     //Reset
+//                     trackingMonthObject = {};
+//                     trackingMonthObject.classCount = 1;
+//                     trackingYearObject.months = trackingMonthArray;
+//                  }
+//                  prevMonth = workoutMonth;
+//             }else{
+//                 trackingYearObject.classCount = 0;
+//                 trackingYearArray.push(trackingYearObject);
+//                 //Reset
+//                 trackingYearObject = {};
+//                 trackingYearObject.classCount = 1;
+//                 trackingYearObject = trackingYearArray;
+//             }
+//             prevYear = workoutYear;
+//         }
     
-        trackingMonthArray.push(trackingMonthObject);
-        //console.log("TRACKING Month ARRAY ", trackingMonthArray);
+//         trackingMonthArray.push(trackingMonthObject);
+//         //console.log("TRACKING Month ARRAY ", trackingMonthArray);
 
-        trackingYearArray.push(trackingYearObject);
-        //console.log("TRACKING YEAR ARRAY ", trackingYearArray);
+//         trackingYearArray.push(trackingYearObject);
+//         //console.log("TRACKING YEAR ARRAY ", trackingYearArray);
 
-        return trackingYearArray;
+//         return trackingYearArray;
 
-};
+// };
 
 Handler.prototype.getBadge = function (count) {
     console.log("BADGE COUNT ", count);
