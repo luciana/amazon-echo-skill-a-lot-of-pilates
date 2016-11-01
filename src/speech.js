@@ -63,9 +63,9 @@ Speech.prototype.startOver = function(response){
  * At this point, the user is at stage 1 of the session.
  */
 Speech.prototype.teachClass = function (alopAPIResponse, response){
-    console.error("TEACH CLASS");
+    console.error("TEACH CLASS " , alopAPIResponse.poses.length);
     var speechPoseOutput ="";
-    for(var i = 0; i < 1; i++){
+    for(var i = 0; i <  alopAPIResponse.poses.length; i++){
         var pose = alopAPIResponse.poses[i];
         if( i === 0 ){
             speechPoseOutput += "Get ready on your mat for the " + pose.name;
@@ -244,38 +244,6 @@ Speech.prototype.trackDisplay = function(data, response, intent) {
     }
 };
 
-// Speech.prototype.trackDisplay = function(userTracking, response, data, intent) {
-//     if ((response != "undefined") || (response)){
-//         var speechText = "I am glad you liked the class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
-
-//         if (intent.name == 'AMAZON.NoIntent') {
-//             speechText = "I am sorry to hear you did not like this class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
-//         }
-    
-//         var cardContent = speechText;
-//         var trackingIndex = userTracking.length-1;
-//         //console.log("TRACKING INDEX", trackingIndex);
-//         if (typeof userTracking[trackingIndex] != "undefined") {
-//             var badgeText = "";
-//             // if (typeof userTracking[trackingIndex].badgeTitle != "undefined") {
-//             //     var badgeTitle = userTracking[trackingIndex].badgeTitle;
-//             //     badgeText = "You earned a " + badgeText + " Badge.\n\n";
-//             // }
-//             var yearCount = userTracking[trackingIndex].classCount;
-//             var year = userTracking[trackingIndex].year;
-//             var lineBreak = '\n\n----------------------\n\n';
-//             var trackingText = lineBreak;
-//             for (var i = 0; i < userTracking[trackingIndex].months.length; i++) {
-//                 var item = userTracking[trackingIndex].months[i];
-//                 trackingText += item.month + " : " + item.classCount + " classes taken.";
-//                 trackingText += lineBreak;
-//             }
-                 
-//             cardContent = badgeText + " You have taken " + yearCount + " classes in " + year + ". \r\nKeep track of your progress per month. \r\n" + trackingText +"\n \nVisit ALotOfPilates.com for many more classes and tracking calendar.";
-//         }
-//         response.tellWithCard(speechText,"A Lot Of Pilates Class", cardContent, "https://s3.amazonaws.com/s3-us-studio-resources-output/images/Hundred.gif");
-//     }
-// };
 
 /************ ERROR Speech **************/
 Speech.prototype.accountSetupError = function (response){
@@ -296,15 +264,8 @@ Speech.prototype.userAccountError = function(response){
     response.tellWithLinkAccount(speechOutput);
 };
 
-Speech.prototype.startClassError = function(response){
-    var speechOutput = {
-                speech:"Sorry, the A Lot Of Pilates service is experiencing a problem. Please access ALotOfPilates.com to take a class.",
-                type: AlexaSkill.speechOutputType.PLAIN_TEXT
-            };
-    response.tellWithStop(speechOutput);
-};
 
-Speech.prototype.startClassError1 = function(response, err){
+Speech.prototype.startClassError = function(response, err){
     console.log("ERROR WORKOUT GET SEQUENCE", err);
     var speechOutput = {
                 speech:"Sorry, an error occur retrieving a pilates class. Please access ALotOfPilates.com to take a class.",

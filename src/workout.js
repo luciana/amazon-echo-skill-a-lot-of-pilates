@@ -19,7 +19,7 @@ var Workout = function(token){
 };
 
 Workout.prototype.getId = function(){
-  var workoutAvailable = [530]; // having a problem with 638 663 122 109 680
+  var workoutAvailable = [530, 124]; // having a problem with 638 663 122 109 680
   //DEBUG: var workoutAvailable = [530];
   return workoutAvailable[Math.floor(Math.random() * workoutAvailable.length)];
    
@@ -55,21 +55,12 @@ Workout.prototype.getSequence = function(response, session) {
     console.log("WORKOUT GET SEQUENCE FOR", this.id);
     this.get()
         .then((data) => this.startClass(data, response, session))
-        .catch((err) => Speech.startClassError1(response, err));
+        .catch((err) => Speech.startClassError(response, err));
        //.catch((err) => console.log("ERROR WORKOUT GET SEQUENCE", err));
 };
 
 Workout.prototype.startClass = function(data, response, session){
-  // console.log("START CLASS DATA.POSES", data.poses);
-  // b = JSON.stringify(data);
-  // console.log("START CLASS DATA STRING", b);
-  // console.log("START CLASS DATA STRING.POSES", b.poses);
-  // a = JSON.parse(b);
-  // console.log("START CLASS DATA JSON", a);
-  // console.log("START CLASS DATA JSON POSES", a.poses);
-
   if((data ) &&  (data.poses.length > 0)){
-    console.log("START CLASS");
     session.attributes.stage = 1;
     Speech.teachClass(data, response);
   }else{
@@ -121,27 +112,6 @@ Workout.prototype.postTracking = function(opts){
             resolve(body);
           }
       });
-        // var req = https.request(post_options, function(res) {
-        //   res.setEncoding('utf8');
-        //   console.log('POST TRACKING STATUS: ' + res.statusCode);
-        //   if (res.statusCode < 200 || res.statusCode > 299) {
-        //       reject(new Error('Failed to load page, status code: ' + res.statusCode));
-        //   }
-        //   var body = [];
-        //   res.on('data', function (data){
-        //       body.push(data);
-        //   });
-        //   res.on('end', function () {
-        //       resolve(JSON.parse(body));
-        //   });
-
-        // }); //end request
-        // req.on('error', function (err) {
-        //     console.error("ERR",err);
-        //     reject(err);
-        // });
-        // req.write(post_data);
-        // req.end();
     });// end promise
 };
 
@@ -174,36 +144,10 @@ Workout.prototype.getTrackings = function(token){
         request(options, function(error, response, body){
             if(error) {
               reject(error);
-            }else{             
+            }else{
               resolve(body);
             }
         });
-
-        // var req = https.get(options, function(res) {
-        //     console.log('GET Tracking STATUS: ' + res.statusCode);
-        //     res.setEncoding('utf8');
-            
-        //     if (res.statusCode < 200 || res.statusCode > 299) {
-        //         reject(new Error('Failed to load page, status code: ' + res.statusCode));
-        //     }
-
-        //     var body = [];
-        //     res.on('data', function (data){
-        //         body.push(data);
-        //     });
-        //     res.on('end', function () {
-        //       try{
-        //           a=JSON.parse(body);
-        //       }catch(e){
-        //           console.log("ERROR Tracking get response",e);
-        //           a = [];
-        //       }
-        //       resolve(a);
-        //     });
-        // });
-        // req.on('error', function (err) {
-        //     reject(err);
-        // });
     });
 };
 
