@@ -40,11 +40,11 @@ User.prototype.get = function(){
             res.on('end', function () {
               try{
                   a=JSON.parse(body);
+                  this.hasUser = true;
               }catch(e){
                   console.log("ERROR User get response",e);
                   a = [];
               }
-              this.hasUser = true;
               resolve(a);
             });
         });

@@ -206,9 +206,10 @@ Speech.prototype.cancelClass = function (response) {
 };
 
 Speech.prototype.trackDisplay1 = function(data, response, intent) {
-    console.log("trackDisplay1 data");
 
-    //todo data can be nil
+    if( data ) {
+        console.log("trackDisplay1 data", data);
+    }
      if ((response != "undefined") || (response)){
         var speechText = "I am glad you liked the class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
 
@@ -258,6 +259,11 @@ Speech.prototype.trackDisplay = function(userTracking, response, data, intent) {
 Speech.prototype.accountSetupError = function (response){
     var speechOutput = "You must have an ALotOfPilates.com free account to use this skill. Please use the Alexa app to link your Amazon account with your ALotOfPilates Account.";
     response.tellWithLinkAccount(speechOutput);
+};
+
+Speech.prototype.genericAnswer = function (response){
+    var speechOutput = "I had a hard time understanding you. Say Start Pilates class or visit ALotOfPilates to take a class.";
+    response.tellWithStop(speechOutput);
 };
 
 Speech.prototype.userAccountError = function(response){

@@ -44,8 +44,6 @@ Handler.prototype.initialize = function (user, session, data){
 
 
 Handler.prototype.startUp = function (response, user){
-
-    //console.log("START UP DATA" , JSON.stringify(user));
         var speechOutput,
             welcomeText = "",
             welcomebacktext = "",
@@ -59,7 +57,6 @@ Handler.prototype.startUp = function (response, user){
             var userId = user.id;
             var signInCount = user.signInCount;
             var workoutTakenCount = user.workoutTakenCount;
-            //this.writeToConsole("Session attributes on Welcome User Id:", session);
 
             if (typeof signInCount != "undefined"){
                 if(signInCount > 1){
@@ -98,14 +95,15 @@ Handler.prototype.startUp = function (response, user){
 
 
 Handler.prototype.launchAction = function (user, session, response) {
+    session.attributes.stage = 0;
 	if(!session.user.accessToken) {
         Speech.accountSetupError(response);
     } else {       
-        user.get()            
-            .catch((err) => Speech.userAccountError(response))
+        user.get()                       
             .then((data) => this.initialize(user, session, data))
+            .catch((err) => Speech.userAccountError(response))
             .then((user) => this.startUp(response, user))
-            .catch((err) => console.error("ERR",err));
+            .catch((err) => console.error("ERR LAUNCH ACTION",err));
     }
 };
 
@@ -156,30 +154,35 @@ Handler.prototype.yesAction = function (user, workout, intent, session, response
  * It is triggered from the Yes answer to the 'Did you like this class?' question at the end of a class.
  */
 Handler.prototype.exit = function (user, workout, intent, session, response){
-   
-    if (user.hasUser) {
-        try{
-
-        //this.writeToConsole("Session attributes on Exit User Id:", session);
-        var workout_options = {
-            "userId": user.id,
-            "userEmail": user.email,
-            "token": user.token,
-            "workoutId":workout.id,
-            "deviceId": user.deviceId
-        };    
-        console.error("EXIT HAS USER OPTIONS", workouts_options);
-        workout.postTracking(workout_options)
-            .then(()=> workout.getTrackings(session.user.accessToken))
-            .then((data) => Speech.trackDisplay1(this.formatUserTracking1(data), response, intent))
-            .catch((err) => console.error("ERR",err));
-        }catch(e){
-            console.error("ERROR EXITING SKILL",e);
+    if(session.attributes.stage === 1) {
+        console.log("USER IS SET", user);
+        if (user.hasUser) {
+            try{
+            var workout_options = {
+                "userId": user.id,
+                "userEmail": user.email,
+                "token": user.token,
+                "workoutId":workout.id,
+                "deviceId": user.deviceId
+            };
+            console.error("EXIT HAS USER OPTIONS", workouts_options);
+            workout.postTracking(workout_options)
+                .then(()=> workout.getTrackings(session.user.accessToken))
+                .then((data) => Speech.trackDisplay1(this.formatUserTracking1(data), response, intent))
+                .catch((err) => console.error("ERR",err));
+            }catch(e){
+                console.error("ERROR EXITING SKILL",e);
+            }
+        }else{
+            console.error("USER NOT AVAILALABLE TO LOG TRACKING");
+            Speech.trackDisplay1({}, response, intent);
         }
     }else{
-        console.error("USER NOT AVAILALABLE TO LOG TRACKING");
-        Speech.trackDisplay1({}, response, intent);
+        console.log("nothing to do");
+        Speech.genericAnswer(response);
     }
+
+    
 };
 
 Handler.prototype.formatUserTracking1 = function (data){
@@ -242,7 +245,7 @@ Handler.prototype.formatUserTracking1 = function (data){
         trackingMonthArray.push(trackingMonthObject);
         console.log("TRACKING Month ARRAY ");
 
-        trackingYearArray.push(JSON.stringify(trackingYearObject));
+        trackingYearArray.push(trackingYearObject);
         console.log("TRACKING YEAR ARRAY ");
 
         return trackingYearArray;

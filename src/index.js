@@ -45,17 +45,19 @@ ALotOfPilates.prototype.constructor = ALotOfPilates;
 ALotOfPilates.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
     console.log("onSessionStarted requestId: " + sessionStartedRequest.requestId + ", sessionId: " + session.sessionId + ", token: " + session.user.accessToken);
     console.log("onSessionStarted session.user.accessToken" , session.user.accessToken);
+    //Initiate User
     user = new User(session.user.accessToken);
     user.token = session.user.accessToken;
     user.deviceId = session.user.userId;
     console.log("onSessionStarted user" , user);
+
+    //Initiate Workout
     workout = new Workout(session.user.accessToken);
     console.log("onSessionStarted workout" , workout);
 };
 
 ALotOfPilates.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     console.log("onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId );
-    session.attributes.stage = 0;
     Handler.launchAction(user, session, response);
 };
 

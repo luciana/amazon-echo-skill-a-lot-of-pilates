@@ -38,12 +38,16 @@ Workout.prototype.get = function(){
 
             var body = [];
             res.on('data', function (data){
-                body.push(data);
+              body.push(data);
             });
             res.on('end', function () {
-              console.log('WORKOUT BODY: ' + body);
                 try{
-                    resolve(JSON.parse(body));
+                  console.log('WORKOUT BODY: ' + body);
+                  b = JSON.stringify(body);
+                  console.log('WORKOUT BODY STRING: ' + b);
+                  a = JSON.parse(body);
+                  console.log('WORKOUT BODY JSON: ' + a);
+                  resolve(a);
                  }catch(err){
                    reject(err);
                  }
@@ -63,13 +67,20 @@ Workout.prototype.getSequence = function(response, session) {
        .catch((err) => console.log("ERROR WORKOUT GET SEQUENCE", err));
 };
 
-Workout.prototype.startClass = function(alopAPIResponse, response, session){
- 
-   console.log("START CLASS alopAPIResponse", alopAPIResponse);
-  if((alopAPIResponse ) && (alopAPIResponse.poses.length > 0)){
+Workout.prototype.startClass = function(data, response, session){
+  console.log("START CLASS DATA", data);
+   b = JSON.stringify(data);
+  console.log("START CLASS DATA STRING", b);
+  a = JSON.parse(b);
+  console.log("START CLASS DATA JSON", a[0].id);
+  console.log("START CLASS DATA POSES", a.poses);
+  console.log("START CLASS DATA POSES ARRAY", a["poses"]);
+
+
+  if((a ) &&  (a.poses.length > 0)){
     console.log("START CLASS");
     session.attributes.stage = 1;
-    Speech.teachClass(alopAPIResponse, response);
+    Speech.teachClass(a, response);
   }else{
    Speech.startClassError(response);
   }
