@@ -79,6 +79,7 @@ Speech.prototype.teachClass = function (alopAPIResponse, response){
     }
     speechPoseOutput += "You are all done! Hope you feel as great as me! Did you enjoy this class?";
     var speechText ="<speak>" + speechPoseOutput + "</speak>";
+    console.log("CLASS SPEACH OUT NUMBER OF CHAR (max 8000)", speechText.length);
     var speechOutput = {
                 speech: speechText,
                 type: AlexaSkill.speechOutputType.SSML
@@ -89,16 +90,16 @@ Speech.prototype.teachClass = function (alopAPIResponse, response){
         };
 
     //response.askWithCard(speechOutput,repromptOutput, "Pilates Class", "Good job on completing the class");
+
     response.ask(speechOutput,repromptOutput);
 };
 
 Speech.prototype.exerciseTimings = function (pose){
     var speechExerciseOutput ="";
         var sideLegSeriesPoseIdArray = [431,432,434,435,326];
-        var plankPosesIdArray = [133, 564];
-        var otherSuppotedPoses =[160, 267, 273, 276, 289, 310, 327, 266, 267, 276, 289, 291, 487, 499, 511, 528, 529, 541, 545, 547, 631];
-        //missing 536, 318
-        //problem with 487, 291
+        var plankPosesIdArray = [133];
+        var otherSuppotedPoses =[160, 247, 266, 267, 273, 274, 276, 289, 291, 310, 321, 324, 326, 327, 451, 487, 499, 511, 536, 545, 528, 529, 541, 547, 564, 431, 432, 434, 435, 631];
+
         if (plankPosesIdArray.indexOf(pose.id) > -1){//Planks - Hold it for 20 to 30 seconds
             speechExerciseOutput += "Get in position for the " + pose.name;
             speechExerciseOutput += "<break time=\"3s\" />. ";
@@ -113,14 +114,14 @@ Speech.prototype.exerciseTimings = function (pose){
             speechExerciseOutput += ".<break time=\"5s\" />. ";
             speechExerciseOutput += "Almost done";
             speechExerciseOutput += ".<break time=\"3s\" />. ";
-            speechExerciseOutput += "you are done  ";
+            speechExerciseOutput += "Good job. ";
             speechExerciseOutput += ".<break time=\"0.1s\" />. ";
             speechExerciseOutput += "Relax ";
             speechExerciseOutput += ".<break time=\"10s\" />. ";
         }else if (sideLegSeriesPoseIdArray.indexOf(pose.id) > -1){//Side Leg Series
             speechExerciseOutput += "Lie on one side with bottom arm bent for head to lay on.";
             speechExerciseOutput += ".<break time=\"2s\" />";
-            speechExerciseOutput += "Position the legs about 45 degrees in front of the body";  
+            speechExerciseOutput += "Position the legs about 45 degrees in front of the body";
             speechExerciseOutput += ".<break time=\"2s\" />";     
             speechExerciseOutput += "Start";
             speechExerciseOutput += ".<break time=\"10s\" />";
@@ -138,7 +139,7 @@ Speech.prototype.exerciseTimings = function (pose){
             speechExerciseOutput += ".<break time=\"10s\" /> ";
         }else if (otherSuppotedPoses.indexOf(pose.id) > -1){
 
-        speechExerciseOutput +=  this.exerciseInfo(pose.id);       
+            speechExerciseOutput +=  this.exerciseInfo(pose.id);
        
         }else{  //Generic timining   
             //console.log("Exercise duration " + pose.duration + " formatted " + getFormattedDuration(pose.duration));

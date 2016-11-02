@@ -19,8 +19,10 @@ var Workout = function(token){
 };
 
 Workout.prototype.getId = function(){
-  var workoutAvailable = [530, 124]; // having a problem with 638 663 122 109 680
-  //DEBUG: var workoutAvailable = [530];
+  var workoutAvailable = [681];
+  //GOOD ONES: var workoutAvailable = [530, 124, 680, 126]; 
+  //ERROR with 638 ( 14 exercises ) - Speech with id null and length 9512 exceeds allowed size of 8000 characters
+  //ERROR with 663 (12 exercises ) - 10265 exceeds
   return workoutAvailable[Math.floor(Math.random() * workoutAvailable.length)];
    
 };

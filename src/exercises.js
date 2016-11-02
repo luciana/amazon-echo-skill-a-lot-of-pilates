@@ -1,18 +1,10 @@
 var exercises ={};
 
-
 // EXERCISES DESCRIPTIONS
-
-//TODO instruction on Seal - 321
-//TODO instruction on Saw - 274
-//TODO instruction on Mermaid - 247
-//TODO instruction on Knee Sways - 536
-//TODO instruction on Cancan - 324
-//TODO instruction on Double Leg Stretch - 451
-
+//Side Plank 312
+//Side Plank on Elbows 490
 
 //ROLLING LIKE A BALL
-
 var exerciseOutput160 = "Get in position for Rolling Like a Ball";
 exerciseOutput160 += "<break time=\"2s\" />. ";
 exerciseOutput160 += "Begin seated with your knees bent and feet off the floor,";
@@ -24,13 +16,71 @@ exerciseOutput160 += ".<break time=\"0.2s\" />. ";
 exerciseOutput160 += "Find absolute balance and breathe.";
 exerciseOutput160 += ".<break time=\"0.4s\" />. ";
 exerciseOutput160 += "Inhale as you roll back rounding your spine";
-exerciseOutput160 += ".<break time=\"0.4s\" />. ";
+exerciseOutput321 += ".<break time=\"0.1s\" />. ";
+exerciseOutput321 += "Be careful not to roll too far back onto the neck, control is necessary";
+exerciseOutput160 += ".<break time=\"0.2s\" />. ";
 exerciseOutput160 += "Exhale as you rock your spine forward until you are balancing again at the sitzbones.";
 exerciseOutput160 += ".<break time=\"0.3s\" />. ";
 exerciseOutput160 += "Repeat 5 more times.";
 exerciseOutput160 += ".<break time=\"3s\" />. ";
 exerciseOutput160 += ".<break time=\"10s\" />. ";
 exerciseOutput160 += ".<break time=\"10s\" />. ";
+
+//MERMAID
+var exerciseOutput247 = "Begin seated on your left side with your knees slightly bent and together to the right side of you.";
+exerciseOutput247 += ".<break time=\"2s\" />. ";
+exerciseOutput247 += "Your right hand will hold your right shin. Your left arm is extended up towards the ceiling, palm facing inward.";
+exerciseOutput247 += ".<break time=\"0.6s\" />. ";
+exerciseOutput247 += "Inhale to feel long and lengthened through out the left side";
+exerciseOutput247 += ".<break time=\"1s\" />. ";
+exerciseOutput247 += "Exhale to bend the upper and middle spine towards the right";
+exerciseOutput247 += "<break time=\"1s\" />. ";
+exerciseOutput247 += "Inhale to feel the ribs on the left expand like a balloon.";
+exerciseOutput247 += ".<break time=\"1s\" />. ";
+exerciseOutput247 += "Exhale to reach up and out the crown of your head as you begin to re-stack the vertebrae from the bottom up.";
+exerciseOutput247 += ".<break time=\"1s\" />. ";
+exerciseOutput247 += "Do this three times, and switch to the other side and begin again.";
+exerciseOutput247 += ".<break time=\"2s\" />. ";
+exerciseOutput247 += "Keep your core muscles engaged by zippering in and up at all times";
+exerciseOutput247 += ".<break time=\"10s\" />. ";
+exerciseOutput247 += ".<break time=\"5s\" />. ";
+exerciseOutput247 += "Switch sides with knees are bent to the left side of you.";
+exerciseOutput247 += "Repeat the same steps on this side.";
+exerciseOutput247 += ".<break time=\"10s\" />. ";
+exerciseOutput247 += ".<break time=\"5s\" />. ";
+
+//SAW
+var exerciseOutput274 = "Start seated with legs straight in front of you.";
+exerciseOutput274 += "<break time=\"0.1s\" />. ";
+exerciseOutput274 += "Open your legs about mat width apart and flex your feet.";
+exerciseOutput274 += ".<break time=\"0.2s\" />. ";
+exerciseOutput274 += "Sit nice and tall, as though your back is up against a tall chair.";
+exerciseOutput274 += ".<break time=\"0.2s\" />. ";
+exerciseOutput274 += "Lift the arms open in a T shape. Extend the arms completely to activate the triceps.";
+exerciseOutput274 += ".<break time=\"0.1s\" />. ";
+exerciseOutput274 += "Inhale as you twist first";
+exerciseOutput274 += ".<break time=\"1s\" />. ";
+exerciseOutput274 += "Exhale as you twist to the right to reach down and out towards the outside of the foot, as though you were going to saw off the right pinky toe.";
+exerciseOutput274 += ".<break time=\"0.4s\" />. ";
+exerciseOutput274 += "Pull your navel to your spine as you lift your torso back up to a vertical position.";
+exerciseOutput274 += ".<break time=\"0.3s\" />. ";
+exerciseOutput274 += "Inhale twist back to the center, arms reaching out of the mid-back.";
+exerciseOutput274 += ".<break time=\"3s\" />. ";
+exerciseOutput274 += "Exhale as you twist to the left to reach down and out towards the outside of the foot, as though you were going to saw off the left pinky toe.";
+exerciseOutput274 += "<break time=\"0.3s\" />. ";
+exerciseOutput274 += "Pull your navel to your spine as you lift your torso back up to a vertical position.";
+exerciseOutput274 += "<break time=\"0.4s\" />. ";
+exerciseOutput274 += "Repeat 3 more times on each leg.";
+exerciseOutput274 += ".<break time=\"2s\" />. ";
+exerciseOutput274 += "Shoulders down and away from ears";
+exerciseOutput274 += ".<break time=\"2s\" />. ";
+exerciseOutput274 += "Keep the pelvis and legs stable.";
+exerciseOutput274 += ".<break time=\"3s\" />. ";
+exerciseOutput274 += "As you are twisting, keep the belly button in.";
+exerciseOutput274 += ".<break time=\"2s\" />. ";
+exerciseOutput274 += ".<break time=\"10s\" />. ";
+exerciseOutput274 += ".<break time=\"10s\" />. ";
+
 
 //PELVIC TILT
 var exerciseOutput310 = "Lay on your back with your knees bent for the Pelvic Tilt";
@@ -46,6 +96,55 @@ exerciseOutput310 += ".<break time=\"2s\" />. ";
 exerciseOutput310 += "Repeat 4 more times.";
 exerciseOutput310 += ".<break time=\"4s\" />. ";
 exerciseOutput310 += ".<break time=\"6s\" />. ";
+
+
+
+//SEAL
+var exerciseOutput321 = "Begin sitting on your sitzbones, feet together, knees shoulder width apart";
+exerciseOutput321 += "<break time=\"2s\" />. ";
+exerciseOutput321 += "Place your hands under and around each ankle, lift your feet off the mat find your balance.";
+exerciseOutput321 += ".<break time=\"0.2s\" />. ";
+exerciseOutput321 += "Inhale and pull your navel to your spine, tilting your pelvis and rolling back as you stare down at your navel.";
+exerciseOutput321 += ".<break time=\"0.1s\" />. ";
+exerciseOutput321 += "Be careful not to roll too far back onto the neck, control is necessary";
+exerciseOutput321 += ".<break time=\"0.1s\" />. ";
+exerciseOutput321 += "Balancing in the rolled back position, clap your heels together three times.";
+exerciseOutput321 += ".<break time=\"3s\" />. ";
+exerciseOutput321 += "Exhale as you roll back forward to the beginning position, continuing to look down towards the belly, stretching the spine from neck to tail.";
+exerciseOutput321 += ".<break time=\"2s\" />. ";
+exerciseOutput321 += "Balancing in the forward position, clap your heels together another three times.";
+exerciseOutput321 += ".<break time=\"0.3s\" />. ";
+exerciseOutput321 += "Inhale and roll back again, repeating the exercise four more times.";
+exerciseOutput321 += ".<break time=\"3s\" />. ";
+exerciseOutput321 += ".<break time=\"10s\" />. ";
+exerciseOutput321 += ".<break time=\"10s\" />. ";
+
+
+//CANCAN
+var exerciseOutput324 = "Sit upward on the mat, with your knees bent place your hands behind you with your fingertips facing out, making sure to keep them slightly wider than the width of your shoulders.";
+exerciseOutput324 += "<break time=\"2s\" />. ";
+exerciseOutput324 += "Inhale to prepare.";
+exerciseOutput324 += ".<break time=\"0.8s\" />. ";
+exerciseOutput324 += "Keeping the waist lifted, the ribs pulled in,  exhale and sway the knees to the right.";
+exerciseOutput324 += ".<break time=\"0.4s\" />. ";
+exerciseOutput324 += "Press your hands firmly into the floor behind you and lift the chest.";
+exerciseOutput324 += ".<break time=\"0.1s\" />. ";
+exerciseOutput324 += "Sway the knees through center and over  to the left, continuing to lift tall in the upper body.";
+exerciseOutput324 += ".<break time=\"2s\" />. ";
+exerciseOutput324 += "Sway the knees through center back over to the right one last time.";
+exerciseOutput324 += ".<break time=\"0.1s\" />. ";
+exerciseOutput324 += "Inhale and extend both legs out on the diagonal.";
+exerciseOutput324 += ".<break time=\"0.1s\" />. ";
+exerciseOutput324 += "Bend both knees in and replace the toes on the mat, ready to repeat to the other side.";
+exerciseOutput324 += ".<break time=\"3s\" />. ";
+exerciseOutput324 += "The swaying of the knees should be done swiftly on one exhale.";
+exerciseOutput324 += ".<break time=\"1s\" />. ";
+exerciseOutput324 += "The back should be very straight and the waste pulled up so that the movement of the hips and knees is precise and controlled.";
+exerciseOutput324 += "<break time=\"2s\" />. ";
+exerciseOutput324 += "Repeat a few more times.";
+exerciseOutput324 += ".<break time=\"10s\" />. ";
+exerciseOutput324 += ".<break time=\"5s\" />. ";
+exerciseOutput324 += ".<break time=\"10s\" />. ";
 
 
 //REST POSE            
@@ -291,25 +390,22 @@ exerciseOutput547 += "Repeat 2 more times";
 exerciseOutput547 += ".<break time=\"4s\" />. ";
 exerciseOutput547 += ".<break time=\"6s\" />. ";
 
-//Plank on Elbows
-var exerciseOutput564 =  "Begin on your belly with your legs hips width apart behind you";
-exerciseOutput564 += "<break time=\"0.7s\" />. ";
-exerciseOutput564 += "Place your elbows directly underneath your shoulders";
-exerciseOutput564 += "<break time=\"0.7s\" />. ";
-exerciseOutput564 += "Curl your toes under on the mat,";
-exerciseOutput564 += "<break time=\"0.2s\" />. ";
-exerciseOutput564 += " and lift your legs, hips, and torso as one full unit off the mat.";
-exerciseOutput564 += "<break time=\"0.2s\" />. ";
-exerciseOutput564 += "Engage your legs and abdominals";
-exerciseOutput564 += "<break time=\"0.2s\" />. ";
-exerciseOutput564 += "Keeping your neck neutral, looking at the top of the mat";
-exerciseOutput564 += "<break time=\"0.2s\" />. ";
-exerciseOutput564 += "Hold.";
-exerciseOutput564 += "<break time=\"15s\" />. ";
-exerciseOutput564 += "Release and relax a bit.";
-exerciseOutput564 += "<break time=\"10s\" />. ";
-
-
+//DOUBLE LEG STRETCH
+var exerciseOutput451 = "Lie on your back with your knees pulled close to the chest";
+exerciseOutput451 += "<break time=\"0.1s\" />. ";
+exerciseOutput451 += "Place your hands on your knees or shins, and keep elbows wide.";
+exerciseOutput451 += ".<break time=\"0.2s\" />. ";
+exerciseOutput451 += "Curl your chin towards your chest and keep your eyes looking at your belly button";
+exerciseOutput451 += ".<break time=\"0.3s\" />. ";
+exerciseOutput451 += "Inhale to extend the legs straight to 90 degrees at the same time extending the arms back towards the ears.";
+exerciseOutput451 += ".<break time=\"0.2s\" />. ";
+exerciseOutput451 += "Exhale to circle the arms open and hug the knees close to the chest";
+exerciseOutput451 += ".<break time=\"0.2s\" />. ";
+exerciseOutput451 += "Repeat four more times.";
+exerciseOutput451 += ".<break time=\"4s\" />. ";
+exerciseOutput451 += "If your head gets tired place it on the floor.";
+exerciseOutput451 += ".<break time=\"10s\" />. ";
+exerciseOutput451 += ".<break time=\"10s\" />. ";
 
 
 //Double Knee Fold/Toe taps
@@ -360,6 +456,29 @@ exerciseOutput529 += ".<break time=\"10s\" />. ";
 exerciseOutput529 += ".<break time=\"10s\" />. ";
 
 
+//KNEE SWAYS
+var exerciseOutput536 = "Begin laying on your back with knees in tabletop.";
+exerciseOutput536 += ".<break time=\"1s\" />. ";
+exerciseOutput536 += "Make sure your knees are together, your belly is pulled into the spine, your back ribcage is connected to the mat.";
+exerciseOutput536 += ".<break time=\"0.2s\" />. ";
+exerciseOutput536 += "Inhale and begin swaying your knees with control to the right by lifting your left bum (hip) off of the mat.";
+exerciseOutput536 += ".<break time=\"0.2s\" />. ";
+exerciseOutput536 += "Make sure your shoulder girdle stays relaxed on the floor.";
+exerciseOutput536 += ".<break time=\"2s\" />. ";
+exerciseOutput536 += "Exhale and bring the knees back to center, making sure the back ribcage finds the mat again.";
+exerciseOutput536 += ".<break time=\"2s\" />. ";
+exerciseOutput536 += "Inhale and sway knees to the left by lifting the right hip off of the mat, making sure that the knees stay together and are controlled.";
+exerciseOutput536 += ".<break time=\"4s\" />. ";
+exerciseOutput536 += "Exhale and return to center, pulling the ribcage to the mat, pelvic bowl returns to neutral.";
+exerciseOutput536 += ".<break time=\"0.6s\" />. ";
+exerciseOutput536 += "Repeat a few more times.";
+exerciseOutput536 += ".<break time=\"3s\" />. ";
+exerciseOutput536 += "Let the side abdominal muscles engage to move the pelvis right and left.";
+exerciseOutput536 += ".<break time=\"6s\" />. ";
+exerciseOutput536 += ".<break time=\"10s\" />. ";
+exerciseOutput536 += ".<break time=\"4s\" />. ";
+
+
 //STANDING ROLLDOWN
 var exerciseOutput541 = "Let's stand up for this pose ";
 exerciseOutput541 += ".<break time=\"2s\" />. ";
@@ -384,6 +503,23 @@ exerciseOutput541 += "<break time=\"5s\" />";
 exerciseOutput541 += "<break time=\"7s\" />";
 exerciseOutput541 += "<break time=\"7s\" />";
 
+//Plank on Elbows
+var exerciseOutput564 =  "Begin on your belly with your legs hips width apart behind you";
+exerciseOutput564 += "<break time=\"0.7s\" />. ";
+exerciseOutput564 += "Place your elbows directly underneath your shoulders.";
+exerciseOutput564 += "<break time=\"0.7s\" />. ";
+exerciseOutput564 += "Curl your toes under on the mat.";
+exerciseOutput564 += "<break time=\"0.2s\" />. ";
+exerciseOutput564 += "Lift your legs, hips, and torso as one full unit off the mat.";
+exerciseOutput564 += "<break time=\"0.2s\" />. ";
+exerciseOutput564 += "Engage your legs and abdominals";
+exerciseOutput564 += "<break time=\"0.2s\" />. ";
+exerciseOutput564 += "Keeping your neck neutral, looking at the top of the mat";
+exerciseOutput564 += "<break time=\"0.2s\" />. ";
+exerciseOutput564 += "Hold.";
+exerciseOutput564 += "<break time=\"15s\" />. ";
+exerciseOutput564 += "Release and relax a bit.";
+exerciseOutput564 += "<break time=\"10s\" />. ";
 
 //Seated Roll Back
 var exerciseOutput631 = "Begin sitting upright.";
@@ -436,6 +572,11 @@ exercises[160] = {
     exerciseDescription: exerciseOutput160,
     exerciseName: "Rolling Like a Ball"};
 
+exercises[247] = {
+    exerciseDescription: exerciseOutput247,
+    exerciseName: "Mermaid"};
+
+
 exercises[266] = {
     exerciseDescription: exerciseOutput266,
     exerciseName: "Hundred"};
@@ -447,6 +588,10 @@ exercises[267] = {
 exercises[273] = {
     exerciseDescription: exerciseOutput273,
     exerciseName: "Roll-Up"};
+
+exercises[274] = {
+    exerciseDescription: exerciseOutput274,
+    exerciseName: "Saw"};
 
 exercises[276] = {
     exerciseDescription: exerciseOutput276,
@@ -464,6 +609,14 @@ exercises[310] = {
     exerciseDescription: exerciseOutput310,
     exerciseName: "Pelvic Tilt"};
 
+exercises[321] = {
+    exerciseDescription: exerciseOutput321,
+    exerciseName: "Seal"};
+
+exercises[324] = {
+    exerciseDescription: exerciseOutput324,
+    exerciseName: "Can can"};
+ 
 exercises[326] = {
     exerciseDescription: exerciseSideLegSeries,
     exerciseName: "Side Leg Series"};
@@ -471,43 +624,6 @@ exercises[326] = {
 exercises[327] = {
     exerciseDescription: exerciseOutput327,
     exerciseName: "Rest Pose"};
-
-
-exercises[487] = {
-    exerciseDescription: exerciseOutput487,
-    exerciseName: "Balance on All Fours"};
-
-exercises[499] = {
-    exerciseDescription: exerciseOutput499,
-    exerciseName: "Toe Taps"};
-
-exercises[511] = {
-    exerciseDescription: exerciseOutput511,
-    exerciseName: "Basic Bridge"};
-
-exercises[545] = {
-    exerciseDescription: exerciseOutput545,
-    exerciseName: "Cat Stretch"};
-
-exercises[528] = {
-    exerciseDescription: exerciseOutput528,
-    exerciseName: "Single knee folds"};
-
-exercises[529] = {
-    exerciseDescription: exerciseOutput529,
-    exerciseName: "Basic Upper Curl"};
-
-exercises[541] = {
-    exerciseDescription: exerciseOutput541,
-    exerciseName: "Standing Roll Down"};
-
-exercises[547] = {
-    exerciseDescription: exerciseOutput547,
-    exerciseName: "Reserve Plank"};
-
-exercises[564] = {
-    exerciseDescription: exerciseOutput564,
-    exerciseName: "Plank on Elbows"};
 
 exercises[431] = {
     exerciseDescription: exerciseSideLegSeries,
@@ -524,6 +640,53 @@ exercises[434] = {
 exercises[435] = {
     exerciseDescription: exerciseSideLegSeries,
     exerciseName: "Side Leg Series"};
+
+exercises[451] = {
+    exerciseDescription: exerciseOutput451,
+    exerciseName: "Double Leg Stretch"};
+
+
+exercises[487] = {
+    exerciseDescription: exerciseOutput487,
+    exerciseName: "Balance on All Fours"};
+
+exercises[499] = {
+    exerciseDescription: exerciseOutput499,
+    exerciseName: "Toe Taps"};
+
+exercises[511] = {
+    exerciseDescription: exerciseOutput511,
+    exerciseName: "Basic Bridge"};
+
+
+
+exercises[528] = {
+    exerciseDescription: exerciseOutput528,
+    exerciseName: "Single knee folds"};
+
+exercises[529] = {
+    exerciseDescription: exerciseOutput529,
+    exerciseName: "Basic Upper Curl"};
+
+exercises[536] = {
+    exerciseDescription: exerciseOutput536,
+    exerciseName: "Knee Sways"};
+  
+exercises[541] = {
+    exerciseDescription: exerciseOutput541,
+    exerciseName: "Standing Roll Down"};
+
+exercises[545] = {
+    exerciseDescription: exerciseOutput545,
+    exerciseName: "Cat Stretch"};
+
+exercises[547] = {
+    exerciseDescription: exerciseOutput547,
+    exerciseName: "Reserve Plank"};
+
+exercises[564] = {
+    exerciseDescription: exerciseOutput564,
+    exerciseName: "Plank on Elbows"};
 
 exercises[631] = {
     exerciseDescription: exerciseOutput631,
