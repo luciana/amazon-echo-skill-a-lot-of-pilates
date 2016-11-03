@@ -98,7 +98,7 @@ Speech.prototype.exerciseTimings = function (pose){
     var speechExerciseOutput ="";
         var sideLegSeriesPoseIdArray = [431,432,434,435,326];
         var plankPosesIdArray = [133];
-        var otherSuppotedPoses =[160, 247, 266, 267, 273, 274, 276, 289, 291, 310, 321, 324, 326, 327, 451, 487, 499, 511, 536, 545, 528, 529, 541, 547, 564, 431, 432, 434, 435, 631];
+        var otherSuppotedPoses =[158, 160, 247, 266, 267, 273, 274, 276, 289, 291, 310, 315, 321, 324, 326, 327, 451, 487, 499, 511, 536, 545, 528, 529, 541, 547, 564, 431, 432, 434, 435, 631];
 
         if (plankPosesIdArray.indexOf(pose.id) > -1){//Planks - Hold it for 20 to 30 seconds
             speechExerciseOutput += "Get in position for the " + pose.name;
