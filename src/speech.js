@@ -56,6 +56,34 @@ Speech.prototype.startOver = function(response){
     response.ask(speechOutput, repromptText);
 };
 
+Speech.prototype.getExerciseName = function(pose){
+    var exercise = Exercises[pose.id];
+    var name;
+    if ((typeof exercise != "undefined") || ( ! exercise )){
+        name = pose.name;
+    }else{
+        name = Exercises[pose.id].exerciseName;
+    }
+    return name;
+};
+
+Speech.prototype.getStartingClassText = function(name, index){
+    var startTextOptions = ["Get ready on your mat for the " + name, "Let's get started with " + name];
+    var nextTextOptions = ["Next exercise is " + name, "Moving on to the" +name, "Next is " + name];
+    if(name.length > 0){
+        if (index === 0){
+            return startTextOptions[Math.floor(Math.random() * startTextOptions.length)];
+        }else{
+             return nextTextOptions[Math.floor(Math.random() * nextTextOptions.length)];
+        }
+    }else{
+        if (index === 0){
+            return "Get ready on your mat to get started";
+        }else{
+            return "Moving on to the next exercise";
+        }
+    }
+};
 
 /**
  * Call for workout was successfull, so this function responsability is to loop thru the 
@@ -67,13 +95,8 @@ Speech.prototype.teachClass = function (alopAPIResponse, response){
     var speechPoseOutput ="";
     for(var i = 0; i <  alopAPIResponse.poses.length; i++){
         var pose = alopAPIResponse.poses[i];
-        var name = Exercises[pose.id].exerciseName;
-        if( i === 0 ){
-            speechPoseOutput += "Get ready on your mat for the " + name;
-        }else{
-            speechPoseOutput += "Next exercise is " + name;
-        }
-        
+        var name = this.getExerciseName(pose);
+        speechPoseOutput += this.getStartingClassText(name, i);
         speechPoseOutput += ". <break time=\"0.2s\" />. " + pose.repetition;
         speechPoseOutput += ". <break time=\"1s\" />. ";
         speechPoseOutput += this.exerciseTimings(pose);
@@ -86,12 +109,9 @@ Speech.prototype.teachClass = function (alopAPIResponse, response){
                 type: AlexaSkill.speechOutputType.SSML
         },
         repromptOutput = {
-            speech:  "<speak> Was this class fun? </speak>",
+            speech:  "<speak> Was this class fun? Say yes or no in order for this class to be tracked on the A Lot of Pilates activities calendar.</speak>",
             type: AlexaSkill.speechOutputType.SSML
         };
-
-    //response.askWithCard(speechOutput,repromptOutput, "Pilates Class", "Good job on completing the class");
-
     response.ask(speechOutput,repromptOutput);
 };
 
@@ -100,9 +120,10 @@ Speech.prototype.exerciseTimings = function (pose){
         var sideLegSeriesPoseIdArray = [431,432,434,435,326];
         var plankPosesIdArray = [133];
         var otherSuppotedPoses =[158, 160, 247, 266, 267, 273, 274, 276, 287, 289, 291, 310, 315, 318, 321, 324, 326, 327, 451, 487, 499, 511, 536, 545, 528, 529, 541, 547, 564, 431, 432, 434, 435, 631];
+         var name = this.getExerciseName(pose);
 
         if (plankPosesIdArray.indexOf(pose.id) > -1){//Planks - Hold it for 20 to 30 seconds
-            speechExerciseOutput += "Get in position for the " + Exercises[pose.id].exerciseName;
+            speechExerciseOutput += "Get in position for the " + name;
             speechExerciseOutput += "<break time=\"3s\" />. ";
             speechExerciseOutput += "Start holding the plank";
             speechExerciseOutput += "<break time=\"2s\" />. ";
@@ -207,6 +228,10 @@ Speech.prototype.cancelClass = function (response) {
         response.tellWithStop(speechOutput);
 };
 
+Speech.prototype.pluralClassText = function(count){
+    return count > 1 ? " classes ": " class ";
+};
+
 Speech.prototype.trackDisplay = function(data, response, intent) {
 
     var cardContent = speechText;
@@ -219,6 +244,7 @@ Speech.prototype.trackDisplay = function(data, response, intent) {
             var tracking = data[trackingIndex];
             //console.log("TRACKING ITEM", tracking);
             var yearCount = tracking.classCount;
+            var yearClassText = this.pluralClassText(tracking.classCount);
             var year = tracking.year;
             var trackingText = "";
             if (tracking.months.length > 0 ){
@@ -226,12 +252,12 @@ Speech.prototype.trackDisplay = function(data, response, intent) {
                 trackingText = lineBreak;
                 for (var i = 0; i < tracking.months.length; i++) {
                     var item = tracking.months[i];
-                    var classText = item.classCount > 1 ? " classes ": " class ";
+                    var classText = this.pluralClassText(item.classCount);
                     trackingText += item.month + " : " + item.classCount + classText + "taken.";
                     trackingText += lineBreak;
                 }
             }
-            cardContent = " You have taken " + yearCount + " classes in " + year + ". \r\nKeep track of your progress per month. \r\n" + trackingText +"\n \nVisit ALotOfPilates.com for many more classes and tracking calendar.";
+            cardContent = " You have taken " + yearCount + yearClassText + " in " + year + ". \r\nKeep track of your progress per month. \r\n" + trackingText +"\n \nVisit ALotOfPilates.com for many more classes and tracking calendar.";
         }
     }
      if ((response != "undefined") || (response)){

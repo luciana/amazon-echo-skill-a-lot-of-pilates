@@ -19,11 +19,12 @@ var Workout = function(token){
 };
 
 Workout.prototype.getId = function(){
-  var workoutAvailable = [530,126, 526, 656];
-  //GOOD ONES: var workoutAvailable = [530, 124, 680, 126]; 7132, , 6792
-  //ERROR with 638 ( 14 exercises ) - Speech with id null and length 8848 exceeds allowed size of 8000 characters
+  var workoutAvailable = [530,126,127, 524];
+  //GOOD ONES: var workoutAvailable = [530,126,127, 524 ]; 
+  //ERROR with 638 ( 14 exercises ) - Speech with id null and length 8569 exceeds allowed size of 8000 characters
   //ERROR with 663 (12 exercises ) - 10265 exceeds 10321
   //ERROR with 681 ( 13 exercises ) - 11031 exceeds
+  //ERROR with 656 () - 8048 characters.
   return workoutAvailable[Math.floor(Math.random() * workoutAvailable.length)];
    
 };
