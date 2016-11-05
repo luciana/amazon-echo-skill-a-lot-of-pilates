@@ -174,14 +174,12 @@ Handler.prototype.exit = function (user, workout, intent, session, response){
 Handler.prototype.formatUserTracking = function (data){
 
   if(data){
-      //console.log("TRACING USER GET DATA", data);
-      //console.log("TRACING USER GET DATA LENGTH", data.length);
-      //b = JSON.stringify(data);
-      //console.log("TRACING USER GET DATA STRING", b);
-      //a = JSON.parse(b);
-        //console.log("TRACING USER GET DATA JSON", a);
-        var workoutCount = data.length;
+      console.log("TRACKING USER GET DATA", data);
+      //[ { id: 682, workout_id: 656, created_at: '2016-11-05 19:25:35 UTC' }, 
+      //{ id: 681, workout_id: 656, created_at: '2016-11-05 19:18:13 UTC' }, 
+      //{ id: 680, workout_id: 680, created_at: '2016-11-05 03:20:51 UTC' } ]
 
+        var workoutCount = data.length;
         var trackingYearArray = [];
         
         //Tracking Object 
@@ -206,22 +204,27 @@ Handler.prototype.formatUserTracking = function (data){
             var item = data[i];
             var workoutDate = new Date(item.created_at);
             var workoutYear = workoutDate.getFullYear();
+            console.log("TRACKING WORKOUT YEAR", workoutYear);
+
             var workoutMonth = this.months[workoutDate.getMonth()];
+            console.log("TRACKING WORKOUT MONTH", workoutMonth);
 
             trackingYearObject.year = workoutYear;
 
             if ((prevYear === '') || (prevYear == workoutYear)){
                  trackingYearObject.classCount += 1;
-                 trackingMonthObject.year = workoutYear;
+                 //trackingYearObject.year = workoutYear;
                  if ((prevMonth === '') || (prevMonth == workoutMonth)){
+
                     trackingMonthObject.classCount += 1;
-                    trackingMonthObject.month = workoutMonth;
+                    trackingMonthObject.month = workoutMonth;                    
                  }else {
-                    trackingMonthArray.push(trackingMonthObject);
+                    trackingMonthArray.push(trackingMonthObject);                     
+                    trackingYearObject.months = trackingMonthArray;
                     //Reset
                     trackingMonthObject = {};
                     trackingMonthObject.classCount = 1;
-                    trackingYearObject.months = trackingMonthArray;
+                    
                  }
                  prevMonth = workoutMonth;
             }else{
@@ -236,7 +239,8 @@ Handler.prototype.formatUserTracking = function (data){
         }
     
         trackingMonthArray.push(trackingMonthObject);
-        trackingYearArray.push(trackingYearObject);
+        trackingYearObject.months = trackingMonthArray;        
+        trackingYearArray.push(trackingYearObject);       
        
 
         return trackingYearArray;
@@ -268,7 +272,7 @@ Handler.prototype.getBadge = function (count) {
         badge =  "Core Stability";
     }
 
-    return "badge";
+    return badge;
 };
 
 

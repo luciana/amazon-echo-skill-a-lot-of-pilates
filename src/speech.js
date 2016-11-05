@@ -67,10 +67,11 @@ Speech.prototype.teachClass = function (alopAPIResponse, response){
     var speechPoseOutput ="";
     for(var i = 0; i <  alopAPIResponse.poses.length; i++){
         var pose = alopAPIResponse.poses[i];
+        var name = Exercises[pose.id].exerciseName;
         if( i === 0 ){
-            speechPoseOutput += "Get ready on your mat for the " + pose.name;
+            speechPoseOutput += "Get ready on your mat for the " + name;
         }else{
-            speechPoseOutput += "Next exercise is " + pose.name;
+            speechPoseOutput += "Next exercise is " + name;
         }
         
         speechPoseOutput += ". <break time=\"0.2s\" />. " + pose.repetition;
@@ -98,10 +99,10 @@ Speech.prototype.exerciseTimings = function (pose){
     var speechExerciseOutput ="";
         var sideLegSeriesPoseIdArray = [431,432,434,435,326];
         var plankPosesIdArray = [133];
-        var otherSuppotedPoses =[158, 160, 247, 266, 267, 273, 274, 276, 289, 291, 310, 315, 321, 324, 326, 327, 451, 487, 499, 511, 536, 545, 528, 529, 541, 547, 564, 431, 432, 434, 435, 631];
+        var otherSuppotedPoses =[158, 160, 247, 266, 267, 273, 274, 276, 287, 289, 291, 310, 315, 318, 321, 324, 326, 327, 451, 487, 499, 511, 536, 545, 528, 529, 541, 547, 564, 431, 432, 434, 435, 631];
 
         if (plankPosesIdArray.indexOf(pose.id) > -1){//Planks - Hold it for 20 to 30 seconds
-            speechExerciseOutput += "Get in position for the " + pose.name;
+            speechExerciseOutput += "Get in position for the " + Exercises[pose.id].exerciseName;
             speechExerciseOutput += "<break time=\"3s\" />. ";
             speechExerciseOutput += "Start holding the plank";
             speechExerciseOutput += "<break time=\"2s\" />. ";
@@ -211,28 +212,26 @@ Speech.prototype.trackDisplay = function(data, response, intent) {
     var cardContent = speechText;
 
     if( data ) {
-        //[ { classCount: 42, badgeTitle: 'badge', year: 2016, months: [ [Object], [Object], [Object] ] } ]
+         //console.log("TRACKING DATA", data);
+        
         if (data.length) {
-            var badgeText = "";
             var trackingIndex = data.length-1;
             var tracking = data[trackingIndex];
-            console.log("TRACKING ITEM", tracking);
-            // if (typeof userTracking[trackingIndex].badgeTitle != "undefined") {
-            //     var badgeTitle = userTracking[trackingIndex].badgeTitle;
-            //     badgeText = "You earned a " + badgeText + " Badge.\n\n";
-            // }
+            //console.log("TRACKING ITEM", tracking);
             var yearCount = tracking.classCount;
             var year = tracking.year;
-            var lineBreak = '\n\n----------------------\n\n';
-            var trackingText = lineBreak;
+            var trackingText = "";
             if (tracking.months.length > 0 ){
+                var lineBreak = '\n\n----------------------\n\n';
+                trackingText = lineBreak;
                 for (var i = 0; i < tracking.months.length; i++) {
                     var item = tracking.months[i];
-                    trackingText += item.month + " : " + item.classCount + " classes taken.";
+                    var classText = item.classCount > 1 ? " classes ": " class ";
+                    trackingText += item.month + " : " + item.classCount + classText + "taken.";
                     trackingText += lineBreak;
                 }
             }
-            cardContent = badgeText + " You have taken " + yearCount + " classes in " + year + ". \r\nKeep track of your progress per month. \r\n" + trackingText +"\n \nVisit ALotOfPilates.com for many more classes and tracking calendar.";
+            cardContent = " You have taken " + yearCount + " classes in " + year + ". \r\nKeep track of your progress per month. \r\n" + trackingText +"\n \nVisit ALotOfPilates.com for many more classes and tracking calendar.";
         }
     }
      if ((response != "undefined") || (response)){

@@ -73,29 +73,21 @@ exerciseOutput247 += "<break time=\"10s\" />. ";
 exerciseOutput247 += "<break time=\"5s\" />. ";
 
 //SAW
-var exerciseOutput274 = "Start seated with legs straight in front of you.";
-exerciseOutput274 += "<break time=\"0.1s\" />. ";
-exerciseOutput274 += "Open your legs about mat width apart and flex your feet.";
-exerciseOutput274 += "<break time=\"0.2s\" />. ";
+var exerciseOutput274 = "Start seated with legs open mat width apart and straight in front of you. Flex your feet.";
+exerciseOutput274 += "<break time=\"2s\" />. ";
 exerciseOutput274 += "Sit nice and tall, as though your back is up against a tall chair.";
-exerciseOutput274 += "<break time=\"0.2s\" />. ";
+exerciseOutput274 += "<break time=\"0.5s\" />. ";
 exerciseOutput274 += "Lift the arms open in a T shape. Extend the arms completely to activate the triceps.";
-exerciseOutput274 += "<break time=\"0.1s\" />. ";
-exerciseOutput274 += "Inhale as you twist first";
-exerciseOutput274 += "<break time=\"1s\" />. ";
+exerciseOutput274 += "<break time=\"0.5s\" />. ";
+exerciseOutput274 += "Inhale";
+exerciseOutput274 += "<break time=\"0.2s\" />. ";
 exerciseOutput274 += "Exhale as you twist to the right to reach down and out towards the outside of the foot, as though you were going to saw off the right pinky toe.";
-exerciseOutput274 += "<break time=\"0.4s\" />. ";
-exerciseOutput274 += "Pull your navel to your spine as you lift your torso back up to a vertical position.";
-exerciseOutput274 += "<break time=\"0.3s\" />. ";
+exerciseOutput274 += "<break time=\"3s\" />. ";
 exerciseOutput274 += "Inhale twist back to the center, arms reaching out of the mid-back.";
 exerciseOutput274 += "<break time=\"3s\" />. ";
 exerciseOutput274 += "Exhale as you twist to the left to reach down and out towards the outside of the foot, as though you were going to saw off the left pinky toe.";
-exerciseOutput274 += "<break time=\"0.3s\" />. ";
-exerciseOutput274 += "Pull your navel to your spine as you lift your torso back up to a vertical position.";
-exerciseOutput274 += "<break time=\"0.4s\" />. ";
+exerciseOutput274 += "<break time=\"3s\" />. ";
 exerciseOutput274 += "Repeat 3 more times on each leg.";
-exerciseOutput274 += "<break time=\"2s\" />. ";
-exerciseOutput274 += "Shoulders down and away from ears";
 exerciseOutput274 += "<break time=\"2s\" />. ";
 exerciseOutput274 += "Keep the pelvis and legs stable.";
 exerciseOutput274 += "<break time=\"3s\" />. ";
@@ -132,8 +124,7 @@ exerciseOutput310 += "<break time=\"1s\" />. ";
 exerciseOutput310 += "Exhale, tilt the pelvis back";
 exerciseOutput310 += "<break time=\"2s\" />. ";
 exerciseOutput310 += "Repeat 4 more times.";
-exerciseOutput310 += "<break time=\"4s\" />. ";
-exerciseOutput310 += "<break time=\"6s\" />. ";
+exerciseOutput310 += "<break time=\"10s\" />. ";
 
 //SINGLE LEG STRETCH
 var exerciseOutput315 = "Lie on your back, knees in tabletop";
@@ -211,30 +202,23 @@ exerciseOutput324 += "<break time=\"10s\" />. ";
 
 
 //REST POSE            
-var exerciseOutput327 = "Begin on your hands and knees";
-exerciseOutput327 += "<break time=\"0.1s\" />. ";
-exerciseOutput327 += "and your knees about hip width apart.";
+var exerciseOutput327 = "Begin on your hands and knees. Knees about hip width apart.";
 exerciseOutput327 += "<break time=\"0.2s\" />. ";
-exerciseOutput327 += "Rest your butt on your heels";
-exerciseOutput327 += "<break time=\"0.1s\" />. ";
-exerciseOutput327 += "Allow your hips to sink back into your heels";
+exerciseOutput327 += "Rest your butt on your heels.  Allow your hips to sink back into your heels";
 exerciseOutput327 += "<break time=\"0.2s\" />. ";
 exerciseOutput327 += "Reach the arms out in front of you";
 exerciseOutput327 += "<break time=\"2s\" />. ";
 exerciseOutput327 += "Lengthen through your spine and let your back round over your legs.";
 exerciseOutput327 += "<break time=\"2s\" />. ";
 exerciseOutput327 += "Breathe deeply into the back ribs and relax";
-exerciseOutput327 += "<break time=\"4s\" />. ";
-exerciseOutput327 += "<break time=\"6s\" />. ";
+exerciseOutput327 += "<break time=\"10s\" />. ";
 exerciseOutput327 += "<break time=\"10s\" />. ";
 
 
 
 
 //BASIC BRIDGE
-var exerciseOutput511 = "Lay on your back with your knees bent";
-exerciseOutput511 += "<break time=\"0.5s\" />. ";
-exerciseOutput511 += "Place your heels under the knees";
+var exerciseOutput511 = "Lay on your back with your knees bent. Place your heels under the knees";
 exerciseOutput511 += "<break time=\"1s\" />. ";
 exerciseOutput511 += "Inhale, with pelvis is neutral position";
 exerciseOutput511 += "<break time=\"1s\" />. ";
@@ -247,8 +231,7 @@ exerciseOutput511 += "<break time=\"1s\" />. ";
 exerciseOutput511 += "Exhale. Roll your spine down onto the mat one vertebrae at a time";
 exerciseOutput511 += "<break time=\"1s\" />. ";
 exerciseOutput511 += "Repeat 6 more times.";
-exerciseOutput511 += "<break time=\"4s\" />. ";
-exerciseOutput511 += "<break time=\"6s\" />. ";
+exerciseOutput511 += "<break time=\"10s\" />. ";
 exerciseOutput511 += "<break time=\"6s\" />. ";
 exerciseOutput511 += "<break time=\"10s\" />. ";
 
@@ -259,11 +242,7 @@ exerciseOutput545 += "Making sure the hands are under the shoulders and knees ar
 exerciseOutput545 += "<break time=\"1s\" />. ";
 exerciseOutput545 += "Inhale deeply, pulling the navel to the spine.";
 exerciseOutput545 += "<break time=\"1s\" />. ";
-exerciseOutput545 += "Exhale and squeeze the pelvic bones towards one another";
-exerciseOutput545 += "<break time=\"1.5s\" />. ";
-exerciseOutput545 += "as you tuck the pelvis feel your spine begin to curl from the tail to the head.";
-exerciseOutput545 += "<break time=\"1s\" />. ";
-exerciseOutput545 += "ending with your chin curled to the chest";
+exerciseOutput545 += "Exhale and squeeze the pelvic bones towards one another. Feel your spine begin to curl from the tail to the head ending with your chin curled to the chest";
 exerciseOutput545 += "<break time=\"1s\" />. ";
 exerciseOutput545 += "Inhale in this curled position";
 exerciseOutput545 += "<break time=\"1s\" />. ";
@@ -357,9 +336,8 @@ exerciseOutput273 += "<break time=\"0.2s\" />. ";
 exerciseOutput273 += "Repeat a few more times";
 exerciseOutput273 += "<break time=\"0.8s\" />. ";
 exerciseOutput273 += "Try to keep the movement controlled without using momentum.";
-exerciseOutput273 += "<break time=\"1s\" />. ";
+exerciseOutput273 += "<break time=\"10s\" />. ";
 exerciseOutput273 += "<break time=\"8s\" />. ";
-exerciseOutput273 += "<break time=\"9s\" />. ";
 
 //Spine Twist
 var exerciseOutput276 = "From a seated position, straighten your legs out in front of you and flex both feet. ";
@@ -376,14 +354,15 @@ exerciseOutput276 += "Exhale twist back to the center. ";
 exerciseOutput276 += "<break time=\"0.7s\" /> ";
 exerciseOutput276 += "Repeat the movement.";
 exerciseOutput276 += "<break time=\"10s\" />. ";
+exerciseOutput276 += "<break time=\"4s\" />. ";
 
 //Spine Stretch Forward
 var exerciseOutput289 = "Begin seated with your legs extended out in front of you and feet flexed";
-exerciseOutput289 += "<break time=\"0.2s\" /> ";
+exerciseOutput289 += "<break time=\"0.5s\" /> ";
 exerciseOutput289 += "Arms are out in front of the shoulders parallel to the ground.";
-exerciseOutput289 += "<break time=\"0.2s\" /> ";
+exerciseOutput289 += "<break time=\"2s\" /> ";
 exerciseOutput289 += "Inhale. ";
-exerciseOutput289 += "<break time=\"1s\" /> ";
+exerciseOutput289 += "<break time=\"0.4s\" /> ";
 exerciseOutput289 += "Exhale and begin curling the chin towards the chest reaching the arms forward over the legs.";
 exerciseOutput289 += "<break time=\"0.7s\" /> ";
 exerciseOutput289 += "Inhale and hollow out the belly as you reach forward in opposition through your finger tips";
@@ -392,7 +371,7 @@ exerciseOutput289 += "Exhale to roll back up vertebrae by vertebrae.";
 exerciseOutput289 += "<break time=\"9.5s\" /> ";
 
 //Swan
-var exerciseOutput291 = "Lay on your belly with hands underneath the shoulders, elbows back towards the ribs and palms pressing down.";
+var exerciseOutput291 = "Lay on your belly with hands under the shoulders, elbows back towards the ribs and palms pressing down.";
 exerciseOutput291 += "<break time=\"3s\" />";
 exerciseOutput291 += "Inhale as you press the hands down and begin lifting your eyes,chest and torso off the floor.";
 exerciseOutput291 += "<break time=\"1.2s\" />. ";
@@ -427,6 +406,7 @@ exerciseOutput547 += "Exhale and carefully control your hips to the floor";
 exerciseOutput547 += "<break time=\"2s\" />. ";
 exerciseOutput547 += "Repeat 2 more times";
 exerciseOutput547 += "<break time=\"10s\" />. ";
+exerciseOutput547 += "<break time=\"4s\" />. ";
 
 //DOUBLE LEG STRETCH
 var exerciseOutput451 = "Lie on your back with your knees pulled close to the chest. Place your hands on your shins, and keep elbows wide.";
