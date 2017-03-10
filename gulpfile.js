@@ -3,7 +3,9 @@ var gulp = require('gulp'),
 
 gulp.task('zipit', function(){
 	var model = '/src';
-	gulp.src('**/*', {cwd: process.cwd() + model})
+	var path = process.cwd() + model;
+	console.log(path);
+	gulp.src('**/*', {cwd: path})
 		.pipe(zip(model + '.zip'))
-		.pipe(gulp.dest('./'));
+		.pipe(gulp.dest('./dist'));
 });
