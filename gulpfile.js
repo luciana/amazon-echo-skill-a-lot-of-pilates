@@ -14,7 +14,10 @@ gulp.task('deploy', function(){
 	}else {
 		env = 'prod';
 	}
-	process.env.NODE_ENV = env;
+	process.env.NODE_ENV = env;	
+	gulp.src('./enviroment/'+env+'.js')
+        .pipe(gulp.dest('./src/config.js'));
+
 	gulp.src('**/*', {cwd: path})
 		.pipe(zip(model + '.zip'))	
 		.pipe(gulp.dest('./dist/'+env))

@@ -1,2 +1,4 @@
-../src/config.js
-/secrets/*
+./src/config.js
+node_modules/
+dist/
+backup/
