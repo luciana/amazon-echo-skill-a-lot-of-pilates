@@ -23,7 +23,7 @@ var User = require('./user'),
     AlexaSkill = require('./AlexaSkill'),
     Handler = require('./handler'),
     Workout = require('./workout'),
-    config = require('./config'),
+    config = require('./config');
 
 /**
  * ALotOfPilates is a child of AlexaSkill.
