@@ -5,7 +5,7 @@
  * Start a pilates class from Amazon Echo. This code communicates with A Lot Of Pilates(ALOP) API to start a pilates class. One slot is available where you can specify the duration of the class. Get fit with Amazon Alexa!
  *
  * Author: Luciana Bruscino
- * Copywrite 2016 ALotOfPilates.com 
+ * Copywrite 2016 ALotOfPilates.com
  *
  * Example:
  * One-shot model:
@@ -22,8 +22,8 @@ var User = require('./user'),
     Speech = require('./speech'),
     AlexaSkill = require('./AlexaSkill'),
     Handler = require('./handler'),
-    Workout = require('./workout'),
-    config = require('./config');
+    config = require('./config'),
+    Workout = require('./workout');
 
 /**
  * ALotOfPilates is a child of AlexaSkill.
@@ -32,7 +32,7 @@ var User = require('./user'),
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
  */
 var ALotOfPilates = function () {
-    AlexaSkill.call(this, config.app_id);
+    AlexaSkill.call(this, config.app_id); //I store the APP_ID in a config file instead of global variable (APP_ID)
     var user;
     var workout;
 };
