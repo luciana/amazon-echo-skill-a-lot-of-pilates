@@ -1,4 +1,6 @@
-./src/config.js
+src/config.js
 node_modules/
 dist/
-backup/
+environment/
+gulpfile.js
+package.json
