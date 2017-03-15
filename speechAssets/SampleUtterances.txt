@@ -1,0 +1,26 @@
+OneshotStartPilatesClassIntent Start class
+OneshotStartPilatesClassIntent Go
+OneshotStartPilatesClassIntent Start
+OneshotStartPilatesClassIntent Ready
+OneshotStartPilatesClassIntent I would like to start
+OneshotStartPilatesClassIntent I'm ready
+OneshotStartPilatesClassIntent I am ready
+OneshotStartPilatesClassIntent Begin please
+OneshotStartPilatesClassIntent Begin
+OneshotStartPilatesClassIntent Begin class
+OneshotStartPilatesClassIntent I'm on my mat
+OneshotStartPilatesClassIntent I'd like to begin now
+OneshotStartPilatesClassIntent I'd like to begin
+OneshotStartPilatesClassIntent I'm ready to begin class
+OneshotStartPilatesClassIntent Go for it
+AMAZON.StopIntent Stop Class
+AMAZON.StopIntent Stop
+AMAZON.StopIntent Stop it
+AMAZON.StopIntent I am done with this
+AMAZON.StopIntent I am done with that
+AMAZON.StopIntent I am done
+AMAZON.StopIntent This is too hard
+AMAZON.StopIntent I can't do it anymore
+AMAZON.CancelIntent I quit
+AMAZON.CancelIntent I need a break
+AMAZON.CancelIntent This is too hard

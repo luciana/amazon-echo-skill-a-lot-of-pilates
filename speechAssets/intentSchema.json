@@ -1,0 +1,25 @@
+{
+"intents": [
+{
+"intent": "OneshotStartPilatesClassIntent"
+},
+{
+"intent": "AMAZON.StopIntent"
+},
+{
+"intent": "AMAZON.StartOverIntent"
+},
+{
+"intent": "AMAZON.CancelIntent"
+},
+{
+"intent": "AMAZON.YesIntent"
+},
+{
+"intent": "AMAZON.NoIntent"
+},
+ {
+"intent": "AMAZON.HelpIntent"
+}
+]
+}
