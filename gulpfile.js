@@ -60,7 +60,7 @@ gulp.task('checkin', function() {
 	
 });
 
-gulp.task('default', ['setup', 'copy', 'checkin', 'deploy']);
+gulp.task('default', ['setup', 'copy', 'deploy']);
 
 
 
