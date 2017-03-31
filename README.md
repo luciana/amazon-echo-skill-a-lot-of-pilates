@@ -7,14 +7,13 @@ Start a pilates class from Amazon Echo. This code communicates with A Lot Of Pil
 https://www.alotofpilates.com/amazonechopilates
 
 
-<!--- 
-## Setup
-To run this skill on your Echo device, you must setup the following accounts:
-* create an AWS Lamda function, 
-* create an Alexa Skill via amazon developer console
-* connect Alexa Skills to the Lambda function. 
-* deploy the code to AWS Lamda and test it in Amazon Developer console. 
-* you can also check the logs via AWS Cloud Watch (no need for any setup here). 
-* get an API key for A Lot Of Pilates API at https://a-lot-of-pilates.3scale.net/docs
-*/
- --->
+How to run the build and deploy:
+
+* Development environment
+gulp build --env dev //copy environment configuration
+gulp deploy --end dev //zip src folder and deploys to aws
+
+
+* Production environment
+gulp build --env prod //copy environment configuration
+gulp deploy --end prod //zip src folder and deploys to aws
