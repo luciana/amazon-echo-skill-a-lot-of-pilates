@@ -68,4 +68,4 @@ gulp.task('checkin', function() {
 });
 
 gulp.task('build', ['setup', 'copy']);
-gulp.task('deploy', ['aws']);
+//gulp.task('deploy', ['aws']);
