@@ -25,7 +25,7 @@ User.prototype.get = function(){
 	var self = this;
 
   return new Promise(function(resolve, reject) {
-       console.log("USER PROMISE", self._options);
+       //console.log("USER PROMISE", self._options);
        var path = '/api/v3/users/';
        var options = {
             url: config.host + path,
@@ -38,7 +38,7 @@ User.prototype.get = function(){
             },
             json:true
         };
-        console.log("USER OPTIONS", options);       
+        //console.log("USER OPTIONS", options);       
         request(options, function(error, response, body){
             if(error) {
               //console.log("USER API REJECT", error);
@@ -49,42 +49,6 @@ User.prototype.get = function(){
             }
         });
     });
-
-    // return new Promise(function(resolve, reject) {
-    //    console.log("USER PROMISE", self._options);
-    //     var req = https.get(self._options, function(res) {
-    //         console.log('GET USER STATUS: ' + res.statusCode);
-    //         res.setEncoding('utf8');
-            
-    //         if (res.statusCode < 200 || res.statusCode > 299) {
-    //             console.log('GET USER STATUS CODE ERROR: ' + res.statusCode);
-    //             reject(new Error('Failed to load page, status code: ' + res.statusCode));
-    //         }
-
-    //         var body = [];
-    //         res.on('data', function (data){
-    //             body.push(data);
-    //         });
-    //         res.on('end', function () {
-    //           try{
-    //               a=JSON.parse(body);
-    //                console.log(" User get response",a);
-    //               //this.hasUser = true;
-    //           }catch(e){
-    //               console.log("ERROR User get response",e);
-    //               a = [];
-    //           }
-    //           resolve(a);
-    //         });
-    //     });
-    //     req.on('error', function (err) {
-    //         console.log('GET USER STATUS REJECT: ' + err);
-    //         reject(err);
-    //     });
-    //     req.on('complete', function () {
-    //         console.log('GET USER STATUS DONE: ');       
-    //     });
-    //});
 };
 
 

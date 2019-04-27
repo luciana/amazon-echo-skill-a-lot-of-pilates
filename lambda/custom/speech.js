@@ -181,12 +181,12 @@ Speech.prototype.helpText = function (handlerInput, attributes) {
         case "NOTSTARTED": //haven't retrieve the class yet
             speechText = "Pilates classes are great way to feel wonderful. " +
                 "If you are not familiar with the exercises visit a lot pilates dot com. " +
-                "If you are ready to start say go or you can say exit.";
+                "If you are ready, say start pilates class or you say exit to quit.";
             break;
         default:
             speechText = "If you are not familiar with this exercise, " +
                         " visit A Lot Of Pilates dot com and take a video instructed class. " +
-                        "To start a new class, just say go, or you can say exit.";
+                        "If you are ready, say start pilates class or you say exit to quit.";
     }
 
     return handlerInput.responseBuilder
@@ -229,13 +229,12 @@ Speech.prototype.pluralClassText = function(count){
     return count > 1 ? " classes ": " class ";
 };
 
-Speech.prototype.trackDisplay = function(data) {
+Speech.prototype.trackDisplay = function(data, handlerInput) {
 
+    const speechText = "Good job finishing a Pilates class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
     var cardContent = speechText;
 
-    if( data ) {
-         //console.log("TRACKING DATA", data);
-        
+    if( data ) {      
         if (data.length) {
             var trackingIndex = data.length-1;
             var tracking = data[trackingIndex];
@@ -257,19 +256,11 @@ Speech.prototype.trackDisplay = function(data) {
             cardContent = " You have taken " + yearCount + yearClassText + " in " + year + ". \r\nKeep track of your progress per month. \r\n" + trackingText +"\n \nVisit ALotOfPilates.com for many more classes and tracking calendar.";
         }
     }
-     // if ((response != "undefined") || (response)){
-        var speechText = "I am glad you liked the class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
-
-        // if (intent.name == 'AMAZON.NoIntent') {
-        //     speechText = "I am sorry to hear you did not like this class. Visit ALotOfPilates.com for many more pilates classes. Good-bye!";
-        // }
-        //response.tellWithCardWithStop(speechText,"A Lot Of Pilates Class", cardContent, "https://s3.amazonaws.com/s3-us-studio-resources-output/images/Hundred.gif");
-        return handlerInput.responseBuilder
-          .speak(speechText)
-          .reprompt(repromptText)
-          .withSimpleCard('A Lot of Pilates Class', speechText)
-          .getResponse();
-    // }
+    
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withSimpleCard('Pilates class activity', cardContent)
+      .getResponse();
 };
 
 

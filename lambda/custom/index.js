@@ -33,19 +33,17 @@ const LaunchRequestHandler = {
     attributesManager.setSessionAttributes(sessionAttributes);
 
     if(!token){    
-      console.log("ACCESSTOKEN do we have it? no" );      
-      //return Speech.accountSetupError(handlerInput);  
+      console.log("LOG IT THAT ACCESSTOKEN NOT AVAILBLE FROM LaunchRequestHandler" ); 
       return Speech.welcome(handlerInput);  
     } else {       
        console.log("ACCESSTOKEN do we have it? yes" );
        let response;
        var user =  new User(token);
-       if( user ){ 
-         console.log("CALL USER GET" , user );  
+       if( user ){        
          response =  await user.get()                       
             .catch((err) => console.error("ERR LAUNCH ACTION USER API",err))
             .then((data) => {
-              console.log("USER DATA IN LaunchRequestHandler", data);
+              console.log("USER DATA IN LaunchRequestHandler", data.id);              
               sessionAttributes.userState = data;
             })
             .catch((err) => console.error("ERR LAUNCH ACTION CALLING USER DATA",err)            
@@ -71,22 +69,27 @@ const YesIntentHandler = {
     var token = handlerInput.requestEnvelope.context.System.user.accessToken;
     
     if(!token){    
-      console.log("LOG IT THAT ACCESSTOKEN NO AVAILBLE FOR WORKOUT.ACCESSTOKEN do we have it? no" );
+      console.log("LOG IT THAT ACCESSTOKEN NOT AVAILBLE FROM YesIntent" );
     }
 
     if (sessionAttributes.classState && sessionAttributes.classState === 'NOTSTARTED') {
+          console.log("sessionAttributes.classState in YesIntent", sessionAttributes.classState );   
+          if ( sessionAttributes.userState ) {  
+            console.log("sessionAttributes.userState in YesIntent", sessionAttributes.userState.id );  
+          }else {
+             console.log("sessionAttributes.userState in YesIntent - user info not available.");  
+          }
           var workout =  new Workout(token);
           if( workout ){  
             let response;
             response =  await workout.get()
                 .then((data) => {                  
-                  if((data ) &&  (data.poses.length > 0)){
-                    const attributesManager = handlerInput.attributesManager;
-                    const sessionAttributes = attributesManager.getSessionAttributes() || {};
-                    sessionAttributes.classState = 'STARTED';
+                  if((data ) &&  (data.poses.length > 0)){ 
+                    console.log("Call to Workout API successfull. retrieved", data.id);                   
                     return data;
                   }else{
-                    return 0;
+                    console.log("Call to Workout API failed. returned mock data");      
+                    return JSON.parse("{id: 127,title: 'Basic Beginner Pilates Class II',duration_id: 1,poses: [{id: 310,duration: 89,image_path: 'Pelvic_Tilt.gif',name: 'Pelvic Tilt',sound_track_path: 'Pelvic_Tilt.m4a',repetition: 'Repeat 5 times', }, {id: 511,duration: 150,image_path: 'Bridge.gif',name: 'Basic Bridge',sound_track_path: 'Bridge.m4a',repetition: 'Repeat 5-8 times',}, {id: 499,duration: 70,image_path: 'Toe_Taps.gif',name: 'Double Knee Fold/Toe taps',sound_track_path: 'Toe_Taps.m4a',repetition: 'Repeat 8 times',}, {id: 266,duration: 93,image_path: 'Hundred.gif',name: 'Hundred',sound_track_path: 'Hundred.m4a',repetition: 'Pulse your arms 100 times',}, {id: 273,duration: 103,image_path: 'Roll_Up.gif',name: 'Roll Up',sound_track_path: 'Roll_Up.m4a',repetition: 'Repeat 5 times',}, {id: 158,duration: 150,image_path: 'Roll_Over.gif',name: 'Roll Over',sound_track_path: 'Roll_Over.m4a',repetition: 'Repeat 5 times',}, {id: 287,duration: 158,image_path: 'Single_Leg_Circle.gif',name: 'Single Leg Circle',sound_track_path: 'Single_Leg_Circle.m4a',repetition: 'Repeat 5 times each direction both legs',}, {id: 160,duration: 93,image_path: 'Rolling_Like_A_Ball.gif',name: 'Rolling Like a Ball',sound_track_path: 'Rolling_Like_A_Ball.m4a',repetition: 'Repeat 6 times',}, {id: 381,duration: 78,image_path: 'Criss-Cross.gif',name: 'Criss Cross ',sound_track_path: 'Criss-Cross.m4a',repetition: 'Repeat 10 times',}, {id: 315,duration: 62,image_path: 'Single_Leg_Stretch.gif',name: 'Single Leg Stretch',sound_track_path: 'Single_Leg_Stretch.m4a',repetition: 'Repeat 5-10 times',}, {id: 327,duration: 69,image_path: 'Childs_Pose.gif',name: 'Rest Pose',sound_track_path: 'Childs_Pose.m4a',repetition: 'Inhale, Exhale 3-5 times',}],url: 'https://www.alotofpilates.com/workouts/127'}");
                   }
                 })
                 .catch((err) => {
@@ -94,8 +97,13 @@ const YesIntentHandler = {
                   return Speech.startClassError(handlerInput);
                 }); 
 
-            console.log("response", response);
+            //console.log("response", response);
            if (response) {
+            const attributesManager = handlerInput.attributesManager;
+            const sessionAttributes = attributesManager.getSessionAttributes() || {};
+            sessionAttributes.classState = 'STARTED';
+            sessionAttributes.workoutState = response;
+          
             return Speech.teachClass(response, handlerInput);
            }else{
             return Speech.startClassError(handlerInput);
@@ -104,45 +112,52 @@ const YesIntentHandler = {
               return Speech.startClassError(handlerInput);
           }
     } else if (sessionAttributes.classState && sessionAttributes.classState === 'STARTED') {  
-         console.log("sessionAttributes.userData", sessionAttributes.userData );  
-         console.log("sessionAttributes", sessionAttributes );                             
-         if( sessionAttributes.userData ){
-         
-          sessionAttributes.classState = 'ENDED';       
-          try{
-            var workout_options = {
-                "userId": user.id,
-                "userEmail": user.email,
-                "token": user.token,
-                "workoutId":workout.id,
-                "deviceId": user.deviceId
-            };
-            console.error("EXIT HAS USER OPTIONS", workout_options);
-            const token = handlerInput.requestEnvelope.context.System.user.accessToken;
-            if ( token ){
-              var workout =  new Workout(token);  
-  
-              if( workout ){  
-                let response;
-                response = await workout.postTracking(workout_options)
-                  .then(()=> workout.getTrackings(token))
-                  .then((data) => Speech.trackDisplay(this.formatUserTracking(data)))
-                  .catch((err) => console.error("ERR",err));
+        console.log("sessionAttributes.classState in YesIntent", sessionAttributes.classState );    
+                               
+        if ( sessionAttributes.userState && sessionAttributes.workoutState ) { 
+            console.log("sessionAttributes.userState in YesIntent", sessionAttributes.userState.id ); 
+            console.log("sessionAttributes.workoutState in YesIntent", sessionAttributes.workoutState.id );        
+            sessionAttributes.classState = 'ENDED';       
+            try{
+              let user =  sessionAttributes.userState;
+              var workout_options = {
+                  "userId": user.id,
+                  "userEmail": user.email,
+                  "token": user.token,
+                  "workoutId": sessionAttributes.workoutState.id,
+                  "deviceId": user.id
+              };              
+              //const token = handlerInput.requestEnvelope.context.System.user.accessToken;
+              if ( token ){
+                var workout =  new Workout(token);  
+    
+                if( workout ){  
+                  let response;
+                  response = await workout.postTracking(workout_options)
+                    .then(()=> { return workout.getTrackings(token)})                    
+                    .catch((err) => console.error("ERR workout posttracking api",err));
+                  
+                  //console.log("response", response);
+                  if (response) {
+                    return Speech.trackDisplay(formatUserTracking(response), handlerInput);
+                  }else{
+                     console.log("error with displaying activity, activity not displayed");
+                    return Speech.finishedWorkout(handlerInput);
+                  }
+                }
+              }else{
+                 console.log("token  not available, workout not tracked");
+                return Speech.finishedWorkout(handlerInput);
               }
-            }else{
-               console.log("token  not available, workout not tracked");
-              return Speech.finishedWorkout(handlerInput);
+            }catch(e){
+                console.error("ERROR EXITING SKILL",e);
+                return Speech.startOver(handlerInput);
             }
-          }catch(e){
-              console.error("ERROR EXITING SKILL",e);
-          }
         } else {
-          console.log("user data not available, workout not tracked");
+          console.log("user or workout data not available, activity not tracked");
           return Speech.finishedWorkout(handlerInput);
         }
-
-    }else{
-      console.log('what to start a class?');
+    } else{     
       sessionAttributes.classState = 'NOTSTARTED';
       return Speech.startOver(handlerInput);
     }
@@ -178,7 +193,9 @@ const getBadge = function (count) {
 const formatUserTracking = function (data){
 
   if(data){
-      console.log("TRACKING USER GET DATA", data);
+      const monthsArray = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+
+      //console.log("TRACKING USER GET DATA", data);
       //[ { id: 682, workout_id: 656, created_at: '2016-11-05 19:25:35 UTC' }, 
       //{ id: 681, workout_id: 656, created_at: '2016-11-05 19:18:13 UTC' }, 
       //{ id: 680, workout_id: 680, created_at: '2016-11-05 03:20:51 UTC' } ]
@@ -189,7 +206,7 @@ const formatUserTracking = function (data){
         //Tracking Object 
         var trackingYearObject = {};
         trackingYearObject.classCount = 0;
-        trackingYearObject.badgeTitle = this.getBadge(workoutCount);
+        trackingYearObject.badgeTitle = getBadge(workoutCount);
         trackingYearObject.year = '';
         trackingYearObject.months = [];
 
@@ -208,10 +225,10 @@ const formatUserTracking = function (data){
             var item = data[i];
             var workoutDate = new Date(item.created_at);
             var workoutYear = workoutDate.getFullYear();
-            console.log("TRACKING WORKOUT YEAR", workoutYear);
+            //console.log("TRACKING WORKOUT YEAR", workoutYear);
 
-            var workoutMonth = this.months[workoutDate.getMonth()];
-            console.log("TRACKING WORKOUT MONTH", workoutMonth);
+            var workoutMonth = monthsArray[workoutDate.getMonth()];
+            //console.log("TRACKING WORKOUT MONTH", workoutMonth);
 
             trackingYearObject.year = workoutYear;
 
@@ -276,6 +293,7 @@ const SessionEndedRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
   },
   handle(handlerInput) {
+    console.log("Session Ended");
     return handlerInput.responseBuilder.getResponse();
   }
 };
