@@ -34,7 +34,7 @@ const LaunchRequestHandler = {
 
     if(!token){    
       console.log("LOG IT THAT ACCESSTOKEN NOT AVAILBLE FROM LaunchRequestHandler" ); 
-      return Speech.welcome(handlerInput);  
+      return Speech.welcome(handlerInput, myImage);  
     } else {       
        console.log("ACCESSTOKEN do we have it? yes" );
        let response;
@@ -59,7 +59,7 @@ const YesIntentHandler = {
     const request = handlerInput.requestEnvelope.request;  
     return request.type === 'IntentRequest'
       && (request.intent.name === 'AMAZON.YesIntent'
-        || request.intent.name === 'AMAZON.OneshotStartPilatesClassIntent');
+        || request.intent.name === 'OneshotStartPilatesClassIntent');
 
   },
   async handle(handlerInput) {
@@ -338,7 +338,7 @@ const CancelAndStopIntentHandler = {
         || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
   },
   handle(handlerInput) {
-    Speech.cancelClass(handlerInput);
+    return Speech.cancelClass(handlerInput);
   }
 };
 

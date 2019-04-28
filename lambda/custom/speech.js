@@ -6,7 +6,7 @@ var Speech = function (){};
  * This function returns the welcome text:
  * 'Alexa, start pilates class'.
  */
-Speech.prototype.welcome = function(handlerInput){
+Speech.prototype.welcome = function(handlerInput, myImage){
     const speechText = "Welcome " +
         "<break time=\"0.1s\" /> " +
         " to A Lot Of Pilates. " +        
@@ -24,9 +24,14 @@ Speech.prototype.welcome = function(handlerInput){
 
    return handlerInput.responseBuilder
       .speak(speechText)
-      .reprompt(reprompt)
-      .withSimpleCard('Welcome to A Lot of Pilates', "Let'\ get started with a Pilates class.")
+      .reprompt(reprompt)     
+      .withStandardCard('Welcome to A Lot of Pilates', 
+        "Are you ready to start a pilates class?.",
+        "https://www.alotofpilates.com/assets/logo-294ce89aa8a188826eea52586cd30afa8fb8eacf6683d6f8b737d4e07ef347df.png",
+        "https://www.alotofpilates.com/assets/logo-294ce89aa8a188826eea52586cd30afa8fb8eacf6683d6f8b737d4e07ef347df.png")
       .getResponse();
+
+ 
 };
 
 
@@ -82,6 +87,10 @@ Speech.prototype.getStartingClassText = function(name, index){
  */
 Speech.prototype.teachClass = function (alopAPIResponse, handlerInput){   
     var speechPoseOutput ="";
+  //  console.log("workout response being taught", alopAPIResponse);
+    let workout_id = alopAPIResponse.id;
+    let workout_title = alopAPIResponse.title;
+    console.log("workout_id being taught", alopAPIResponse.id );
     for(var i = 0; i <  alopAPIResponse.poses.length; i++){
         var pose = alopAPIResponse.poses[i];
         var name = this.getExerciseName(pose);
@@ -96,10 +105,26 @@ Speech.prototype.teachClass = function (alopAPIResponse, handlerInput){
     const speechOutput = speechText;
     const repromptOutput = "Was this class fun? Say yes for this class to be tracked on the A Lot of Pilates activities calendar.";
   
+    let cardTitle = "Pilates class";
+    if (workout_title){
+      cartTitle = workout_title;
+    }
+
+    let cardImageSmall = "https://www.alotofpilates.com/assets/logo-294ce89aa8a188826eea52586cd30afa8fb8eacf6683d6f8b737d4e07ef347df.png";
+    let cardImageLarge = "https://www.alotofpilates.com/assets/logo-294ce89aa8a188826eea52586cd30afa8fb8eacf6683d6f8b737d4e07ef347df.png";
+
+    if ( workout_id ) {
+      cardImageSmall =  "https://www.alotofpilates.com/assets/workout_series_small_"+ workout_id +".png";
+      cardImageLarge = "https://www.alotofpilates.com/assets/workout_series_small_"+ workout_id +".png";
+    }
+
+
     return handlerInput.responseBuilder
-      .speak(speechOutput)
+      .speak(speechOutput)    
       .reprompt(repromptOutput)
-      .withSimpleCard('Pilates class', "Completed a class!")
+      .withStandardCard(cartTitle, 
+        "This is the your pilates series of exercises. Enjoy your class.",
+        cardImageSmall, cardImageLarge)
       .getResponse();
 
 };
@@ -178,15 +203,10 @@ Speech.prototype.exerciseInfo = function(id){
 Speech.prototype.helpText = function (handlerInput, attributes) {
     var speechText = "";
     switch (attributes.classState) {
-        case "NOTSTARTED": //haven't retrieve the class yet
-            speechText = "Pilates classes are great way to feel wonderful. " +
-                "If you are not familiar with the exercises visit a lot pilates dot com. " +
-                "If you are ready, say start pilates class or you say exit to quit.";
-            break;
         default:
-            speechText = "If you are not familiar with this exercise, " +
-                        " visit A Lot Of Pilates dot com and take a video instructed class. " +
-                        "If you are ready, say start pilates class or you say exit to quit.";
+            speechText = "Pilates classes are great way to feel wonderful. " +
+                "If you are not familiar with the exercises visit a lot of pilates dot com. " +
+                "There you can take video instructed classes to become comfortable with these exercises.";
     }
 
     return handlerInput.responseBuilder
