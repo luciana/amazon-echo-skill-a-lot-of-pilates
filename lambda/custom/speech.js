@@ -123,7 +123,7 @@ Speech.prototype.teachClass = function (alopAPIResponse, handlerInput){
       .speak(speechOutput)    
       .reprompt(repromptOutput)
       .withStandardCard(cartTitle, 
-        "This is the your pilates series of exercises. Enjoy your class.",
+        "This is your pilates series of exercises for today. Enjoy your class.",
         cardImageSmall, cardImageLarge)
       .getResponse();
 
@@ -203,10 +203,14 @@ Speech.prototype.exerciseInfo = function(id){
 Speech.prototype.helpText = function (handlerInput, attributes) {
     var speechText = "";
     switch (attributes.classState) {
+        case 'NOTSTARTED':
+             speechText = "If you are not familiar with Pilates exercises visit a lot of pilates dot com. " +
+                "There you can take video instructed classes to become comfortable with these exercises. Do you want to give it a try? ";
+        break;
         default:
-            speechText = "Pilates classes are great way to feel wonderful. " +
-                "If you are not familiar with the exercises visit a lot of pilates dot com. " +
-                "There you can take video instructed classes to become comfortable with these exercises.";
+            speechText = "Sorry that you are having trouble with this class. " +
+                "At a lot of pilates dot com you can take video instructed classes to become comfortable with these exercises. "+
+                "Do you want to start a new class with me? ";
     }
 
     return handlerInput.responseBuilder
@@ -240,6 +244,13 @@ Speech.prototype.cancelClass = function (handlerInput) {
 
 Speech.prototype.notAFunClass = function(handlerInput){
     var speechText = "Sorry. How about you try another class next time. Visit ALotOfPilates.com for other pilates classes as well. Good-bye";
+    return handlerInput.responseBuilder
+      .speak(speechText)    
+      .getResponse();
+};
+
+Speech.prototype.noHelp = function(handlerInput){
+    var speechText = "Sorry that you had a hard time with this class. Visit ALotOfPilates.com for other pilates classes, there are plenty to choose from. Good-bye";
     return handlerInput.responseBuilder
       .speak(speechText)    
       .getResponse();
@@ -286,9 +297,11 @@ Speech.prototype.trackDisplay = function(data, handlerInput) {
 
 /************ ERROR Speech **************/
 Speech.prototype.accountSetupError = function (handlerInput){
-    var speechText = "You must have an ALotOfPilates.com free account to use this skill. Please use the Alexa app to link your Amazon account with your ALotOfPilates Account.";
+    var speechText = "You must have an ALotOfPilates.com account to use this skill. Please use the Alexa app to link your Amazon account with your ALotOfPilates Account.";
+
     return handlerInput.responseBuilder
       .speak(speechText)      
+      .withLinkAccountCard()
       .getResponse();
 };
 
@@ -300,16 +313,17 @@ Speech.prototype.genericAnswer = function (handlerInput){
 };
 
 Speech.prototype.userAccountError = function(handlerInput){
-    var speechText = "Sorry, I can not identify your account. You must have an ALotOfPilates.com free account to use this skill. Please use the Alexa app to link your Amazon account with your ALotOfPilates Account.";                 
+    var speechText = "Sorry, I can not identify your account. You must have an ALotOfPilates.com account to use this skill. Please use the Alexa app to link your Amazon account with your ALotOfPilates Account.";                 
     return handlerInput.responseBuilder
       .speak(speechText)    
+      .withLinkAccountCard()
       .getResponse();
 };
 
 
 Speech.prototype.startClassError = function(handlerInput, err){
     console.log("ERROR WORKOUT GET SEQUENCE", err);
-    var speechText = "Sorry, an error occur retrieving a pilates class. Please access ALotOfPilates.com to take a class.";
+    var speechText = "Sorry, an error occurred retrieving a pilates class. Please access ALotOfPilates.com to take a class.";
     return handlerInput.responseBuilder
       .speak(speechText)    
       .getResponse();          

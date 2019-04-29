@@ -15,7 +15,8 @@
 const Alexa = require('ask-sdk-core'),
       User = require('./user'),
       Workout = require('./workout'),
-      Speech = require('./speech');
+      Speech = require('./speech'),
+      config = require('./config');
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -33,8 +34,8 @@ const LaunchRequestHandler = {
     attributesManager.setSessionAttributes(sessionAttributes);
 
     if(!token){    
-      console.log("LOG IT THAT ACCESSTOKEN NOT AVAILBLE FROM LaunchRequestHandler" ); 
-      return Speech.welcome(handlerInput, myImage);  
+      console.log("Account Linking message FROM LaunchRequestHandler" ); 
+      return Speech.accountSetupError(handlerInput);  
     } else {       
        console.log("ACCESSTOKEN do we have it? yes" );
        let response;
@@ -72,7 +73,8 @@ const YesIntentHandler = {
       console.log("LOG IT THAT ACCESSTOKEN NOT AVAILBLE FROM YesIntent" );
     }
 
-    if (sessionAttributes.classState && sessionAttributes.classState === 'NOTSTARTED') {
+    if (sessionAttributes.classState && (sessionAttributes.classState === 'NOTSTARTED' ||
+      sessionAttributes.classState === 'CONTINUE')) {
           console.log("sessionAttributes.classState in YesIntent", sessionAttributes.classState );   
           if ( sessionAttributes.userState ) {  
             console.log("sessionAttributes.userState in YesIntent", sessionAttributes.userState.id );  
@@ -279,11 +281,14 @@ const NoIntentHandler = {
   handle(handlerInput) {
     const attributesManager = handlerInput.attributesManager;   
     const sessionAttributes = attributesManager.getSessionAttributes();
+   
 
      if (sessionAttributes.classState === "NOTSTARTED") {
           return Speech.stopUnStartedClass(handlerInput);
-     }else if (sessionAttributes.classState === "STARTED") {    
+     }else if (sessionAttributes.classState === "STARTED") { 
         return Speech.notAFunClass(handlerInput);
+     }else if (sessionAttributes.classState === "CONTINUE") { 
+        return Speech.noHelp(handlerInput);
      }
   }
 };
@@ -327,6 +332,10 @@ const HelpIntentHandler = {
     const attributesManager = handlerInput.attributesManager;   
     const sessionAttributes = attributesManager.getSessionAttributes();
 
+    if (sessionAttributes.classState == 'STARTED' ) {
+      sessionAttributes.classState = "CONTINUE";
+    }
+
     return Speech.helpText(handlerInput, sessionAttributes);
   }
 };
@@ -363,7 +372,9 @@ let skill;
 exports.handler = async function (event, context) {
   console.log(`REQUEST++++${JSON.stringify(event)}`);
   if (!skill) {
+    console.log("ID", config.app_id);
     skill = Alexa.SkillBuilders.custom()
+      .withSkillId(config.app_id)
       .addRequestHandlers(
         LaunchRequestHandler,
         HelpIntentHandler,
