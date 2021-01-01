@@ -17,6 +17,8 @@
  * App ID for the skill
  * Find it at : https://console.aws.amazon.com/lambda/home
  */
+
+const Alexa = require('ask-sdk-core');
 var APP_ID = ''; //get an APP ID - i.e amzn1.echo-sdk-ams.app.xxxxxx
 var User = require('./user'),
     Speech = require('./speech'),
