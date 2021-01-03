@@ -21,6 +21,21 @@ gulp deploy --end prod //zip lamda/custom folder and deploys to aws
 run 
     ./test/ngrok http 3001
 
+get the Forwarding url from there and add it as the Endpoint as the default region for HTTPS 
+https://developer.amazon.com/alexa/console/ask/build/custom/amzn1.echo-sdk-ams.app.ef7b5d42-f176-4806-9ea3-6ef6d041c2aa/development/en_IN/endpoint
+
+Make sure to select "My development endpoint is a sub-domain ..." 
+
+Save endpoint.
+
+in VSCode debugger, launch. 
+
+    ask dialog -l en-US
+
+Enter invocation command
+
+    ask ALOPPilatesClass start pilates class
+
     https://github.com/alexa/alexa-cookbook/blob/master/tools/LocalDebugger/nodejs/README.md
 
 -->
