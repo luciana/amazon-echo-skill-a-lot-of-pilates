@@ -1,0 +1,85 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "pilates dev",
+            "intents": [
+                {
+                    "name": "OneshotStartPilatesClassIntent",
+                    "slots": [],
+                    "samples": [
+                        "next class",
+                        "I want to take another class",
+                        "give me another class",
+                        "Let's do this",
+                        "I am ready for pilates",
+                        "Start class",
+                        "Go",
+                        "Start",
+                        "Ready",
+                        "I would like to start",
+                        "I'm ready",
+                        "I am ready",
+                        "Begin please",
+                        "Begin",
+                        "Begin class",
+                        "I'm on my mat",
+                        "I'd like to begin now",
+                        "I'd like to begin",
+                        "I'm ready to begin class",
+                        "Go for it"
+                    ]
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": [
+                        "i can't do it",
+                        "Stop Class",
+                        "Stop",
+                        "Stop it",
+                        "I am done with this",
+                        "I am done with that",
+                        "I am done",
+                        "This is too hard",
+                        "I can't do it anymore"
+                    ]
+                },
+                {
+                    "name": "AMAZON.StartOverIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": [
+                        "I quit",
+                        "I need a break",
+                        "This is too hard"
+                    ]
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": [
+                        "no idea",
+                        "wish I had better guidance",
+                        "no clue",
+                        "how do I do that",
+                        "I don't understand what you are saying",
+                        "help"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                }
+            ],
+            "types": []
+        }
+    }
+}

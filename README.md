@@ -12,3 +12,10 @@ gulp deploy --end dev //zip lamda/custom folder and deploys to aws
 * Production environment
 gulp build --env prod //copy environment configuration
 gulp deploy --end prod //zip lamda/custom folder and deploys to aws
+
+
+* test it locally
+run 
+    ./test/ngrok http 3001
+
+    https://github.com/alexa/alexa-cookbook/blob/master/tools/LocalDebugger/nodejs/README.md

@@ -1,0 +1,154 @@
+{
+  "manifest": {
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "https://ea923223e71a.ngrok.io"
+        },
+        "interfaces": []
+      }
+    },
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "containsAds": false,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "locales": {
+        "en-US": {
+          "privacyPolicyUrl": "https://www.alotofpilates.com/terms",
+          "termsOfUseUrl": "https://www.alotofpilates.com/terms"
+        },
+        "en-GB": {
+          "privacyPolicyUrl": "https://www.alotofpilates.com/terms",
+          "termsOfUseUrl": "https://www.alotofpilates.com/terms"
+        },
+        "en-CA": {
+          "privacyPolicyUrl": "https://www.alotofpilates.com/terms",
+          "termsOfUseUrl": "https://www.alotofpilates.com/terms"
+        },
+        "en-AU": {
+          "privacyPolicyUrl": "https://www.alotofpilates.com/terms",
+          "termsOfUseUrl": "https://www.alotofpilates.com/terms"
+        },
+        "en-IN": {
+          "privacyPolicyUrl": "https://www.alotofpilates.com/terms",
+          "termsOfUseUrl": "https://www.alotofpilates.com/terms"
+        }
+      },
+      "usesPersonalInfo": true
+    },
+    "publishingInformation": {
+      "category": "HEALTH_AND_FITNESS",
+      "distributionCountries": [],
+      "isAvailableWorldwide": true,
+      "locales": {
+        "en-US": {
+          "description": "Take Pilates classes with Alexa. All you need to get started is a Pilates mat and about 10-20 minutes of your time. You don't need any equipment for these classes. The classes are primarily based on the classical Pilates mat sequences. Alexa knows a variety of Pilates sequences, so it won’t get boring. Say ‘Alexa, start pilates class’, and let Alexa guide you through an enjoyable Pilates experience. To learn more about Pilates exercises and take a variety of Pilates classes, visit ALotOfPilates.com",
+          "examplePhrases": [
+            "Alexa, start pilates class"
+          ],
+          "keywords": [
+            "Pilates",
+            "fitness",
+            "exercise",
+            "health",
+            "workout",
+            "life",
+            "style",
+            "fun"
+          ],
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/ceae377b19b5490f8d4561c6c77d667f/APP_ICON_LARGE?versionId=X3LFwtgORvafho_.DDygQEAcmf6GEy6u&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210103T043912Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QKQTYKJJO%2F20210103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=6c72fb467022afb92be39ca4c4a9dff4352e348fb79f2e88a432f4a08cc17f94",
+          "name": "ALOP Pilates Class",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/370d7e5c91b24dfa88b7b4beff971a96/APP_ICON?versionId=h99lJ9u4i8qJH06ik.VqS31OlAGYhS6K&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210103T043912Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QKQTYKJJO%2F20210103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=ab75db82c06d2d6903978c7e0538363c01b55b8f24c1325bf08945264459e7c9",
+          "summary": "Take traditional Pilates mat classes from ALotOfPilates.com with Amazon Echo. Let Alexa guide you through a series of Pilates exercises. Get ready to feel great"
+        },
+        "en-CA": {
+          "description": "Take Pilates classes with Alexa. All you need to get started is a Pilates mat and about 10-20 minutes of your time. You don't need any equipment for these classes. The classes are primarily based on the classical Pilates mat sequences. Alexa knows a variety of Pilates sequences, so it won’t get boring. Say ‘Alexa, start pilates class’, and let Alexa guide you through an enjoyable Pilates experience. To learn more about Pilates exercises and take a variety of Pilates classes, visit ALotOfPilates.com",
+          "examplePhrases": [
+            "Alexa, start pilates class"
+          ],
+          "keywords": [
+            "Pilates",
+            "fitness",
+            "exercise",
+            "health",
+            "workout",
+            "life",
+            "style",
+            "fun"
+          ],
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/cb8f/6914baf5598b40e998d52b6eebc948aa/APP_ICON_LARGE?versionId=NxpWETwV7k5n8rF81.fQBodvO5yz2_1q&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210103T043912Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QKQTYKJJO%2F20210103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=bec46664004219597257d67cd96cf18d2198f7f14b575901ccd24e1a068f580b",
+          "name": "ALOP Pilates Class",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/fb84/fbf499843da3493f82858566a2f66085/APP_ICON?versionId=S9gEHg5SQ0ztK8fTE0G2MmqDQPGQg9Zu&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210103T043912Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QKQTYKJJO%2F20210103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=8b9a279b506fce37cd5e456d22edb29543f6e33a9f473781aedadeb9d7693a06",
+          "summary": "Take traditional Pilates mat classes from ALotOfPilates.com with Amazon Echo. Let Alexa guide you through a series of Pilates exercises. Get ready to feel great",
+          "updatesDescription": "Available in CA!"
+        },
+        "en-IN": {
+          "description": "Take Pilates classes with Alexa. All you need to get started is a Pilates mat and about 10-20 minutes of your time. You don't need any equipment for these classes. The classes are primarily based on the classical Pilates mat sequences. Alexa knows a variety of Pilates sequences, so it won’t get boring. Say ‘Alexa, start pilates class’, and let Alexa guide you through an enjoyable Pilates experience. To learn more about Pilates exercises and take a variety of Pilates classes, visit ALotOfPilates.com",
+          "examplePhrases": [
+            "Alexa, start pilates class"
+          ],
+          "keywords": [
+            "Pilates",
+            "fitness",
+            "exercise",
+            "health",
+            "workout",
+            "life",
+            "style",
+            "fun"
+          ],
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/c5b6/b6252d78d2fa4742a063716e894d852c/APP_ICON_LARGE?versionId=S1QpiHYpHej7fuv09Z6EqehN8XReiiHT&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210103T043912Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QKQTYKJJO%2F20210103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=009188cb870d4bb25d9e16a1b0e0f0e77647e6600e19404b79f4d16d2f31874e",
+          "name": "ALOP Pilates Class",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/cb1b/f0a20535664b4645a209032d22631f6c/APP_ICON?versionId=WRqobxpusRvg9Np4dX5Ne.pE.NNSON4l&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210103T043912Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QKQTYKJJO%2F20210103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=4e49ef5b5c4fafa9b9c425f1715dd4a50581005989aee4826e8a542170a0d1ea",
+          "summary": "Take traditional Pilates mat classes from ALotOfPilates.com with Amazon Echo. Let Alexa guide you through a series of Pilates exercises. Get ready to feel great",
+          "updatesDescription": "Available in IN!"
+        },
+        "en-AU": {
+          "description": "Take Pilates classes with Alexa. All you need to get started is a Pilates mat and about 10-20 minutes of your time. You don't need any equipment for these classes. The classes are primarily based on the classical Pilates mat sequences. Alexa knows a variety of Pilates sequences, so it won’t get boring. Say ‘Alexa, start pilates class’, and let Alexa guide you through an enjoyable Pilates experience. To learn more about Pilates exercises and take a variety of Pilates classes, visit ALotOfPilates.com",
+          "examplePhrases": [
+            "Alexa, start pilates class"
+          ],
+          "keywords": [
+            "Pilates",
+            "fitness",
+            "exercise",
+            "health",
+            "workout",
+            "life",
+            "style",
+            "fun"
+          ],
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/d15f/0614a44e84ea4200b7dc0e0374daafb9/APP_ICON_LARGE?versionId=t0VhUAKKP_xwUgVrGKnQgOEizRznfkR.&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210103T043912Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QKQTYKJJO%2F20210103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=5d8843d6b2e474921b5b7b3a18450691358284fbf676f719c4bff89c0d1e08f1",
+          "name": "ALOP Pilates Class",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/95b0/1a34bd3b12b9472096f9dfdb4ab5e00d/APP_ICON?versionId=2WP0F7ZoKpqJo40j2RnvHsSuqEfGd4kp&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210103T043912Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QKQTYKJJO%2F20210103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=a645c25e6c2c1ce535fd5fa482d36575ec0c5eaca0f481921bb61b1ed20b14b8",
+          "summary": "Take traditional Pilates mat classes from ALotOfPilates.com with Amazon Echo. Let Alexa guide you through a series of Pilates exercises. Get ready to feel great",
+          "updatesDescription": "Available in AU!"
+        },
+        "en-GB": {
+          "description": "Take Pilates classes with Alexa. All you need to get started is a Pilates mat and about 10-20 minutes of your time. You don't need any equipment for these classes. The classes are primarily based on the classical Pilates mat sequences. Alexa knows a variety of Pilates sequences, so it won’t get boring. Say ‘Alexa, start pilates class’, and let Alexa guide you through an enjoyable Pilates experience. To learn more about Pilates exercises and take a variety of Pilates classes, visit ALotOfPilates.com",
+          "examplePhrases": [
+            "Alexa, start pilates class"
+          ],
+          "keywords": [
+            "Pilates",
+            "fitness",
+            "exercise",
+            "health",
+            "workout",
+            "life",
+            "style",
+            "fun"
+          ],
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/d734/8a2b3f4e16014417a57456cdf040dcc5/APP_ICON_LARGE?versionId=Nh_Omwjdvcr7OJOSHTtXmi3sZQdN3Cg6&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210103T043912Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QKQTYKJJO%2F20210103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=73a46818fde5048f6c6dc7f076a52f500d34c03c0a222c71dd50fecfb6159d10",
+          "name": "ALOP Pilates Class",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/987b/f9f0390aec064067850a1b6d35646a62/APP_ICON?versionId=fKR66pQzCQgOYyhVwagvIKX265U4VieO&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210103T043912Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QKQTYKJJO%2F20210103%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=34e6e37ef221bce3191b4a81dd54a90aa9d7a4c2fde6ebe679aa06e09bc8b5dc",
+          "summary": "Take traditional Pilates mat classes from ALotOfPilates.com with Amazon Echo. Let Alexa guide you through a series of Pilates exercises. Get ready to feel great",
+          "updatesDescription": "Available in the UK!"
+        }
+      },
+      "testingInstructions": "Included English language for other countries other than USA"
+    }
+  }
+}
