@@ -2,6 +2,9 @@
 
 This Alexa Skill guides you through a series of Pilates mat exercises. This code uses ALotOfPilates.com API for generating the Pilates mat classes. Pilates classes were designed by certified Pilates instructors.
 
+Invoke Alexa skill by saying 'Alext, start pilates class'.
+
+<!---
 How to run the build and deploy:
 
 * Development environment
@@ -19,3 +22,5 @@ run
     ./test/ngrok http 3001
 
     https://github.com/alexa/alexa-cookbook/blob/master/tools/LocalDebugger/nodejs/README.md
+
+-->
