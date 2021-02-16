@@ -111,12 +111,11 @@ exerciseOutput287 += "<break time=\"10s\" />. ";
 
 
 //PELVIC TILT
-var exerciseOutput310 = "Lay on your back with your knees bent.";
-exerciseOutput310 += "<break time=\"0.2s\" />. ";
+var exerciseOutput310 = "Turn on your back with your knees bent.";
+exerciseOutput310 += "<break time=\"1s\" />. ";
 exerciseOutput310 += "Place your heels under the knees";
-exerciseOutput310 += "<break time=\"0.2s\" />. ";
 exerciseOutput310 += "and hips width apart";
-exerciseOutput310 += "<break time=\"0.2s\" />. ";
+exerciseOutput310 += "<break time=\"0.3s\" />. ";
 exerciseOutput310 += "Inhale, with pelvis in neutral position";
 exerciseOutput310 += "<break time=\"1s\" />. ";
 exerciseOutput310 += "Exhale, tilt the pelvis back";
