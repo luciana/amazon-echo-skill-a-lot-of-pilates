@@ -19,7 +19,7 @@ var Workout = function(token){
 };
 
 Workout.prototype.getId = function(){
-  var workoutAvailable = [127, 524];
+  var workoutAvailable = [302];
   return workoutAvailable[Math.floor(Math.random() * workoutAvailable.length)];
 };
 

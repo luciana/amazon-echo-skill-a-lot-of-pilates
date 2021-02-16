@@ -485,7 +485,7 @@ exerciseOutput564 += "Hold.";
 exerciseOutput564 += "<break time=\"10s\" />. ";
 exerciseOutput564 += "<break time=\"5s\" />. ";
 exerciseOutput564 += "Release and relax.";
-exerciseOutput564 += "<break time=\"8s\" />. ";
+exerciseOutput564 += "<break time=\"2s\" />. ";
 
 //Seated Roll Back
 var exerciseOutput631 = "Begin sitting with knees bent. Feet flat on the floor. Knees and thighs are together. Place your hands on your thighs.";
