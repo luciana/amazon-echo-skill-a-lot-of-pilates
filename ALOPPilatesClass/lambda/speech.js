@@ -22,14 +22,19 @@ Speech.prototype.welcome = function(handlerInput, myImage){
         ".<break time=\"0.7s\" /> " +
         "Just say start class when ready. Should I start?";
 
-   return handlerInput.responseBuilder
-      .speak(speechText)
-      .reprompt(reprompt)     
-      .withStandardCard('Welcome to A Lot of Pilates', 
-        "Are you ready to start a pilates class?.",
-        "https://www.alotofpilates.com/assets/logo-294ce89aa8a188826eea52586cd30afa8fb8eacf6683d6f8b737d4e07ef347df.png",
-        "https://www.alotofpilates.com/assets/logo-294ce89aa8a188826eea52586cd30afa8fb8eacf6683d6f8b737d4e07ef347df.png")
-      .getResponse();
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .reprompt(reprompt)
+            .getResponse();
+
+//    return handlerInput.responseBuilder
+//       .speak(speechText)
+//       .reprompt(reprompt)     
+//       .withStandardCard('Welcome to A Lot of Pilates', 
+//         "Are you ready to start a pilates class?.",
+//         "https://www.alotofpilates.com/assets/logo-294ce89aa8a188826eea52586cd30afa8fb8eacf6683d6f8b737d4e07ef347df.png",
+//         "https://www.alotofpilates.com/assets/logo-294ce89aa8a188826eea52586cd30afa8fb8eacf6683d6f8b737d4e07ef347df.png")
+//       .getResponse();
 
  
 };

@@ -39,7 +39,6 @@
                         "I am done with this",
                         "I am done with that",
                         "I am done",
-                        "This is too hard",
                         "I can't do it anymore"
                     ]
                 },
@@ -50,9 +49,8 @@
                 {
                     "name": "AMAZON.CancelIntent",
                     "samples": [
-                        "I quit",
                         "I need a break",
-                        "This is too hard"
+                        "Too hard"
                     ]
                 },
                 {
