@@ -30,13 +30,13 @@ Make sure to select "My development endpoint is a sub-domain ..."
 
 Save endpoint.
 
-in VSCode debugger, launch. 
+in VSCode debugger, launch. ( Run Start Debugging )
 
-    > ALOPPilatesClass git:(master) ask dialog -l en-US
 
 Open Terminal, enter invocation command
+ > ALOPPilatesClass git:(master) ask dialog -l en-US
 
-    ask ALOPPilatesClass start pilates class
+ User  > ask ALOPPilatesClass start pilates class
 
     https://github.com/alexa/alexa-cookbook/blob/master/tools/LocalDebugger/nodejs/README.md
 

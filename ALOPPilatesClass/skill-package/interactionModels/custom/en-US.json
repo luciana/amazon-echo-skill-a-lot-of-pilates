@@ -7,11 +7,9 @@
                     "name": "OneshotStartPilatesClassIntent",
                     "slots": [],
                     "samples": [
-                        "next class",
-                        "I want to take another class",
-                        "give me another class",
-                        "Let's do this",
-                        "I am ready for pilates",
+                        "i want to take a pilates class",
+                        "start my next class",
+                        "start a pilates class",
                         "Start class",
                         "Go",
                         "Start",
@@ -32,7 +30,11 @@
                 {
                     "name": "AMAZON.StopIntent",
                     "samples": [
-                        "i can't do it",
+                        "bye bye",
+                        "bye",
+                        "done",
+                        "quit",
+                        "exit",
                         "Stop Class",
                         "Stop",
                         "Stop it",
@@ -49,26 +51,40 @@
                 {
                     "name": "AMAZON.CancelIntent",
                     "samples": [
-                        "I need a break",
-                        "Too hard"
+                        "cancel",
+                        "I m done",
+                        "this is not for me",
+                        "I need a break"
                     ]
                 },
                 {
                     "name": "AMAZON.YesIntent",
-                    "samples": []
+                    "samples": [
+                        "why not",
+                        "of course",
+                        "sure"
+                    ]
                 },
                 {
                     "name": "AMAZON.NoIntent",
-                    "samples": []
+                    "samples": [
+                        "no way",
+                        "nope"
+                    ]
                 },
                 {
                     "name": "AMAZON.HelpIntent",
                     "samples": [
-                        "no idea",
-                        "wish I had better guidance",
-                        "no clue",
-                        "how do I do that",
-                        "I don't understand what you are saying",
+                        "I don't know these names",
+                        "I don't understand it",
+                        "I have no idea what you are talking about",
+                        "I can't do this",
+                        "thanks",
+                        "help me understand",
+                        "what is this pose about",
+                        "i need assistance",
+                        "please help",
+                        "i don't understand",
                         "help"
                     ]
                 },
