@@ -3,6 +3,8 @@ var exercises ={};
 // EXERCISES DESCRIPTIONS
 //Side Plank 312
 //Side Plank on Elbows 490
+//Swimming
+//criss cross
 
 //ROLL OVER
 var exerciseOutput158 = "Lay on your back with your arms long and by your sides.";
@@ -26,6 +28,27 @@ exerciseOutput158 += "<break time=\"3s\" />. ";
 exerciseOutput158 += "<break time=\"10s\" />. ";
 exerciseOutput158 += "<break time=\"10s\" />. ";
 
+
+//CRISS CROSS
+
+var exerciseOutput381 ="Lay on your back with your knees in tabletop";
+exerciseOutput381 += "<break time=\"2s\" />. ";
+exerciseOutput381 += "Place your hands behind your head with your elbows just off the floor";
+exerciseOutput381 += "<break time=\"0.8s\" />. ";
+exerciseOutput381 += "Lift your chin towards your chest and curl the chest towards the knees in a deep upper ab curl";
+exerciseOutput381 += "<break time=\"0.8s\" />. ";
+exerciseOutput381 += "Exhale as you bend the right knee in towards your chest and extend the left leg straight out about 45 degrees off the floor with pointed toes;";
+exerciseOutput381 += "<break time=\"0.4s\" />. ";
+exerciseOutput381 += "At the same time cross your left armpit over to your right knee feeling the rotation at the waste";
+exerciseOutput381 += "<break time=\"0.2s\" />. ";
+exerciseOutput381 += "and into your side oblique muscles.";
+exerciseOutput381 += "<break time=\"0.8s\" />. ";
+exerciseOutput381 += "Inhale and pull the left leg back in and rotate your upper trunk through center";
+exerciseOutput381 += "<break time=\"0.8s\" />. ";
+exerciseOutput381 += "Exhale and cross the right armpit over towards the left knee";
+exerciseOutput381 += "<break time=\"1s\" />. ";
+exerciseOutput381 += "Remember to keep your pelvis very stable as you rotate the upper body on the diagonal";
+exerciseOutput381 += "<break time=\"10s\" />. ";
 
 //ROLLING LIKE A BALL
 var exerciseOutput160 = "Get in position for Rolling Like a Ball";

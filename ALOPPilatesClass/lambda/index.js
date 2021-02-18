@@ -98,7 +98,7 @@ const YesIntentHandler = {
                   return Speech.startClassError(handlerInput);
                 }); 
 
-            //console.log("response", response);
+            console.log("responsedafdafafasfa", response);
            if (response) {
             const attributesManager = handlerInput.attributesManager;
             const sessionAttributes = attributesManager.getSessionAttributes() || {};
