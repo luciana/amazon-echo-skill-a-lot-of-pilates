@@ -30,6 +30,8 @@
                 {
                     "name": "AMAZON.StopIntent",
                     "samples": [
+                        "I don't want to do it",
+                        " I don't want to do it right now",
                         "bye bye",
                         "bye",
                         "done",

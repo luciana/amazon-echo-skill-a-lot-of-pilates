@@ -31,6 +31,8 @@
                 {
                     "name": "AMAZON.StopIntent",
                     "samples": [
+                        "Eu não quer fazer",
+                        "Eu não quer fazer agora",
                         "bye bye",
                         "tchau",
                         "para",
@@ -38,8 +40,8 @@
                         "exit",
                         "pare a aula",
                         "para",
-                        "Nao aguento mais",
-                        "Nao posso terminar",
+                        "não aguento mais",
+                        "não posso terminar",
                         "já era",
                         "muito difícil",
                         "assim não da",
