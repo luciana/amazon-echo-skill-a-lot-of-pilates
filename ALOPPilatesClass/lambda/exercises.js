@@ -4,7 +4,6 @@ var exercises ={};
 //Side Plank 312
 //Side Plank on Elbows 490
 //Swimming
-//criss cross
 
 //ROLL OVER
 var exerciseOutput158 = "Lay on your back with your arms long and by your sides.";
@@ -613,6 +612,10 @@ exercises[326] = {
 exercises[327] = {
     exerciseDescription: exerciseOutput327,
     exerciseName: "Rest Pose"};
+
+exercises[381] = {
+    exerciseDescription: exerciseOutput381,
+    exerciseName: "Criss Cross"};
 
 exercises[431] = {
     exerciseDescription: exerciseSideLegSeries,
