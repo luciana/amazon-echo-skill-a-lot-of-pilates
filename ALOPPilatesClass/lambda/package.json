@@ -1,15 +1,19 @@
 {
-  "name": "amazon-echo-skill-a-lot-of-pilates",
+  "name": "ALOP Pilates Class",
   "version": "1.0.0",
   "description": "##ALOP Alexa Skills Documentation Start a pilates class from Amazon Echo. This code communicates with A Lot Of Pilates(ALOP) API to start a pilates class. Two slots are available. One slot is class duration and the other is class type. Options for class duration is 10, 30, 50 minutes. Options for class type is Stretching, Pilates or Power Pilates.",
-  "main": "gulpfile.js",
+  "main": "index.js",
   "dependencies": {
-    "ask-sdk": "^2.10.0",
+    "ask-sdk-core": "^2.10.1",
+    "ask-sdk-model": "^1.34.1",
+    "aws-sdk": "^2.713.0",
     "gulp-awslambda": "^0.4.0",
     "gulp-deploy-git": "^0.5.3",
-    "gulp-install": "^0.6.0"
+    "gulp-install": "^0.6.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
+    "ask-sdk-local-debug": "^1.1.0",
     "gulp-util": "^3.0.8",
     "gulp-zip": "^4.0.0"
   },

@@ -1,12 +1,12 @@
 var config = require('./config'),
-  Speech = require('./speech'),
-  request = require('request'),
-	https = require('https');
+  //Speech = require('./speech'),
+  request = require('request');
+	//https = require('https');
 
 //contructor
 var Workout = function(token){
   this.id = this.getId();
-  this.token = token;
+  this.token = token || "";
 	this._options =  {
       hostname: config.host_name,
       path: '/api/v1/workouts/' + this.id,
@@ -19,7 +19,7 @@ var Workout = function(token){
 };
 
 Workout.prototype.getId = function(){
-  var workoutAvailable = [530,126,127, 524];
+  var workoutAvailable = [530];
   return workoutAvailable[Math.floor(Math.random() * workoutAvailable.length)];
 };
 
@@ -27,7 +27,7 @@ Workout.prototype.get = function(){
 	var self = this;
 
     return new Promise(function(resolve, reject) {
-       console.log("WORKOUT PROMISE");
+       //console.log("WORKOUT PROMISE" , self.id);
        var path = '/api/v1/workouts/' + self.id;
        var options = {
             url: config.host + path,
@@ -38,33 +38,19 @@ Workout.prototype.get = function(){
             },
             json:true
         };
-
+        //console.log("WORKOUT OPTIONS", options);   
         request(options, function(error, response, body){
             if(error) {
+              //console.log("WORKOUT API REJECT");
               reject(error);
             }else{
+             // console.log("WORKOUT API 200 RESPONSE", body);
               resolve(body);
             }
         });
     });
 };
 
-Workout.prototype.getSequence = function(response, session) {
-    console.log("WORKOUT GET SEQUENCE FOR", this.id);
-    this.get()
-        .then((data) => this.startClass(data, response, session))
-        .catch((err) => Speech.startClassError(response, err));
-       //.catch((err) => console.log("ERROR WORKOUT GET SEQUENCE", err));
-};
-
-Workout.prototype.startClass = function(data, response, session){
-  if((data ) &&  (data.poses.length > 0)){
-    session.attributes.stage = 1;
-    Speech.teachClass(data, response);
-  }else{
-   Speech.startClassError(response);
-  }
-};
 
 Workout.prototype.postTracking = function(opts){
     var post_data = JSON.stringify({
@@ -87,7 +73,7 @@ Workout.prototype.postTracking = function(opts){
     };
 
     return new Promise( function (resolve, reject){
-      console.log("WORKOUT TRACKING PROMISE", post_data);
+      //console.log("WORKOUT TRACKING PROMISE", post_data);
       //http://blog.modulus.io/node.js-tutorial-how-to-use-request-module
       var path = '/api/v3/trackings';
       var options = {
@@ -125,7 +111,7 @@ Workout.prototype.getTrackings = function(token){
       }
     };
     return new Promise(function(resolve, reject) {
-      console.log("TRACKING PROMISE");
+      //console.log("TRACKING PROMISE");
 
       var path = '/api/v3/trackings';
        var options = {

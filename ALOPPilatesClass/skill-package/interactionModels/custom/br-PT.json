@@ -1,0 +1,103 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "aula de pilates",
+            "intents": [
+                {
+                    "name": "OneshotStartPilatesClassIntent",
+                    "slots": [],
+                    "samples": [
+                        "eu quero fazer aula de pilates",
+                        "pode comecar minha proxima aula",
+                        "inicie a aula de pilates",
+                        "comece a aula",
+                        "Vamos",
+                        "Pode comecar",
+                        "Estou pronta pra comecar a aula",
+                        "Estou pronto pra comecar a aula",
+                        "Eu gostaria de iniar a aula",
+                        "Estou pronta",
+                        "Estou pronto",
+                        "Por favor inicie",
+                        "Vai",
+                        "Comece minha aula",
+                        "Ja estou no tapete",
+                        "Eu quero comecar agoral",
+                        "Eu ja posso comecar",
+                        "Vamos la",
+                        "Esta na hora"
+                    ]
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": [
+                        "Eu não quer fazer",
+                        "Eu não quer fazer agora",
+                        "bye bye",
+                        "tchau",
+                        "para",
+                        "acabou",
+                        "exit",
+                        "pare a aula",
+                        "para",
+                        "não aguento mais",
+                        "não posso terminar",
+                        "já era",
+                        "muito difícil",
+                        "assim não da",
+                        "stop"
+                    ]
+                },
+                {
+                    "name": "AMAZON.StartOverIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": [
+                        "cancella",
+                        "Isso não é pra mim",
+                        "anula",
+                        "preciso de um descanço"
+                    ]
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": [
+                        "porque não",
+                        "claro",
+                        "sim"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": [
+                        "não vai da agora",
+                        "não"
+                    ]
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": [
+                        "Eu não entendo esses exercícios",
+                        "Não entendi nada",
+                        "Como",
+                        "Não posso",
+                        "Obrigada",
+                        "Me ajuda",
+                        "Ajuda",
+                        "Socorro",
+                        "Porfavor ajuda",
+                        "Ajuda",
+                        "Ta de brincadeira"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                }
+            ],
+            "types": []
+        }
+    }
+}

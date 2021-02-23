@@ -44,9 +44,16 @@ gulp.task('copy', function () {
 });
 
 
-gulp.task('deploy', function(){
-	gutil.log('package to lambda', localConfig.func);
+gulp.task('zip', function(){
+	gutil.log('zip package', localConfig.func);
 	gulp.src('**/*', {cwd: localConfig.cwd})
+		.pipe(zip(localConfig.src + '.zip'))
+		.pipe(gulp.dest(localConfig.dest));
+});
+
+gulp.task('aws', ['setup'], function(){
+	gutil.log('package to lambda', localConfig.func);
+	gulp.src('**/*', {cwd: localConfig.cwd})		
 		.pipe(zip(localConfig.src + '.zip'))
 		.pipe(gulp.dest(localConfig.dest))
 		.pipe(lambda(localConfig.func, {profile: 'default'}));
@@ -60,4 +67,5 @@ gulp.task('checkin', function() {
 	
 });
 
-gulp.task('default', ['setup', 'copy', 'deploy']);
+gulp.task('build', ['setup', 'copy']);
+//gulp.task('deploy', ['aws']);

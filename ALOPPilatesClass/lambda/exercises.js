@@ -3,6 +3,7 @@ var exercises ={};
 // EXERCISES DESCRIPTIONS
 //Side Plank 312
 //Side Plank on Elbows 490
+//Swimming
 
 //ROLL OVER
 var exerciseOutput158 = "Lay on your back with your arms long and by your sides.";
@@ -26,6 +27,27 @@ exerciseOutput158 += "<break time=\"3s\" />. ";
 exerciseOutput158 += "<break time=\"10s\" />. ";
 exerciseOutput158 += "<break time=\"10s\" />. ";
 
+
+//CRISS CROSS
+
+var exerciseOutput381 ="Lay on your back with your knees in tabletop";
+exerciseOutput381 += "<break time=\"2s\" />. ";
+exerciseOutput381 += "Place your hands behind your head with your elbows just off the floor";
+exerciseOutput381 += "<break time=\"0.8s\" />. ";
+exerciseOutput381 += "Lift your chin towards your chest and curl the chest towards the knees in a deep upper ab curl";
+exerciseOutput381 += "<break time=\"0.8s\" />. ";
+exerciseOutput381 += "Exhale as you bend the right knee in towards your chest and extend the left leg straight out about 45 degrees off the floor with pointed toes;";
+exerciseOutput381 += "<break time=\"0.4s\" />. ";
+exerciseOutput381 += "At the same time cross your left armpit over to your right knee feeling the rotation at the waste";
+exerciseOutput381 += "<break time=\"0.2s\" />. ";
+exerciseOutput381 += "and into your side oblique muscles.";
+exerciseOutput381 += "<break time=\"0.8s\" />. ";
+exerciseOutput381 += "Inhale and pull the left leg back in and rotate your upper trunk through center";
+exerciseOutput381 += "<break time=\"0.8s\" />. ";
+exerciseOutput381 += "Exhale and cross the right armpit over towards the left knee";
+exerciseOutput381 += "<break time=\"1s\" />. ";
+exerciseOutput381 += "Remember to keep your pelvis very stable as you rotate the upper body on the diagonal";
+exerciseOutput381 += "<break time=\"10s\" />. ";
 
 //ROLLING LIKE A BALL
 var exerciseOutput160 = "Get in position for Rolling Like a Ball";
@@ -111,12 +133,11 @@ exerciseOutput287 += "<break time=\"10s\" />. ";
 
 
 //PELVIC TILT
-var exerciseOutput310 = "Lay on your back with your knees bent.";
-exerciseOutput310 += "<break time=\"0.2s\" />. ";
+var exerciseOutput310 = "Turn on your back with your knees bent.";
+exerciseOutput310 += "<break time=\"1s\" />. ";
 exerciseOutput310 += "Place your heels under the knees";
-exerciseOutput310 += "<break time=\"0.2s\" />. ";
 exerciseOutput310 += "and hips width apart";
-exerciseOutput310 += "<break time=\"0.2s\" />. ";
+exerciseOutput310 += "<break time=\"0.3s\" />. ";
 exerciseOutput310 += "Inhale, with pelvis in neutral position";
 exerciseOutput310 += "<break time=\"1s\" />. ";
 exerciseOutput310 += "Exhale, tilt the pelvis back";
@@ -485,7 +506,7 @@ exerciseOutput564 += "Hold.";
 exerciseOutput564 += "<break time=\"10s\" />. ";
 exerciseOutput564 += "<break time=\"5s\" />. ";
 exerciseOutput564 += "Release and relax.";
-exerciseOutput564 += "<break time=\"8s\" />. ";
+exerciseOutput564 += "<break time=\"2s\" />. ";
 
 //Seated Roll Back
 var exerciseOutput631 = "Begin sitting with knees bent. Feet flat on the floor. Knees and thighs are together. Place your hands on your thighs.";
@@ -591,6 +612,10 @@ exercises[326] = {
 exercises[327] = {
     exerciseDescription: exerciseOutput327,
     exerciseName: "Rest Pose"};
+
+exercises[381] = {
+    exerciseDescription: exerciseOutput381,
+    exerciseName: "Criss Cross"};
 
 exercises[431] = {
     exerciseDescription: exerciseSideLegSeries,

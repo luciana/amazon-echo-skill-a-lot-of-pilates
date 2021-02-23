@@ -1,0 +1,101 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "pilates class",
+            "intents": [
+                {
+                    "name": "OneshotStartPilatesClassIntent",
+                    "slots": [],
+                    "samples": [
+                        "i want to take a pilates class",
+                        "start my next class",
+                        "start a pilates class",
+                        "Start class",
+                        "Go",
+                        "Start",
+                        "Ready",
+                        "I would like to start",
+                        "I'm ready",
+                        "I am ready",
+                        "Begin please",
+                        "Begin",
+                        "Begin class",
+                        "I'm on my mat",
+                        "I'd like to begin now",
+                        "I'd like to begin",
+                        "I'm ready to begin class",
+                        "Go for it"
+                    ]
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": [
+                        "I don't want to do it",
+                        " I don't want to do it right now",
+                        "bye bye",
+                        "bye",
+                        "done",
+                        "quit",
+                        "exit",
+                        "Stop Class",
+                        "Stop",
+                        "Stop it",
+                        "I am done with this",
+                        "I am done with that",
+                        "I am done",
+                        "I can't do it anymore"
+                    ]
+                },
+                {
+                    "name": "AMAZON.StartOverIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": [
+                        "cancel",
+                        "I m done",
+                        "this is not for me",
+                        "I need a break"
+                    ]
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": [
+                        "why not",
+                        "of course",
+                        "sure"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": [
+                        "no way",
+                        "nope"
+                    ]
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": [
+                        "I don't know these names",
+                        "I don't understand it",
+                        "I have no idea what you are talking about",
+                        "I can't do this",
+                        "thanks",
+                        "help me understand",
+                        "what is this pose about",
+                        "i need assistance",
+                        "please help",
+                        "i don't understand",
+                        "help"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                }
+            ],
+            "types": []
+        }
+    }
+}
