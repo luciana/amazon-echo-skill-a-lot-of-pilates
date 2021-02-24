@@ -10,6 +10,8 @@
     "gulp-awslambda": "^0.4.0",
     "gulp-deploy-git": "^0.5.3",
     "gulp-install": "^0.6.0",
+    "i18next": "^19.8.9",
+    "i18next-sprintf-postprocessor": "^0.2.2",
     "request": "^2.88.0"
   },
   "devDependencies": {
