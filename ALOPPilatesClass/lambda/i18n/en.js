@@ -1,3 +1,4 @@
+
 module.exports = {
     translation: {
       SKILL_NAME: 'A Lot Of Pilates',
@@ -20,6 +21,7 @@ module.exports = {
       GET_NEXT_EXERCISE_MESSAGE: ["Next exercise is  %s", "Moving on to the %s", "Next is  %s"],
       GET_START_EXERCISE_DEFAULT_MESSAGE:"Get ready on your mat to get started",
       GET_NEXT_EXERCISE_DEFAULT_MESSAGE: "Moving on to the next exercise",
+      TEACH_CLASS_ABOUT_TO_START_MESSAGE: "I am preparing a class for you. Just a second.",
       TEACH_CLASS_DONE_MESSAGE: ["You are all done! Hope you feel as great as me! Did you enjoy this class?", "You did it! What a great accomplishment. Did you like this class?"],
       TEACH_CLASS_DONE_REPROMPT: "Was this class fun? Say yes for this class to be tracked on the A Lot of Pilates activities calendar.",
       TEACH_CLASS_STANDARD_CARD_MESSAGE: "This is your pilates series of exercises for today. Enjoy your class.",
@@ -39,6 +41,7 @@ module.exports = {
       ACCOUNT_SETUP_ERROR_MESSAGE: 'You must have an ALotOfPilates.com account to use this skill. Please use the Alexa app to link your Amazon account with your ALotOfPilates Account.',
       GENERIC_MESSAGE: "I had a hard time understanding you. Say Start Pilates class or visit ALotOfPilates to take a class.",
       USER_ACCOUNT_ERROR_MESSAGE: "Sorry, I can not identify your account. You must have an ALotOfPilates.com account to use this skill. Please use the Alexa app to link your Amazon account with your ALotOfPilates Account.",
-      START_CLASS_ERROR_MESSAGE: "Sorry, an error occurred retrieving a pilates class. Please access ALotOfPilates.com to take a class."
+      START_CLASS_ERROR_MESSAGE: "Sorry, an error occurred retrieving a pilates class. Please access ALotOfPilates.com to take a class.",
+      EXERCISES: require('./exercises-en')
     },
   };

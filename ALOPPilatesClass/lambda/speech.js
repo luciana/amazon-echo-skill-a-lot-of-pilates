@@ -1,6 +1,3 @@
-var Exercises = require('./exercises');
-
-
 var Speech = function (){};
 
 /**
@@ -60,28 +57,33 @@ Speech.prototype.startOver = function(handlerInput){
       .getResponse();
 };
 
-Speech.prototype.getExerciseName = function(pose){
-    var exercise = Exercises[pose.id];
+Speech.prototype.getExerciseName = function(pose, requestAttributes){
+    var exercises =requestAttributes.t('EXERCISES');
+    
+    var exercise = exercises[pose.id];    
     var name;
     if ((typeof exercise != "undefined") || ( ! exercise )){
         name = pose.name;
     }else{
-        name = Exercises[pose.id].exerciseName;
+        name = exercise[pose.id].exerciseName;
     }
     return name;
 };
 
-Speech.prototype.getStartingClassText = function(name, index){
-    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();    
+Speech.prototype.getStartingClassText = function(name, index, requestAttributes){
+
     //var startTextOptions = ["Get ready on your mat for the " + name, "Let's get started with " + name];
     //var nextTextOptions = ["Next exercise is " + name, "Moving on to the" +name, "Next is " + name];
-    var startTextOptions = requestAttributes.t('GET_START_EXERCISE_MESSAGE', name);
+    var startTextOptions = requestAttributes.t('GET_START_EXERCISE_MESSAGE', name);   
     var nextTextOptions =requestAttributes.t('GET_NEXT_EXERCISE_MESSAGE',name);
+    
     if(name.length > 0){
         if (index === 0){
-            return startTextOptions[Math.floor(Math.random() * startTextOptions.length)];
+            //return startTextOptions[Math.floor(Math.random() * startTextOptions.length)];
+            return startTextOptions;
         }else{
-             return nextTextOptions[Math.floor(Math.random() * nextTextOptions.length)];
+             //return nextTextOptions[Math.floor(Math.random() * nextTextOptions.length)];
+             return nextTextOptions;
         }
     }else{
         if (index === 0){
@@ -92,7 +94,17 @@ Speech.prototype.getStartingClassText = function(name, index){
             return requestAttributes.t('GET_NEXT_EXERCISE_DEFAULT_MESSAGE');
         }
     }
+   
 };
+
+
+/** this method is not being called right now. */
+Speech.prototype.aboutToTeachClass = function (alopAPIResponse, handlerInput){  
+    const requestAttributes = handlerInput.attributesManager.getRequestAttributes(); 
+    return handlerInput.responseBuilder
+      .speak(requestAttributes.t('TEACH_CLASS_ABOUT_TO_START_MESSAGE'))         
+      .getResponse();
+}
 
 /**
  * Call for workout was successfull, so this function responsability is to loop thru the 
@@ -100,6 +112,7 @@ Speech.prototype.getStartingClassText = function(name, index){
  * At this point, the user is at stage 1 of the session.
  */
 Speech.prototype.teachClass = function (alopAPIResponse, handlerInput){   
+    const requestAttributes = handlerInput.attributesManager.getRequestAttributes(); 
     var speechPoseOutput ="";
   //  console.log("workout response being taught", alopAPIResponse);
     let workout_id = alopAPIResponse.id;
@@ -107,11 +120,12 @@ Speech.prototype.teachClass = function (alopAPIResponse, handlerInput){
     console.log("workout_id being taught", alopAPIResponse.id );
     for(var i = 0; i <  alopAPIResponse.poses.length; i++){
         var pose = alopAPIResponse.poses[i];
-        var name = this.getExerciseName(pose);
-        speechPoseOutput += this.getStartingClassText(name, i);
+        var name = this.getExerciseName(pose,requestAttributes);
+        console.log("getExerciseName1", name);
+        speechPoseOutput += this.getStartingClassText(name, i, requestAttributes);
         speechPoseOutput += ". <break time=\"0.2s\" />. " + pose.repetition;
         speechPoseOutput += ". <break time=\"1s\" />. ";
-        speechPoseOutput += this.exerciseTimings(pose);
+        speechPoseOutput += this.exerciseTimings(pose,requestAttributes);
     }
     //speechPoseOutput += "You are all done! Hope you feel as great as me! Did you enjoy this class?";
     speechPoseOutput += requestAttributes.t('TEACH_CLASS_DONE_MESSAGE');
@@ -143,12 +157,12 @@ Speech.prototype.teachClass = function (alopAPIResponse, handlerInput){
 
 };
 
-Speech.prototype.exerciseTimings = function (pose){
+Speech.prototype.exerciseTimings = function (pose,requestAttributes){
     var speechExerciseOutput ="";
         var sideLegSeriesPoseIdArray = [431,432,434,435,326];
         var plankPosesIdArray = [133];
         var otherSuppotedPoses =[158, 160, 247, 266, 267, 273, 274, 276, 287, 289, 291, 310, 315, 318, 321, 324, 326, 327, 381, 451, 487, 499, 511, 536, 545, 528, 529, 541, 547, 564, 431, 432, 434, 435, 631];
-         var name = this.getExerciseName(pose);
+         var name = this.getExerciseName(pose,requestAttributes);
 
         if (plankPosesIdArray.indexOf(pose.id) > -1){//Planks - Hold it for 20 to 30 seconds
             speechExerciseOutput += "Get in position for the " + name;
@@ -189,7 +203,7 @@ Speech.prototype.exerciseTimings = function (pose){
             speechExerciseOutput += ".<break time=\"10s\" /> ";
         }else if (otherSuppotedPoses.indexOf(pose.id) > -1){
 
-            speechExerciseOutput +=  this.exerciseInfo(pose.id);
+            speechExerciseOutput +=  this.exerciseInfo(pose.id,requestAttributes);
        
         }else{  //Generic timining   
             //console.log("Exercise duration " + pose.duration + " formatted " + getFormattedDuration(pose.duration));
@@ -206,8 +220,9 @@ Speech.prototype.exerciseTimings = function (pose){
  * This function retrieves the exercise information from the exercise.js module
  * It feeds back to the function and set the session parameters necessary to be used by HelpIntent
  */
-Speech.prototype.exerciseInfo = function(id){
-  return Exercises[id].exerciseDescription;
+Speech.prototype.exerciseInfo = function(id,requestAttributes){
+    var exercises =requestAttributes.t('EXERCISES');
+    return exercises[id].exerciseDescription;
 };
 
 /**
@@ -284,8 +299,7 @@ Speech.prototype.noHelp = function(handlerInput){
       .getResponse();
 };
 
-Speech.prototype.pluralClassText = function(count){
-    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
+Speech.prototype.pluralClassText = function(count,requestAttributes){    
     return count > 1 ? requestAttributes.t('CLASSES_TEXT'): requestAttributes.t('CLASS_TEXT');
 };
 
@@ -300,7 +314,7 @@ Speech.prototype.trackDisplay = function(data, handlerInput) {
             var tracking = data[trackingIndex];
             //console.log("TRACKING ITEM", tracking);
             var yearCount = tracking.classCount;
-            var yearClassText = this.pluralClassText(tracking.classCount);
+            var yearClassText = this.pluralClassText(tracking.classCount,requestAttributes);
             var year = tracking.year;
             var trackingText = "";
             if (tracking.months.length > 0 ){
@@ -308,7 +322,7 @@ Speech.prototype.trackDisplay = function(data, handlerInput) {
                 trackingText = lineBreak;
                 for (var i = 0; i < tracking.months.length; i++) {
                     var item = tracking.months[i];
-                    var classText = this.pluralClassText(item.classCount);
+                    var classText = this.pluralClassText(item.classCount,requestAttributes);
                     trackingText += item.month + " : " + item.classCount + classText + "taken.";
                     trackingText += lineBreak;
                 }

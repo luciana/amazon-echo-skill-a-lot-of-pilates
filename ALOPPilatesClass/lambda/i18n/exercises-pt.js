@@ -133,7 +133,7 @@ exerciseOutput287 += "<break time=\"10s\" />. ";
 
 
 //PELVIC TILT
-var exerciseOutput310 = "Turn on your back with your knees bent.";
+var exerciseOutput310 = "Vire as de costas com os joelhos dobrados"; //"Turn on your back with your knees bent.";
 exerciseOutput310 += "<break time=\"1s\" />. ";
 exerciseOutput310 += "Place your heels under the knees";
 exerciseOutput310 += "and hips width apart";

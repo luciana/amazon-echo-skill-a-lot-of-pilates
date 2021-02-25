@@ -92,7 +92,7 @@ Workout.prototype.postTracking = function(opts){
           if(error) {
             reject(error);
           }else{
-            console.log("POST TRACKING SUCCESS", body);
+            //console.log("POST TRACKING SUCCESS", body);
             resolve(body);
           }
       });

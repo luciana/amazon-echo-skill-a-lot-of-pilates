@@ -105,7 +105,7 @@ const YesIntentHandler = {
                   return Speech.startClassError(handlerInput);
                 }); 
 
-            console.log("responsedafdafafasfa", response);
+            //console.log("responsedafdafafasfa", response);
            if (response) {
             const attributesManager = handlerInput.attributesManager;
             const sessionAttributes = attributesManager.getSessionAttributes() || {};
@@ -377,7 +377,7 @@ const LocalizationInterceptor = {
   process(handlerInput) {
       const localizationClient = i18n.use(sprintf).init({
           lng: handlerInput.requestEnvelope.request.locale,
-          fallbackLng: 'en', // fallback to EN if locale doesn't exist
+          fallbackLng: 'pt', // fallback to EN if locale doesn't exist
           resources: languageStrings
       });
 
