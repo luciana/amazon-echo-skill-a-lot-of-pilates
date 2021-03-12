@@ -43,8 +43,27 @@ const LaunchRequestHandler = {
          response =  await user.get()                       
             .catch((err) => console.error("ERR LAUNCH ACTION USER API",err))
             .then((data) => {
-              console.log("USER DATA IN LaunchRequestHandler", data.id);              
-              sessionAttributes.userState = data;
+              console.log("USER DATA IN LaunchRequestHandler", data.id);                   
+              var user_data = {
+                "userId": user.id,
+                "userEmail": user.email,
+                "token": user.token,                
+                "userName": user.name,
+                "userSign_in_count": user.sign_in_count,
+                "userLocation": user.location,
+                "userDescription": user.description,
+                "userSubscriptions": user.subscription,
+                "userProps": user.props,
+                "userInjuries": user.injuries,
+                "userTrial_start_date": user.trial_start_date,
+                "userTrial_end_date": user.trial_end_date,
+                "user.badge_text": user.badge_text,
+                "userBadge_image": user.badge_image,
+                "userFavorites_count": user.favorites_count,
+                "userCustom_class_count": user.custom_class_count,
+                "userWorkout_taken_count": user.workout_taken_count
+            }; 
+              sessionAttributes.userState = user_data;
             })
             .catch((err) => console.error("ERR LAUNCH ACTION CALLING USER DATA",err)            
             );
@@ -98,7 +117,7 @@ const YesIntentHandler = {
                   return Speech.startClassError(handlerInput);
                 }); 
 
-            console.log("responsedafdafafasfa", response);
+            console.log("response--", response);
            if (response) {
             const attributesManager = handlerInput.attributesManager;
             const sessionAttributes = attributesManager.getSessionAttributes() || {};
@@ -124,7 +143,7 @@ const YesIntentHandler = {
               var workout_options = {
                   "userId": user.id,
                   "userEmail": user.email,
-                  "token": user.token,
+                  "token": token,
                   "workoutId": sessionAttributes.workoutState.id,
                   "deviceId": user.id
               };              

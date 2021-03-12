@@ -19,7 +19,7 @@ var Workout = function(token){
 };
 
 Workout.prototype.getId = function(){
-  var workoutAvailable = [530];
+  var workoutAvailable = [124];
   return workoutAvailable[Math.floor(Math.random() * workoutAvailable.length)];
 };
 
@@ -111,7 +111,7 @@ Workout.prototype.getTrackings = function(token){
       }
     };
     return new Promise(function(resolve, reject) {
-      //console.log("TRACKING PROMISE");
+      console.log("TRACKING PROMISE");
 
       var path = '/api/v3/trackings';
        var options = {
