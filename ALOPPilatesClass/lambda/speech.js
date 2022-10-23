@@ -306,6 +306,7 @@ Speech.prototype.accountSetupError = function (handlerInput){
 
     return handlerInput.responseBuilder
       .speak(speechText)      
+    // .withLinkAccountCard()
       .getResponse();
 };
 
