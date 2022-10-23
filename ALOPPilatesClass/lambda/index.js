@@ -94,8 +94,26 @@ const YesIntentHandler = {
     if (sessionAttributes.classState && (sessionAttributes.classState === 'NOTSTARTED' ||
       sessionAttributes.classState === 'CONTINUE')) {
           console.log("sessionAttributes.classState in YesIntent", sessionAttributes.classState );   
-          if ( sessionAttributes.userState ) {  
-            console.log("sessionAttributes.userState in YesIntent", sessionAttributes.userState.id );  
+          console.log("sessionAttributes.userState in YesIntent", sessionAttributes.userState.id );  
+          if ( sessionAttributes.userState.id ) {             
+            var workout =  new Workout(token);  
+            try{
+              let user =  sessionAttributes.userState;
+              var workout_options = {
+                  "userId": user.id,
+                  "userEmail": user.email,
+                  "token": token,
+                  "workoutId": sessionAttributes.workoutState.id,
+                  "deviceId": user.id
+              };
+              response = await workout.postProgress(workout_options)
+                    .do(()=> { console.log("start progress metrics")})                  
+                    .catch((err) => console.error("ERR unable to record progress metrics",err));
+            }catch(e){
+                    console.error("ERROR EXITING SKILL",e);
+                    return Speech.startOver(handlerInput);
+            }
+
           }else {
              console.log("sessionAttributes.userState in YesIntent - user info not available.");  
           }

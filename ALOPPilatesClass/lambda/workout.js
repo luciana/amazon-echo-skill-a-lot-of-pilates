@@ -99,6 +99,60 @@ Workout.prototype.postTracking = function(opts){
     });// end promise
 };
 
+Workout.prototype.postProgress = function(opts){
+  console.log("STARTED WORKOUT PROGRESS PROMISE");
+  var post_data = JSON.stringify({
+    'workout_id' : opts.workoutId,
+    'user_id': opts.userId,
+    'watched': 1,
+    "total":null,   
+    'device_id': opts.deviceId,
+    'device_type' : 'ECHO'
+  });
+
+  if(opts.workoutId){
+    var post_options = {
+      hostname: config.host_name,
+      path: '/api/v3/workouts'+opts.workoutId+'/progress',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call',
+        'Content-Length':  Buffer.byteLength(post_data),
+        'Authorization': 'Bearer '+opts.token
+      }
+    };
+
+    return new Promise( function (resolve, reject){
+      console.log("WORKOUT PROGRESS PROMISE", post_data);
+      //http://blog.modulus.io/node.js-tutorial-how-to-use-request-module
+      var path = '/api/v3/progress';
+      var options = {
+            url: config.host + path,
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-3scale-Proxy-Secret-Token':'MPP-Allow-API-Call',
+              'Content-Length':  Buffer.byteLength(post_data),
+              'Authorization': 'Bearer '+opts.token
+            },
+            body: post_data
+        };
+
+      request(options, function(error, response, body){
+          if(error) {
+            reject(error);
+          }else{
+            console.log("POST PROGRESS SUCCESS", body);
+            resolve(body);
+          }
+      });
+    });// end promise
+  }else{
+    console.log("ERR WORKOUT PROGRESS PROMISE - no workout ID provided", post_data);
+  }
+};
+
 Workout.prototype.getTrackings = function(token){
   var options1 = {
       hostname: config.host_name,
