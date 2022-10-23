@@ -302,10 +302,10 @@ Speech.prototype.trackDisplay = function(data, handlerInput) {
 
 /************ ERROR Speech **************/
 Speech.prototype.accountSetupError = function (handlerInput){
-    
+    var speechText = "Please use the Alexa app to link to ALotOfPilates Account.";
+
     return handlerInput.responseBuilder
-      .speak("You must have an ALotOfPilates.com account to use this skill. Please use the Alexa app to link your Amazon account with your ALotOfPilates Account.")      
-      .withLinkAccountCard()
+      .speak(speechText)      
       .getResponse();
 };
 
