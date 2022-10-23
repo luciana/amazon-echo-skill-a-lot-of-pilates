@@ -34,6 +34,7 @@ const LaunchRequestHandler = {
 
     if(!token){    
       console.log("Account Linking message FROM LaunchRequestHandler" ); 
+      console.log("ACCESSTOKEN do we have it? no" );
       return Speech.accountSetupError(handlerInput);  
     } else {       
        console.log("ACCESSTOKEN do we have it? yes" );
