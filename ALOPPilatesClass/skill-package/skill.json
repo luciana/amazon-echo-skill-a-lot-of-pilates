@@ -3,7 +3,7 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "uri": "https://ea923223e71a.ngrok.io"
+          "uri": "ask-custom-alop-pilates-class-default"
         },
         "interfaces": []
       }

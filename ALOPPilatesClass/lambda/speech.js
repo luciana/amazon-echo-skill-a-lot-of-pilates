@@ -48,9 +48,9 @@ Speech.prototype.welcome = function(handlerInput, myImage){
 Speech.prototype.startOver = function(handlerInput){
     var repromptText = "Do you want to start the class?";
     var speechOutput = "I can lead you through a pilates sequence " + "Or you can say exit. " + repromptText;
-  
+
     return handlerInput.responseBuilder
-      .speak(speechText)
+      .speak(speechOutput)
       .reprompt(repromptText)
       //.withSimpleCard('Lets start a class', speechText)
       .getResponse();
@@ -112,7 +112,7 @@ Speech.prototype.teachClass = function (alopAPIResponse, handlerInput){
   
     let cardTitle = "Pilates class";
     if (workout_title){
-      cartTitle = workout_title;
+      cardTitle = workout_title;
     }
 
     let cardImageSmall = "https://www.alotofpilates.com/assets/logo-294ce89aa8a188826eea52586cd30afa8fb8eacf6683d6f8b737d4e07ef347df.png";
@@ -125,9 +125,9 @@ Speech.prototype.teachClass = function (alopAPIResponse, handlerInput){
 
 
     return handlerInput.responseBuilder
-      .speak(speechOutput)    
+      .speak(speechOutput)
       .reprompt(repromptOutput)
-      .withStandardCard(cartTitle, 
+      .withStandardCard(cardTitle,
         "This is your pilates series of exercises for today. Enjoy your class.",
         cardImageSmall, cardImageLarge)
       .getResponse();
