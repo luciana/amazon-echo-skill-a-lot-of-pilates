@@ -17,6 +17,103 @@ const Alexa = require('ask-sdk-core'),
       Speech = require('./speech'),
       config = require('./config');
 
+const FALLBACK_WORKOUT = {
+  id: 127,
+  title: 'Basic Beginner Pilates Class II',
+  duration_id: 1,
+  poses: [
+    {
+      id: 310,
+      duration: 89,
+      image_path: 'Pelvic_Tilt.gif',
+      name: 'Pelvic Tilt',
+      sound_track_path: 'Pelvic_Tilt.m4a',
+      repetition: 'Repeat 5 times'
+    },
+    {
+      id: 511,
+      duration: 150,
+      image_path: 'Bridge.gif',
+      name: 'Basic Bridge',
+      sound_track_path: 'Bridge.m4a',
+      repetition: 'Repeat 5-8 times'
+    },
+    {
+      id: 499,
+      duration: 70,
+      image_path: 'Toe_Taps.gif',
+      name: 'Double Knee Fold/Toe taps',
+      sound_track_path: 'Toe_Taps.m4a',
+      repetition: 'Repeat 8 times'
+    },
+    {
+      id: 266,
+      duration: 93,
+      image_path: 'Hundred.gif',
+      name: 'Hundred',
+      sound_track_path: 'Hundred.m4a',
+      repetition: 'Pulse your arms 100 times'
+    },
+    {
+      id: 273,
+      duration: 103,
+      image_path: 'Roll_Up.gif',
+      name: 'Roll Up',
+      sound_track_path: 'Roll_Up.m4a',
+      repetition: 'Repeat 5 times'
+    },
+    {
+      id: 158,
+      duration: 150,
+      image_path: 'Roll_Over.gif',
+      name: 'Roll Over',
+      sound_track_path: 'Roll_Over.m4a',
+      repetition: 'Repeat 5 times'
+    },
+    {
+      id: 287,
+      duration: 158,
+      image_path: 'Single_Leg_Circle.gif',
+      name: 'Single Leg Circle',
+      sound_track_path: 'Single_Leg_Circle.m4a',
+      repetition: 'Repeat 5 times each direction both legs'
+    },
+    {
+      id: 160,
+      duration: 93,
+      image_path: 'Rolling_Like_A_Ball.gif',
+      name: 'Rolling Like a Ball',
+      sound_track_path: 'Rolling_Like_A_Ball.m4a',
+      repetition: 'Repeat 6 times'
+    },
+    {
+      id: 381,
+      duration: 78,
+      image_path: 'Criss-Cross.gif',
+      name: 'Criss Cross',
+      sound_track_path: 'Criss-Cross.m4a',
+      repetition: 'Repeat 10 times'
+    },
+    {
+      id: 315,
+      duration: 62,
+      image_path: 'Single_Leg_Stretch.gif',
+      name: 'Single Leg Stretch',
+      sound_track_path: 'Single_Leg_Stretch.m4a',
+      repetition: 'Repeat 5-10 times'
+    },
+    {
+      id: 327,
+      duration: 69,
+      image_path: 'Childs_Pose.gif',
+      name: "Rest Pose",
+      sound_track_path: 'Childs_Pose.m4a',
+      repetition: 'Inhale, Exhale 3-5 times'
+    }
+  ],
+  url: 'https://www.alotofpilates.com/workouts/127'
+};
+
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.session.new || handlerInput.requestEnvelope.request.type === 'LaunchRequest';
@@ -94,10 +191,10 @@ const YesIntentHandler = {
 
     if (sessionAttributes.classState && (sessionAttributes.classState === 'NOTSTARTED' ||
       sessionAttributes.classState === 'CONTINUE')) {
-          console.log("sessionAttributes.classState in YesIntent", sessionAttributes.classState );   
-          console.log("sessionAttributes.userState in YesIntent", sessionAttributes.userState.id );  
-          if ( sessionAttributes.userState.id ) {             
-            var workout =  new Workout(token);  
+          console.log("sessionAttributes.classState in YesIntent", sessionAttributes.classState );
+          console.log("sessionAttributes.userState in YesIntent", sessionAttributes.userState.id );
+          if ( sessionAttributes.userState.id ) {
+            var workout =  new Workout(token);
             try{
               let user =  sessionAttributes.userState;
               var workout_options = {
@@ -107,34 +204,31 @@ const YesIntentHandler = {
                   "workoutId": sessionAttributes.workoutState.id,
                   "deviceId": user.id
               };
-              response = await workout.postProgress(workout_options)
-                    .do(()=> { console.log("start progress metrics")})                  
-                    .catch((err) => console.error("ERR unable to record progress metrics",err));
+              await workout.postProgress(workout_options);
+              console.log("start progress metrics");
             }catch(e){
                     console.error("ERROR EXITING SKILL",e);
                     return Speech.startOver(handlerInput);
             }
 
           }else {
-             console.log("sessionAttributes.userState in YesIntent - user info not available.");  
+             console.log("sessionAttributes.userState in YesIntent - user info not available.");
           }
           var workout =  new Workout(token);
-          if( workout ){  
+          if( workout ){
             let response;
-            response =  await workout.get()
-                .then((data) => {                  
-                  if((data ) &&  (data.poses.length > 0)){ 
-                    console.log("Call to Workout API successfull. retrieved", data.id);                   
-                    return data;
-                  }else{
-                    console.log("Call to Workout API failed. returned mock data");      
-                    return JSON.parse("{id: 127,title: 'Basic Beginner Pilates Class II',duration_id: 1,poses: [{id: 310,duration: 89,image_path: 'Pelvic_Tilt.gif',name: 'Pelvic Tilt',sound_track_path: 'Pelvic_Tilt.m4a',repetition: 'Repeat 5 times', }, {id: 511,duration: 150,image_path: 'Bridge.gif',name: 'Basic Bridge',sound_track_path: 'Bridge.m4a',repetition: 'Repeat 5-8 times',}, {id: 499,duration: 70,image_path: 'Toe_Taps.gif',name: 'Double Knee Fold/Toe taps',sound_track_path: 'Toe_Taps.m4a',repetition: 'Repeat 8 times',}, {id: 266,duration: 93,image_path: 'Hundred.gif',name: 'Hundred',sound_track_path: 'Hundred.m4a',repetition: 'Pulse your arms 100 times',}, {id: 273,duration: 103,image_path: 'Roll_Up.gif',name: 'Roll Up',sound_track_path: 'Roll_Up.m4a',repetition: 'Repeat 5 times',}, {id: 158,duration: 150,image_path: 'Roll_Over.gif',name: 'Roll Over',sound_track_path: 'Roll_Over.m4a',repetition: 'Repeat 5 times',}, {id: 287,duration: 158,image_path: 'Single_Leg_Circle.gif',name: 'Single Leg Circle',sound_track_path: 'Single_Leg_Circle.m4a',repetition: 'Repeat 5 times each direction both legs',}, {id: 160,duration: 93,image_path: 'Rolling_Like_A_Ball.gif',name: 'Rolling Like a Ball',sound_track_path: 'Rolling_Like_A_Ball.m4a',repetition: 'Repeat 6 times',}, {id: 381,duration: 78,image_path: 'Criss-Cross.gif',name: 'Criss Cross ',sound_track_path: 'Criss-Cross.m4a',repetition: 'Repeat 10 times',}, {id: 315,duration: 62,image_path: 'Single_Leg_Stretch.gif',name: 'Single Leg Stretch',sound_track_path: 'Single_Leg_Stretch.m4a',repetition: 'Repeat 5-10 times',}, {id: 327,duration: 69,image_path: 'Childs_Pose.gif',name: 'Rest Pose',sound_track_path: 'Childs_Pose.m4a',repetition: 'Inhale, Exhale 3-5 times',}],url: 'https://www.alotofpilates.com/workouts/127'}");
-                  }
-                })
-                .catch((err) => {
-                  console.error("ERR YES INTENT",err);
-                  return Speech.startClassError(handlerInput);
-                }); 
+            try {
+              response = await workout.get();
+              if(!response || !Array.isArray(response.poses) || response.poses.length === 0){
+                console.log("Call to Workout API failed. returned mock data");
+                response = JSON.parse(JSON.stringify(FALLBACK_WORKOUT));
+              } else {
+                console.log("Call to Workout API successfull. retrieved", response.id);
+              }
+            } catch (err) {
+              console.error("ERR YES INTENT", err);
+              return Speech.startClassError(handlerInput);
+            }
 
             console.log("response--", response);
            if (response) {
@@ -170,19 +264,18 @@ const YesIntentHandler = {
               if ( token ){
                 var workout =  new Workout(token);  
     
-                if( workout ){  
-                  let response;
-                  response = await workout.postTracking(workout_options)
-                    .then(()=> { return workout.getTrackings(token)})                    
-                    .catch((err) => console.error("ERR workout posttracking api",err));
-                  
-                  //console.log("response", response);
-                  if (response) {
-                    return Speech.trackDisplay(formatUserTracking(response), handlerInput);
-                  }else{
-                     console.log("error with displaying activity, activity not displayed");
-                    return Speech.finishedWorkout(handlerInput);
+                if( workout ){
+                  try {
+                    await workout.postTracking(workout_options);
+                    const response = await workout.getTrackings(token);
+                    if (response) {
+                      return Speech.trackDisplay(formatUserTracking(response), handlerInput);
+                    }
+                  } catch (err) {
+                    console.error("ERR workout posttracking api", err);
                   }
+                  console.log("error with displaying activity, activity not displayed");
+                  return Speech.finishedWorkout(handlerInput);
                 }
               }else{
                  console.log("token  not available, workout not tracked");

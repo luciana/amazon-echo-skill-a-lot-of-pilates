@@ -2,7 +2,47 @@
 
 This Alexa Skill guides you through a series of Pilates mat exercises. This code uses ALotOfPilates.com API for generating the Pilates mat classes. Pilates classes were designed by certified Pilates instructors.
 
-Invoke Alexa skill by saying 'Alext, start pilates class'.
+Invoke Alexa skill by saying 'Alexa, start pilates class'.
+
+## Prerequisites
+
+* Node.js 18.x (the minimum runtime supported by Alexa-hosted Lambdas as of 2023)
+* ASK CLI v2 (`npm install -g ask-cli`)
+* AWS credentials with permissions to deploy Lambda functions
+
+## Environment configuration
+
+The Lambda now reads its configuration from environment variables so you can keep
+secrets out of version control. Define the following values before deploying:
+
+```
+export ALOP_API_KEY=<your-public-api-key>
+export ALOP_API_SECRET=<your-private-api-secret>
+export ALOP_APP_ID=<your-skill-id>
+export ALOP_HOST=https://www.alotofpilates.com
+export ALOP_HOST_NAME=www.alotofpilates.com
+```
+
+## Build and Deploy with ASK CLI
+
+1. Install dependencies inside the `lambda` directory
+
+   ```bash
+   cd ALOPPilatesClass/lambda
+   npm install
+   ```
+
+2. Deploy the entire project (skill package + Lambda) using ASK CLI:
+
+   ```bash
+   cd ..
+   ask deploy
+   ```
+
+   The provided CloudFormation template configures a Lambda function that runs on
+   the Node.js 18.x runtime. The skill manifest references the generated Lambda
+   ARN so the deployment is ready for certification without requiring a temporary
+   HTTPS endpoint.
 
 <!---
 ## Build and Deploy to AWS 
